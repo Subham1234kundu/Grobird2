@@ -20,6 +20,7 @@ const FOOTER_COLUMNS = [
   {
     heading: "Resources",
     links: [
+      { label: "Partners", href: "/partners" },
       { label: "Blog", href: "/blogs" },
       { label: "About Us", href: "/about" },
       { label: "Terms & Conditions", href: "/terms" },
@@ -43,9 +44,11 @@ export default function Footer() {
             alt="GroBird"
             width={257}
             height={67}
-            className="h-14 w-auto"
+            className="h-[67px] w-auto"
           />
-          <p className="text-[15.1px] text-[#f36f07]">Growing Beyond Limits.</p>
+          <p className="font-sora text-[15.1px] text-[#f36f07]">
+            Growing Beyond Limits.
+          </p>
         </div>
 
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:border-r lg:border-[rgba(67,67,67,0.54)] lg:px-10 lg:py-12 lg:gap-x-[92px]">
@@ -78,7 +81,7 @@ export default function Footer() {
 
         <div className="flex flex-col justify-center gap-5 lg:px-10 lg:py-12">
           <p className="text-[15.4px] tracking-[0.2px] text-white/50">
-            Connect with us
+            Connect With Us
           </p>
           <ul className="flex flex-col gap-[13px]">
             {SOCIAL_LINKS.map((social) => (
@@ -104,19 +107,12 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="relative h-[186px] sm:h-[260px] lg:h-[372px]">
+      <div className="relative w-full" style={{ aspectRatio: "1440 / 372" }}>
         <Image
-          src="/landing/footer-glow.png"
-          alt=""
+          src="/landing/footer-wordmark-glow.png"
+          alt="Grobird"
           fill
-          className="object-cover mix-blend-plus-lighter"
-          aria-hidden
-        />
-        <Image
-          src="/landing/footer-wordmark-bg.svg"
-          alt=""
-          fill
-          className="object-cover mix-blend-luminosity"
+          className="object-cover"
           aria-hidden
         />
       </div>

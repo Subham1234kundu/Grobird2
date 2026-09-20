@@ -35,11 +35,11 @@ const PHASES = [
 
 export default function DiscoveryProcess() {
   return (
-    <section
+    <div
       id="discovery-process"
-      className="bg-black px-6 pb-20 sm:px-10 lg:px-[99px] lg:pb-[101px]"
+      className="relative px-6 pb-20 sm:px-10 lg:px-[99px] lg:pb-[101px]"
     >
-      <div className="mx-auto flex max-w-[1261px] flex-col gap-8 pt-12 lg:flex-row lg:items-end lg:justify-between lg:gap-14 lg:pt-[97px]">
+      <div className="relative mx-auto flex max-w-[1261px] flex-col gap-8 pt-12 lg:flex-row lg:items-end lg:justify-between lg:gap-14 lg:pt-[97px]">
         <h2 className="font-sora text-4xl tracking-[-2px] text-[#858382] lg:text-[52px]">
           Our Discovery <span className="text-[#ff884c]">Process</span>
         </h2>
@@ -49,7 +49,7 @@ export default function DiscoveryProcess() {
         </p>
       </div>
 
-      <div className="mx-auto mt-12 grid max-w-[1261px] grid-cols-1 gap-6 sm:grid-cols-2 lg:mt-[80px] lg:grid-cols-4 lg:gap-[45px]">
+      <div className="relative mx-auto mt-12 grid max-w-[1261px] grid-cols-1 gap-6 sm:grid-cols-2 lg:mt-[80px] lg:grid-cols-4 lg:gap-[45px]">
         {PHASES.map((phase) => (
           <div
             key={phase.number}
@@ -77,6 +77,6 @@ export default function DiscoveryProcess() {
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 }

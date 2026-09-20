@@ -26,7 +26,7 @@ export default function ProblemStatement() {
             </div>
           </div>
         </div>
-        <div className="absolute bottom-[-397.8px] left-1/2 h-[349px] w-[1440px] -translate-x-1/2 rotate-180">
+        <div className="absolute bottom-[397.8px] left-1/2 h-[349px] w-[1440px] -translate-x-1/2 rotate-180">
           <Image
             src="/services/business-intelligence/problem-fade.png"
             alt=""

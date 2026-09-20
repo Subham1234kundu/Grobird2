@@ -3,20 +3,27 @@ import Image from "next/image";
 export default function ContactCta() {
   return (
     <section className="relative flex min-h-[455px] items-center overflow-hidden border-t-[0.8px] border-[rgba(75,73,73,0.5)] bg-black px-6 py-20 sm:px-10">
-      <div className="pointer-events-none absolute top-1/2 right-[-160px] hidden h-[600px] w-[700px] -translate-y-1/2 lg:block">
+      <div
+        className="pointer-events-none absolute top-[calc(50%+221.9px)] left-[calc(50%+51px)] hidden h-[900px] w-[720px] -translate-x-1/2 -translate-y-1/2 lg:block"
+        aria-hidden
+      >
+        <Image
+          src="/services/business-intelligence/contact-photo.png"
+          alt=""
+          fill
+          className="object-cover"
+          aria-hidden
+        />
+      </div>
+      <div
+        className="pointer-events-none absolute top-[calc(50%-102.6px)] left-[calc(50%+20px)] hidden h-[797px] w-[986px] -translate-x-1/2 -translate-y-1/2 lg:block"
+        aria-hidden
+      >
         <Image
           src="/services/business-intelligence/contact-lines.svg"
           alt=""
           fill
-          className="object-contain opacity-70"
-          aria-hidden
-        />
-        <Image
-          src="/services/business-intelligence/contact-photo.png"
-          alt=""
-          width={500}
-          height={620}
-          className="absolute top-1/2 left-1/2 h-[500px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-[12px] object-cover opacity-90"
+          className="object-cover"
           aria-hidden
         />
       </div>

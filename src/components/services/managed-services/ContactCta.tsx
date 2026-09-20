@@ -34,12 +34,14 @@ export default function ContactCta() {
           </p>
         </div>
 
-        <a
-          href="/contact"
-          className="bg-[#ff884c] px-10 py-4 text-[15px] tracking-[0.5px] text-white transition-opacity hover:opacity-90"
-        >
-          Design Your Support Package
-        </a>
+        <div className="pt-4">
+          <a
+            href="/contact"
+            className="bg-[#ff884c] px-10 py-4 text-[15px] leading-[22.5px] tracking-[0.5px] text-white transition-opacity hover:opacity-90"
+          >
+            Design Your Support Package
+          </a>
+        </div>
       </div>
     </section>
   );

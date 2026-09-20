@@ -1,6 +1,5 @@
-import AuditDefinition from "@/components/services/operational-discovery/AuditDefinition";
+import AuditDiscoverySection from "@/components/services/operational-discovery/AuditDiscoverySection";
 import ContactCta from "@/components/services/operational-discovery/ContactCta";
-import DiscoveryProcess from "@/components/services/operational-discovery/DiscoveryProcess";
 import Hero from "@/components/services/operational-discovery/Hero";
 import ProblemStatement from "@/components/services/operational-discovery/ProblemStatement";
 import WhyAuditFirst from "@/components/services/operational-discovery/WhyAuditFirst";
@@ -14,8 +13,7 @@ export default function OperationalDiscoveryPage() {
       <main className="flex-1">
         <Hero />
         <ProblemStatement />
-        <AuditDefinition />
-        <DiscoveryProcess />
+        <AuditDiscoverySection />
         <WhyAuditFirst />
         <ContactCta />
       </main>

@@ -26,21 +26,22 @@ export default function ProblemStatement() {
 
   return (
     <section ref={root} className="bg-black">
-      <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-10 border-y border-[rgba(75,73,73,0.58)] px-6 py-16 sm:px-10 lg:grid-cols-[2fr_3fr] lg:py-24">
-        <h2 className="gsap-fade problem-fade translate-y-8 font-sora text-3xl leading-tight font-normal tracking-tight text-[#858382] sm:text-5xl lg:text-[57px] lg:leading-[68px] lg:tracking-[-1.2px]">
+      <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-10 border-y border-[rgba(75,73,73,0.58)] px-6 py-16 sm:px-10 lg:grid-cols-[454px_1fr] lg:grid-rows-[auto_auto] lg:gap-x-[190px] lg:gap-y-10 lg:px-16 lg:py-24">
+        <h2 className="gsap-fade problem-fade translate-y-8 font-sora text-3xl leading-tight font-normal tracking-tight text-[#858382] sm:text-5xl lg:col-start-1 lg:row-start-1 lg:text-[57px] lg:leading-[68px] lg:tracking-[-1.2px]">
           Knowing the problem<span className="text-[#ff884c]"> isn&apos;t the hard part</span>.
         </h2>
-        <p className="gsap-fade problem-fade translate-y-8 self-center text-xl leading-[1.4] tracking-tight text-white lg:text-[32px] lg:tracking-[-1.47px]">
-          Most teams can already name what&apos;s broken.{" "}
+        <p className="gsap-fade problem-fade translate-y-8 text-xl leading-[1.4] tracking-tight text-white lg:col-start-2 lg:row-start-2 lg:text-[32px] lg:tracking-[-1.47px]">
+          Most teams can already name what&apos;s broken. The hard part is
+          fixing{" "}
           <span className="text-[#858382]">
-            The hard part is fixing it without disrupting what already works.
-            That&apos;s the part GroBird handles.
+            it without disrupting what already works. That&apos;s the part
+            GroBird handles.
           </span>
         </p>
       </div>
 
       <div className="mx-auto grid max-w-[1440px] grid-cols-1 border-b border-[#4b4949] sm:grid-cols-2 lg:grid-cols-[389px_1fr]">
-        <div className="relative min-h-[320px] sm:min-h-[420px]">
+        <div className="relative min-h-[320px] border-[#4b4949] sm:min-h-[420px] sm:border-r">
           <Image
             src="/landing/testimonial-vaibhav.jpg"
             alt="Vaibhav, Co-founder of PresalesForce.ai"
@@ -55,7 +56,7 @@ export default function ProblemStatement() {
             alt="PresalesForce.ai"
             width={229}
             height={77}
-            className="h-[56px] w-auto"
+            className="h-[56px] w-auto self-start"
           />
 
           <p className="text-xl leading-[1.4] tracking-tight text-white lg:text-[32px] lg:tracking-[-1.47px]">

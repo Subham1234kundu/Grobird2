@@ -22,26 +22,50 @@ export default function Hero() {
             aria-hidden
           />
         </div>
+        <div className="absolute bottom-[-562.89px] left-1/2 hidden h-[1440.775px] w-[352.213px] -translate-x-1/2 items-center justify-center lg:flex">
+          <div className="relative h-[349px] w-[1440px] shrink-0 rotate-[89.87deg]">
+            <Image
+              src="/services/business-intelligence/hero-fade-bottom.png"
+              alt=""
+              fill
+              className="object-cover"
+              aria-hidden
+            />
+          </div>
+        </div>
+        <div className="absolute bottom-[-533px] left-[calc(50%+479.5px)] hidden h-[1440px] w-[623px] -translate-x-1/2 items-center justify-center lg:flex">
+          <div className="relative h-[623px] w-[1440px] shrink-0 -rotate-90">
+            <Image
+              src="/services/business-intelligence/hero-fade-right.png"
+              alt=""
+              fill
+              className="object-cover"
+              aria-hidden
+            />
+          </div>
+        </div>
       </div>
 
-      <div className="relative z-10 flex flex-col gap-[18px] px-6 py-24 sm:px-10 lg:px-[99px] lg:pt-[205px] lg:pb-[80px]">
+      <div className="relative z-10 flex flex-col gap-[18px] px-6 py-24 sm:px-10 lg:px-[95px] lg:pt-[205px] lg:pb-[80px]">
         <div className="flex w-fit items-center gap-2 rounded-[4px] border-[0.8px] border-[rgba(255,136,76,0.25)] px-[14px] py-[6px]">
-          <span className="size-[6px] rounded-[3px] bg-[#ff884c] opacity-51" />
-          <span className="font-sora text-[11px] font-semibold tracking-[1.32px] text-[#ff884c] uppercase">
+          <span className="size-[6px] rounded-[3px] bg-[#ff884c] opacity-[51%]" />
+          <span className="font-sora text-[11px] leading-[16.5px] font-semibold tracking-[1.32px] text-[#ff884c] uppercase">
             Business Intelligence
           </span>
         </div>
 
-        <h1 className="font-sora text-4xl font-normal tracking-tight text-[#827e7e] capitalize sm:text-5xl lg:w-[570px] lg:text-[56.6px] lg:leading-[68px] lg:tracking-[-2px]">
-          Real-Time Visibility{" "}
-          <span className="text-[#ff884c]">Into Your Operation</span>
-        </h1>
+        <div className="flex flex-col gap-[7px]">
+          <h1 className="font-sora text-4xl font-normal tracking-tight text-[#827e7e] capitalize sm:text-5xl lg:w-[570px] lg:text-[56.6px] lg:leading-[68px] lg:tracking-[-2px]">
+            Real-Time Visibility{" "}
+            <span className="text-[#ff884c]">Into Your Operation</span>
+          </h1>
 
-        <p className="text-[15.1px] leading-6 text-white lg:max-w-[509px]">
-          Data scattered across systems doesn&apos;t help. Your team spends
-          time compiling spreadsheets instead of acting on insights. By the
-          time you have a report, conditions have changed.
-        </p>
+          <p className="text-[15.1px] leading-6 text-white lg:max-w-[509px]">
+            Data scattered across systems doesn&apos;t help. Your team spends
+            time compiling spreadsheets instead of acting on insights. By the
+            time you have a report, conditions have changed.
+          </p>
+        </div>
       </div>
     </section>
   );

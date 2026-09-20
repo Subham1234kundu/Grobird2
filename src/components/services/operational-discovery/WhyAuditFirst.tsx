@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 const STAKEHOLDERS = [
   {
     tag: "CFO",
@@ -33,15 +31,6 @@ export default function WhyAuditFirst() {
         }}
         aria-hidden
       />
-      <Image
-        src="/services/operational-discovery/why-audit-bg.png"
-        alt=""
-        width={783}
-        height={1113}
-        className="pointer-events-none absolute top-0 right-0 h-full w-[40%] object-cover opacity-40"
-        aria-hidden
-      />
-
       <div className="relative mx-auto flex max-w-[1285px] flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
         <h2 className="font-sora text-4xl text-white/57 lg:text-[56px]">
           Why Operational <span className="text-white">Audit First?</span>

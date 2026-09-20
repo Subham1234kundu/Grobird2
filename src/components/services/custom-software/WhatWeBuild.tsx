@@ -7,12 +7,14 @@ const CARDS = [
     description:
       "Tools that automate manual processes, capture data at the right moment, and route work to the right person.",
     bg: "/services/custom-software/card-workflow-applications.png",
-    flattened: false,
   },
   {
     key: "operational-dashboards",
-    flattened: true,
-    bg: "/services/custom-software/card-operational-dashboards.png",
+    title: "Operational Dashboards",
+    description:
+      "Real-time visibility into your operation: pipeline, performance, bottlenecks, and capacity.",
+    bg: "/services/custom-software/card-operational-dashboards-bg.png",
+    mockup: "/services/custom-software/card-operational-dashboards-mockup.png",
   },
   {
     key: "integration-layers",
@@ -20,7 +22,6 @@ const CARDS = [
     description:
       "Custom data pipelines that connect fragmented systems and keep information in sync.",
     bg: "/services/custom-software/card-integration-layers.png",
-    flattened: false,
   },
   {
     key: "specialized-tools",
@@ -28,7 +29,6 @@ const CARDS = [
     description:
       "Whatever your operation needs, from mobile apps for field teams to procurement systems for supply chain.",
     bg: "/services/custom-software/card-specialized-tools.png",
-    flattened: false,
   },
 ];
 
@@ -46,38 +46,36 @@ export default function WhatWeBuild() {
       </div>
 
       <div className="mx-auto mt-12 grid max-w-[1261px] grid-cols-1 gap-6 sm:grid-cols-2 lg:mt-[57px] lg:grid-cols-4 lg:gap-[32px]">
-        {CARDS.map((card) =>
-          card.flattened ? (
-            <div
-              key={card.key}
-              className="relative h-[380px] overflow-hidden rounded-[12px] lg:h-[473px]"
-            >
-              <Image
-                src={card.bg}
-                alt="Operational Dashboards — real-time visibility into your operation: pipeline, performance, bottlenecks, and capacity."
-                fill
-                className="object-cover"
-              />
-            </div>
-          ) : (
-            <div
-              key={card.key}
-              className="relative flex h-[380px] flex-col overflow-hidden rounded-[12px] bg-black px-4 pt-[21px] lg:h-[473px]"
-            >
-              <Image
-                src={card.bg}
-                alt=""
-                fill
-                className="object-cover"
-                aria-hidden
-              />
-              <div className="relative z-10 flex max-w-[267px] flex-col gap-[7px]">
-                <p className="font-sora text-2xl text-white">{card.title}</p>
-                <p className="text-base text-white/50">{card.description}</p>
+        {CARDS.map((card) => (
+          <div
+            key={card.key}
+            className="relative flex h-[380px] flex-col overflow-hidden rounded-[12px] bg-black px-4 pt-[21px] lg:h-[473px]"
+          >
+            <Image
+              src={card.bg}
+              alt=""
+              fill
+              className="object-cover"
+              aria-hidden
+            />
+            {card.mockup && (
+              <div className="pointer-events-none absolute right-0 bottom-0 w-[89%]">
+                <Image
+                  src={card.mockup}
+                  alt=""
+                  width={266}
+                  height={255}
+                  className="h-auto w-full"
+                  aria-hidden
+                />
               </div>
+            )}
+            <div className="relative z-10 flex max-w-[267px] flex-col gap-[7px]">
+              <p className="font-sora text-2xl text-white">{card.title}</p>
+              <p className="text-base text-white/50">{card.description}</p>
             </div>
-          ),
-        )}
+          </div>
+        ))}
       </div>
     </section>
   );

@@ -6,7 +6,7 @@ const CARDS = [
     title: "API-based integrations",
     description:
       "We use standard APIs to create real-time, automated data flows between your platforms.",
-    bg: "/services/system-integration/card-api-bg.png",
+    bg: "/services/system-integration/card-api-graphic.png",
   },
   {
     key: "etl-pipelines",

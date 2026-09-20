@@ -54,25 +54,24 @@ const STEPS = [
 export default function OurApproach() {
   return (
     <section className="relative overflow-hidden bg-[#2f7ff2] px-6 py-20 sm:px-10 lg:px-[80px] lg:py-[122px]">
-      <Image
-        src="/services/workflow-automation/approach-swoosh-bg.png"
-        alt=""
-        width={674}
-        height={1198}
-        className="pointer-events-none absolute top-[24%] right-0 hidden h-[75%] w-[47%] object-cover opacity-40 mix-blend-soft-light lg:block"
-        aria-hidden
-      />
-
       <h2 className="relative font-sora text-4xl lg:text-[56px]">
         <span className="text-white/57">Our </span>
         <span className="text-white">Approach</span>
       </h2>
 
       <div className="relative mx-auto mt-12 flex max-w-[1280px] flex-col border-t-[0.8px] border-white/20 lg:mt-[64px]">
+        <Image
+          src="/services/workflow-automation/approach-swoosh-bg.png"
+          alt=""
+          width={674}
+          height={1198}
+          className="pointer-events-none absolute top-0 left-1/2 hidden h-[93%] w-[53%] object-cover object-top opacity-40 mix-blend-soft-light lg:block"
+          aria-hidden
+        />
         {STEPS.map((step) => (
           <div
             key={step.number}
-            className="grid grid-cols-1 border-b-[0.8px] border-white/20 lg:grid-cols-2"
+            className="relative grid grid-cols-1 border-b-[0.8px] border-white/20 lg:grid-cols-2"
           >
             <div
               className={`flex flex-col items-start p-8 lg:border-white/20 lg:p-14 ${

@@ -22,7 +22,7 @@ export default function WhatWeAutomate() {
             src="/services/workflow-automation/card-data-sync-bg.png"
             alt=""
             fill
-            className="object-cover opacity-60"
+            className="object-cover"
             aria-hidden
           />
           <div className="relative z-10 flex max-w-[267px] flex-col gap-[7px]">
@@ -32,7 +32,7 @@ export default function WhatWeAutomate() {
               updates everywhere it&apos;s needed.
             </p>
           </div>
-          <div className="relative z-10 mx-auto mt-auto mb-6 flex w-[179px] flex-col divide-y divide-white/24 rounded-[8px] border border-white/24">
+          <div className="relative z-10 mx-auto mt-auto mb-6 flex w-[179px] flex-col divide-y divide-white/24 rounded-[8px] border border-white/24 lg:absolute lg:top-[205px] lg:left-[63px] lg:mx-0 lg:mt-0 lg:mb-0">
             {STATS.map((stat) => (
               <div key={stat.label} className="flex flex-col gap-1 px-4 py-4">
                 <p className="font-sora text-[28px] font-semibold text-white">
@@ -52,7 +52,7 @@ export default function WhatWeAutomate() {
             src="/services/workflow-automation/card-approval-bg.png"
             alt=""
             fill
-            className="object-cover opacity-70"
+            className="object-cover"
             aria-hidden
           />
           <div className="relative z-10 flex max-w-[267px] flex-col gap-[7px]">
@@ -62,7 +62,7 @@ export default function WhatWeAutomate() {
               create an audit trail without human orchestration.
             </p>
           </div>
-          <div className="relative z-10 mt-auto mb-6 flex items-start justify-between rounded-[8px] border-[0.6px] border-white/28 bg-white/8 p-4">
+          <div className="relative z-10 mt-auto mb-6 flex items-start justify-between rounded-[8px] border-[0.6px] border-white/28 bg-white/8 p-4 lg:absolute lg:top-[255px] lg:left-[87px] lg:mt-0 lg:mb-0 lg:w-[249px]">
             <div className="flex flex-col gap-2">
               <p className="text-xs text-white">Approved Request</p>
               <div className="flex items-center gap-1.5">
@@ -108,7 +108,7 @@ export default function WhatWeAutomate() {
             src="/services/workflow-automation/card-trigger-bg.png"
             alt=""
             fill
-            className="object-cover opacity-70"
+            className="object-cover"
             aria-hidden
           />
           <div className="relative z-10 flex max-w-[282px] flex-col gap-[7px]">
@@ -118,7 +118,7 @@ export default function WhatWeAutomate() {
               notification, create task, log data, fetch external info.
             </p>
           </div>
-          <div className="relative z-10 mt-auto mb-6 flex flex-col gap-2 rounded-[12px] bg-black/45 p-3 backdrop-blur-[45px]">
+          <div className="relative z-10 mt-auto mb-6 flex flex-col gap-2 rounded-[12px] bg-black/45 p-3 backdrop-blur-[45px] lg:absolute lg:top-[270px] lg:left-[84px] lg:mt-0 lg:mb-0 lg:w-[320px]">
             <div className="flex items-center gap-2">
               <Image
                 src="/services/workflow-automation/icon-notification-app.svg"

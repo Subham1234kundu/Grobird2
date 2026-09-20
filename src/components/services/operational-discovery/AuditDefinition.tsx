@@ -29,17 +29,7 @@ const QUESTIONS = [
 
 export default function AuditDefinition() {
   return (
-    <section className="relative overflow-hidden bg-black px-6 py-20 sm:px-10 lg:px-[99px] lg:py-[80px]">
-      <div className="pointer-events-none absolute top-0 left-[-10%] size-[700px] rounded-full bg-[#2b7cf2]/20 blur-[120px]" />
-      <Image
-        src="/services/operational-discovery/problem-glow.png"
-        alt=""
-        width={684}
-        height={1480}
-        className="pointer-events-none absolute -top-40 -left-40 h-[500px] w-[500px] rotate-90 opacity-30 blur-3xl"
-        aria-hidden
-      />
-
+    <div className="relative px-6 pt-16 pb-10 sm:px-10 sm:pt-20 sm:pb-12 lg:px-[99px] lg:pt-[134px] lg:pb-[54px]">
       <div className="relative mx-auto max-w-[1261px]">
         <h2 className="font-sora text-4xl tracking-[-2px] text-[#858382] lg:text-[52px]">
           What Is an <span className="text-[#ff884c]">Operational Audit?</span>
@@ -50,7 +40,21 @@ export default function AuditDefinition() {
           questions your team already lives with.
         </p>
 
-        <dl className="mt-12 flex flex-col">
+        <dl className="relative mt-12 flex flex-col">
+          <div className="pointer-events-none absolute top-[19px] left-[-78.5px] z-[-1] hidden h-[684px] w-[1480px] items-center justify-center overflow-hidden rounded-[24px] lg:flex">
+            <div className="-rotate-90">
+              <div className="relative h-[1480px] w-[684px] rounded-[24px] blur-[85px]">
+                <Image
+                  src="/services/operational-discovery/audit-glow.png"
+                  alt=""
+                  fill
+                  className="rounded-[24px] object-cover"
+                  aria-hidden
+                />
+              </div>
+            </div>
+          </div>
+
           {QUESTIONS.map((item) => (
             <div
               key={item.number}
@@ -69,6 +73,6 @@ export default function AuditDefinition() {
           ))}
         </dl>
       </div>
-    </section>
+    </div>
   );
 }

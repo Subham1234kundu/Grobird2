@@ -10,7 +10,7 @@ export default function ProblemStatement() {
         className="object-cover opacity-70"
         aria-hidden
       />
-      <p className="relative z-10 mx-auto max-w-[800px] px-6 text-center font-sora text-2xl leading-[1.55] tracking-[-0.8px] sm:text-3xl lg:text-[36px] lg:leading-[56px]">
+      <p className="relative z-10 mx-auto max-w-[800px] px-6 text-center font-sora text-2xl leading-[1.55] tracking-[-0.8px] sm:text-3xl lg:text-left lg:text-[36px] lg:leading-[56px]">
         <span className="text-white/85">
           We diagnose the root of your operational friction so{" "}
         </span>

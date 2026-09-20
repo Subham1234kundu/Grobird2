@@ -16,8 +16,8 @@ export default function Home() {
         <ProblemStatement />
         <Solutions />
         <WhyChooseUs />
-        <CallToAction />
         <Blogs />
+        <CallToAction />
       </main>
       <Footer />
     </>
