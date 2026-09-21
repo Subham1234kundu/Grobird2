@@ -1,5 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useRef } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
 
 export const BLOG_GRID_POSTS = [
   {
@@ -29,10 +33,10 @@ export function BlogCardRow({ rowKey = "row" }: { rowKey?: string }) {
         <Link
           key={`${rowKey}-${post.title}`}
           href="/blogs/why-hiring-an-ops-coordinator-rarely-fixes-a-process-problem"
-          className="group flex flex-col gap-6 px-6 py-10 sm:px-8"
+          className="group blog-card flex flex-col gap-6 px-6 py-10 sm:px-8"
         >
           <div
-            className={`relative aspect-[388/230] overflow-hidden bg-cover bg-center ${post.outerBg}`}
+            className={`blog-card-art relative aspect-[388/230] overflow-hidden bg-cover bg-center ${post.outerBg}`}
             style={{ backgroundImage: "url('/landing/blog-grid-bg.png')" }}
           >
             <div className="absolute inset-0 flex items-center justify-center p-6">
@@ -69,8 +73,39 @@ export function BlogCardRow({ rowKey = "row" }: { rowKey?: string }) {
 }
 
 export default function BlogGrid() {
+  const root = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      // Cards rise in as each row reaches the fold, with their artwork
+      // easing out of a slight zoom behind the text.
+      gsap.utils.toArray<HTMLElement>(".blog-card").forEach((card, i) => {
+        gsap
+          .timeline({
+            scrollTrigger: { trigger: card, start: "top 92%" },
+            delay: (i % 3) * 0.1,
+          })
+          .fromTo(
+            card,
+            { y: 44, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.75, ease: "power3.out" },
+          )
+          .fromTo(
+            card.querySelector(".blog-card-art"),
+            { scale: 1.08 },
+            { scale: 1, duration: 1, ease: "power2.out" },
+            0,
+          );
+      });
+    },
+    { scope: root },
+  );
+
   return (
-    <div>
+    <div
+      ref={root}
+      className="mx-auto mt-14 max-w-[1261px] px-6 pb-20 sm:px-10 lg:px-0"
+    >
       <BlogCardRow rowKey="row-0" />
       <BlogCardRow rowKey="row-1" />
     </div>

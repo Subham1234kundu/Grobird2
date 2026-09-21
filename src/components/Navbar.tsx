@@ -143,22 +143,19 @@ export default function Navbar() {
                   }
                   aria-expanded={openMenu === link.label}
                   aria-haspopup="true"
-                  className="flex items-center gap-1 px-[6px] py-[6px] text-[13.9px] font-medium tracking-[0.4px] text-black/75 transition-colors hover:text-black"
+                  className="flex items-center gap-[6px] px-[6px] py-[6px] text-[13.9px] font-medium tracking-[0.4px] text-black/75 transition-colors hover:text-black"
                 >
                   {link.label}
                   <svg
-                    width="10"
-                    height="6"
-                    viewBox="0 0 10 6"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
                     fill="none"
-                    className={`transition-transform ${openMenu === link.label ? "rotate-180" : ""}`}
+                    className={`shrink-0 transition-transform ${openMenu === link.label ? "rotate-180" : ""}`}
                   >
                     <path
-                      d="M1 1L5 5L9 1"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
+                      d="M5.60224 8.94084L1.04733 4.38591C0.827648 4.16623 0.827648 3.81007 1.04733 3.59041L1.57859 3.05916C1.79789 2.83985 2.15332 2.83943 2.37314 3.05822L6 6.66809L9.62684 3.05822C9.84666 2.83943 10.2021 2.83985 10.4214 3.05916L10.9526 3.59041C11.1723 3.81009 11.1723 4.16625 10.9526 4.38591L6.39776 8.94084C6.17808 9.1605 5.82192 9.1605 5.60224 8.94084Z"
+                      fill="black"
                     />
                   </svg>
                 </button>

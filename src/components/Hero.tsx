@@ -2,20 +2,31 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, SplitText, useGSAP } from "@/lib/gsap";
+import HeroPortal from "./HeroPortal";
 
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
 
   useGSAP(
     () => {
+      const split = SplitText.create(".hero-sub", {
+        type: "words",
+        mask: "words",
+      });
+      gsap.set(".hero-sub", { opacity: 1 });
+
       const tl = gsap.timeline({
         defaults: { ease: "power3.out", duration: 0.9 },
       });
 
       tl.to(".hero-heading", { opacity: 1, y: 0 })
-        .to(".hero-sub", { opacity: 1, y: 0 }, "-=0.6")
-        .to(".hero-cta", { opacity: 1, y: 0 }, "-=0.6")
+        .from(
+          split.words,
+          { yPercent: 115, opacity: 0, duration: 0.6, stagger: 0.025 },
+          "-=0.6",
+        )
+        .to(".hero-cta", { opacity: 1, y: 0 }, "-=0.5")
         .to(".hero-illustration", { opacity: 1, scale: 1 }, "-=0.7");
     },
     { scope: root },
@@ -33,7 +44,7 @@ export default function Hero() {
               <span className="text-[#ff884c]">Better on Their Own</span>
             </h1>
 
-            <p className="gsap-fade hero-sub translate-y-6 text-[15.1px] leading-6 text-white/90">
+            <p className="gsap-fade hero-sub text-[15.1px] leading-6 text-white/90">
               Most growing B2B companies reach a point where their people and
               their processes no longer align. Spreadsheets replace systems.
               Manual work crowds out strategy. Teams spend more time managing
@@ -59,13 +70,7 @@ export default function Hero() {
 
         <div className="relative hidden lg:block">
           <div className="hero-illustration absolute inset-0 scale-95 opacity-0">
-            <Image
-              src="/landing/hero-illustration.svg"
-              alt="Illustration of integrations orbiting GroBird's operations platform"
-              fill
-              className="object-contain object-left"
-              priority
-            />
+            <HeroPortal />
           </div>
         </div>
       </div>

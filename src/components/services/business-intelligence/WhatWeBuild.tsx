@@ -1,4 +1,7 @@
+"use client";
 import Image from "next/image";
+import { useRef } from "react";
+import { cardsSlideReveal, useGSAP } from "@/lib/gsap";
 
 const CARDS = [
   {
@@ -24,10 +27,19 @@ const CARDS = [
 ];
 
 export default function WhatWeBuild() {
+  const root = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      cardsSlideReveal(".build-fade", { trigger: root.current });
+    },
+    { scope: root },
+  );
+
   return (
-    <section className="relative overflow-hidden bg-black px-6 pb-20 sm:px-10 lg:px-[99px] lg:pt-[97px] lg:pb-[80px]">
+    <section ref={root} className="relative overflow-hidden bg-black px-6 pb-20 sm:px-10 lg:px-[99px] lg:pt-[97px] lg:pb-[80px]">
       <div className="mx-auto max-w-[1261px]">
-        <h2 className="font-sora text-4xl tracking-[-2px] text-[#858382] lg:text-[52px]">
+        <h2 className="gsap-fade build-fade font-sora text-4xl tracking-[-2px] text-[#858382] lg:text-[52px]">
           What <span className="text-[#ff884c]">We Build</span>
         </h2>
 
@@ -35,7 +47,7 @@ export default function WhatWeBuild() {
           {CARDS.map((card) => (
             <div
               key={card.key}
-              className="relative h-[380px] overflow-hidden rounded-[12px] border-[0.8px] border-white/16 lg:h-[473px]"
+              className="gsap-fade build-fade relative h-[380px] overflow-hidden rounded-[12px] border-[0.8px] border-white/16 lg:h-[473px]"
             >
               <Image src={card.bg} alt={card.alt} fill className="object-cover" />
             </div>

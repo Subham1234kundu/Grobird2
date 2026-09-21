@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, splitWordsReveal, useGSAP } from "@/lib/gsap";
 
 const PILLARS = [
   "We build for outcomes, not features. Every system we create reduces operational cost, increases control, and creates room for your business to scale.",
@@ -26,6 +26,8 @@ export default function WhyChooseUs() {
           start: "top 75%",
         },
       });
+
+      splitWordsReveal(".why-desc", { start: "top 80%" });
     },
     { scope: root },
   );
@@ -44,16 +46,16 @@ export default function WhyChooseUs() {
         <h2 className="gsap-fade why-fade translate-y-8 font-sora text-4xl leading-tight tracking-tight text-[#858382] sm:text-5xl lg:text-[57px] lg:leading-[68px] lg:tracking-[-2.5px]">
           Why Choose <span className="text-[#ff884c]">GroBird</span>
         </h2>
-        <p className="gsap-fade why-fade mt-4 translate-y-8 text-base leading-[24px] text-white">
+        <p className="gsap-fade why-desc mt-4 text-base leading-[24px] text-white">
           We think like operators, not vendors. We don&apos;t start with a
           tool. We start with your problem. We understand that technology
           serves operations, not the reverse.
         </p>
       </div>
 
-      <div className="relative mx-auto mt-20 grid max-w-[1060px] grid-cols-1 gap-10 text-justify text-[20px] leading-normal text-white sm:grid-cols-3 lg:max-w-[1255px] lg:grid-cols-[316px_397px_346px] lg:gap-x-[98px]">
+      <div className="relative mx-auto mt-20 grid max-w-[1060px] grid-cols-1 gap-10 text-justify text-[20px] leading-normal text-white sm:grid-cols-3 lg:max-w-[1255px] lg:grid-cols-[316fr_397fr_346fr] lg:gap-x-[clamp(24px,5vw,98px)]">
         {PILLARS.map((text) => (
-          <p key={text} className="gsap-fade why-fade translate-y-8">
+          <p key={text} className="gsap-fade why-fade min-w-0 translate-y-8">
             {text}
           </p>
         ))}

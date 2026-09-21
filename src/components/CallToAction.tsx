@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, splitWordsReveal, useGSAP } from "@/lib/gsap";
 
 export default function CallToAction() {
   const root = useRef<HTMLElement>(null);
@@ -19,6 +19,8 @@ export default function CallToAction() {
           start: "top 80%",
         },
       });
+
+      splitWordsReveal(".cta-desc", { start: "top 85%" });
     },
     { scope: root },
   );
@@ -34,13 +36,13 @@ export default function CallToAction() {
       />
       <div className="absolute inset-0 bg-black/40" aria-hidden />
 
-      <div className="cta-panel relative mx-auto flex max-w-[1276px] translate-y-8 flex-col gap-10 px-6 py-24 opacity-0 sm:px-10 lg:flex-row lg:items-center lg:justify-between">
+      <div className="cta-panel relative mx-auto flex w-full max-w-[1276px] translate-y-8 flex-col gap-10 px-6 py-24 opacity-0 sm:px-10 lg:flex-row lg:items-center lg:justify-between">
         <h2 className="max-w-lg font-sora text-3xl leading-tight font-semibold text-white sm:text-4xl">
           Ready to understand your operational roadmap?
         </h2>
 
         <div className="flex max-w-md flex-col items-start gap-8">
-          <p className="leading-relaxed text-white">
+          <p className="gsap-fade cta-desc leading-relaxed text-white">
             Start with a diagnostic conversation. We&apos;ll review your
             processes and systems, identify what&apos;s holding you back, and
             outline a path forward.

@@ -1,4 +1,8 @@
+"use client";
+
 import Image from "next/image";
+import { useRef } from "react";
+import { gsap, numberedStepsReveal, useGSAP } from "@/lib/gsap";
 
 const ROWS = [
   {
@@ -57,10 +61,10 @@ const ROWS = [
 function NumberBlock({ number, tag }: { number: string; tag: string }) {
   return (
     <div className="flex w-full items-start justify-between">
-      <p className="font-sora text-7xl font-bold tracking-[-4px] text-white lg:text-[100px]">
+      <p className="step-number font-sora text-7xl font-bold tracking-[-4px] text-white lg:text-[100px]">
         {number}
       </p>
-      <p className="pt-4 font-mono text-[10px] tracking-[2px] text-[#ff884c] uppercase">
+      <p className="step-cell pt-4 font-mono text-[10px] tracking-[2px] text-[#ff884c] uppercase">
         {tag}
       </p>
     </div>
@@ -69,7 +73,7 @@ function NumberBlock({ number, tag }: { number: string; tag: string }) {
 
 function OutcomeBlock({ outcome }: { outcome: string }) {
   return (
-    <div className="mt-8 flex w-full flex-col gap-2 px-6 py-4">
+    <div className="step-cell mt-8 flex w-full flex-col gap-2 px-6 py-4">
       <p className="font-mono text-[10px] tracking-[2px] text-[#ff884c] uppercase">
         Outcome
       </p>
@@ -87,10 +91,10 @@ function ContentBlock({
 }) {
   return (
     <div className="flex flex-col">
-      <p className="pb-5 font-sora text-2xl font-semibold tracking-[-0.5px] lg:max-w-[430px] lg:text-[28px]">
+      <p className="step-cell pb-5 font-sora text-2xl font-semibold tracking-[-0.5px] lg:max-w-[430px] lg:text-[28px]">
         {heading}
       </p>
-      <p className="max-w-[430px] text-base leading-7 text-white/55">
+      <p className="step-cell max-w-[430px] text-base leading-7 text-white/55">
         {description}
       </p>
     </div>
@@ -98,8 +102,28 @@ function ContentBlock({
 }
 
 export default function WhatWeBuild() {
+  const root = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.to(".build-fade", {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.1,
+        scrollTrigger: { trigger: root.current, start: "top 85%" },
+      });
+      numberedStepsReveal(".build-row");
+    },
+    { scope: root },
+  );
+
   return (
-    <section className="relative overflow-hidden border-b-[0.8px] border-black/8 bg-black px-6 py-16 sm:px-10 lg:px-[80px] lg:py-[97px]">
+    <section
+      ref={root}
+      className="relative overflow-hidden border-b-[0.8px] border-black/8 bg-black px-6 py-16 sm:px-10 lg:px-[80px] lg:py-[97px]"
+    >
       <Image
         src="/industries/logistics/build-glow-bg.png"
         alt=""
@@ -109,7 +133,7 @@ export default function WhatWeBuild() {
       />
 
       <div className="relative mx-auto max-w-[1280px]">
-        <h2 className="font-sora text-4xl tracking-[-2px] text-white/25 lg:text-[47.8px]">
+        <h2 className="gsap-fade build-fade translate-y-8 font-sora text-4xl tracking-[-2px] text-white/25 lg:text-[47.8px]">
           How <span className="text-white">GroBird Helps</span>
         </h2>
 
@@ -117,7 +141,7 @@ export default function WhatWeBuild() {
           {ROWS.map((row) => (
             <div
               key={row.number}
-              className="grid grid-cols-1 border-b-[0.8px] border-white/20 lg:grid-cols-2"
+              className="gsap-fade build-row grid grid-cols-1 border-b-[0.8px] border-white/20 lg:grid-cols-2"
             >
               <div
                 className={`flex flex-col p-8 lg:p-14 ${

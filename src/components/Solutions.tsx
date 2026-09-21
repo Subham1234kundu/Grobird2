@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, splitWordsReveal, useGSAP } from "@/lib/gsap";
 
 const SOLUTIONS = [
   {
     title: "Operational Discovery",
     image: "/landing/card-operational-discovery.png",
+    flipImage: "/landing/flip1.png",
     description:
       "We audit your processes, systems, and data flows to identify where friction lives. Most companies skip this step. We never do.",
     frontBg: "bg-[#ff884c]",
@@ -16,6 +17,7 @@ const SOLUTIONS = [
   {
     title: "Systems Integration & Business Intelligence",
     image: "/landing/card-systems-integration.png",
+    flipImage: "/landing/flip2.png",
     description:
       "Built on your processes, not someone else's template. Whether it's connecting disconnected systems, automating manual data flows, or building a tool that doesn't exist yet, we deliver technology that fits your operation.",
     frontBg: "bg-black",
@@ -24,6 +26,7 @@ const SOLUTIONS = [
   {
     title: "Custom Software & Workflow Automation",
     image: "/landing/card-custom-software.png",
+    flipImage: "/landing/flip3.png",
     description:
       "One source of truth. Your data lives in multiple systems, but your team needs one clear picture. We connect what's fragmented and make it visible.",
     frontBg: "bg-[#ff884c]",
@@ -58,6 +61,8 @@ export default function Solutions() {
           start: "top 80%",
         },
       });
+
+      splitWordsReveal(".solutions-desc", { start: "top 85%" });
     },
     { scope: root },
   );
@@ -69,7 +74,7 @@ export default function Solutions() {
           <h2 className="font-sora text-3xl tracking-tight text-[#858382] sm:text-5xl lg:text-[57px] lg:tracking-[-2.5px]">
             What We <span className="text-[#ff884c]">Do</span>
           </h2>
-          <p className="mt-4 text-base leading-[24px] text-white">
+          <p className="gsap-fade solutions-desc mt-4 text-base leading-[24px] text-white">
             Operating at scale requires systems. But most platforms are built
             for generic companies, not yours. They&apos;re bloated, hard to
             use, or disconnected from the tools your team already uses. We
@@ -99,17 +104,20 @@ export default function Solutions() {
                 </div>
 
                 <div
-                  className={`absolute inset-0 flex [transform:rotateY(180deg)] flex-col justify-between overflow-hidden rounded-3xl bg-cover bg-center p-6 [backface-visibility:hidden] ${item.backBg}`}
+                  className={`absolute inset-0 overflow-hidden rounded-3xl bg-cover bg-center [backface-visibility:hidden] [transform:rotateY(180deg)] ${item.backBg}`}
                   style={{
-                    backgroundImage: "url('/landing/blog-grid-bg.png')",
+                    backgroundImage: `url('${item.flipImage}')`,
                   }}
                 >
-                  <h3 className="font-sora text-[22px] leading-[28.6px] font-semibold text-white">
-                    {item.title}
-                  </h3>
-                  <p className="text-[20px] leading-normal text-white">
-                    {item.description}
-                  </p>
+                  <div className="absolute inset-0 bg-black/55" aria-hidden />
+                  <div className="relative flex h-full flex-col justify-between p-6">
+                    <h3 className="font-sora text-[22px] leading-[28.6px] font-semibold text-white">
+                      {item.title}
+                    </h3>
+                    <p className="text-[20px] leading-normal text-white">
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

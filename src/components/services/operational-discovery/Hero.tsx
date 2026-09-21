@@ -1,8 +1,36 @@
+"use client";
+
 import Image from "next/image";
+import { useRef } from "react";
+import { gsap, splitWordsReveal, useGSAP } from "@/lib/gsap";
 
 export default function Hero() {
+  const root = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.to(".hero-fade", {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: root.current,
+          start: "top 85%",
+        },
+      });
+
+      splitWordsReveal(".hero-desc", { start: "top 85%" });
+    },
+    { scope: root },
+  );
+
   return (
-    <section className="relative overflow-hidden border-b border-[#4b4949] bg-black lg:min-h-[779px]">
+    <section
+      ref={root}
+      className="relative overflow-hidden border-b border-[#4b4949] bg-black lg:min-h-[779px]"
+    >
       <div className="absolute inset-0">
         <Image
           src="/services/operational-discovery/hero-photo.png"
@@ -28,7 +56,7 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 mx-auto flex max-w-[1440px] flex-col gap-[18px] px-6 py-24 sm:px-10 lg:px-[99px] lg:pt-[210px] lg:pb-[80px]">
-        <div className="flex w-fit items-center gap-2 rounded-[4px] border-[0.8px] border-[rgba(255,136,76,0.25)] px-[14px] py-[6px]">
+        <div className="gsap-fade hero-fade translate-y-6 flex w-fit items-center gap-2 rounded-[4px] border-[0.8px] border-[rgba(255,136,76,0.25)] px-[14px] py-[6px]">
           <span className="size-[6px] rounded-[3px] bg-[#ff884c] opacity-[51%]" />
           <span className="font-sora text-[11px] leading-[16.5px] font-semibold tracking-[1.32px] text-[#ff884c] uppercase">
             Operational Discovery · Diagnose
@@ -36,13 +64,13 @@ export default function Hero() {
         </div>
 
         <div className="flex flex-col gap-8 lg:mt-[22px] lg:flex-row lg:items-end lg:gap-8">
-          <h1 className="font-sora text-4xl font-normal tracking-tight text-[#827e7e] capitalize sm:text-5xl lg:w-[716px] lg:text-[56.6px] lg:leading-[68px] lg:tracking-[-2px]">
+          <h1 className="gsap-fade hero-fade translate-y-8 font-sora text-4xl font-normal tracking-tight text-[#827e7e] capitalize sm:text-5xl lg:w-[716px] lg:text-[56.6px] lg:leading-[68px] lg:tracking-[-2px]">
             <span className="block">Know Your</span>
             <span className="block text-white">Bottlenecks</span>
             <span className="block text-[#ff884c]">Before You Build</span>
           </h1>
 
-          <p className="text-[15.1px] leading-6 text-white lg:max-w-[513px]">
+          <p className="gsap-fade hero-desc text-[15.1px] leading-6 text-white lg:max-w-[513px]">
             Most technology projects fail because they solve the wrong
             problem. A company implements new software, but the underlying
             process remains broken. Data stays fragmented. Manual work
@@ -51,7 +79,7 @@ export default function Hero() {
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-4">
+        <div className="gsap-fade hero-fade translate-y-6 flex flex-wrap items-center gap-4">
           <a
             href="/contact"
             className="rounded-[8px] bg-[#ff884c] px-8 py-4 text-[15px] font-semibold tracking-[-0.15px] text-white transition-opacity hover:opacity-90"

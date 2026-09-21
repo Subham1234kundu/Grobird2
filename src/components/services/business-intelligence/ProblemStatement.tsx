@@ -1,8 +1,35 @@
+"use client";
 import Image from "next/image";
+import { useRef } from "react";
+import { gsap, SplitText, useGSAP } from "@/lib/gsap";
 
 export default function ProblemStatement() {
+  const root = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      // Every word starts at the muted grey (#858382, set in globals.css)
+      // and only turns white one at a time, tied directly to scroll
+      // position — the same reveal used on the landing page.
+      const split = SplitText.create(".gsap-color-reveal", { type: "words" });
+
+      gsap.to(split.words, {
+        color: "#ffffff",
+        stagger: 0.5,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".gsap-color-reveal",
+          start: "top 85%",
+          end: "top 15%",
+          scrub: 1,
+        },
+      });
+    },
+    { scope: root },
+  );
+
   return (
-    <section className="relative overflow-hidden bg-black py-16 sm:py-20 lg:h-[588px] lg:py-0">
+    <section ref={root} className="relative overflow-hidden bg-black py-16 sm:py-20 lg:h-[588px] lg:py-0">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute top-[-118px] left-[63px] hidden h-[906px] w-[1313px] lg:block">
           <Image
@@ -38,15 +65,10 @@ export default function ProblemStatement() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-[955px] px-6 sm:px-10 lg:absolute lg:top-[94.2px] lg:left-1/2 lg:mx-0 lg:-translate-x-1/2 lg:px-0">
-        <p className="font-sora text-2xl leading-[1.55] tracking-[-0.8px] sm:text-3xl lg:text-[36px] lg:leading-[56px]">
-          <span className="text-white/85">
-            Business intelligence brings clarity. We design dashboards and
-            reporting systems that give you live{" "}
-          </span>
-          <span className="text-white/55">
-            visibility into your operation, your metrics, and your
-            performance.
-          </span>
+        <p className="gsap-color-reveal font-sora text-2xl leading-[1.55] tracking-[-0.8px] sm:text-3xl lg:text-[36px] lg:leading-[56px]">
+          Business intelligence brings clarity. We design dashboards and
+          reporting systems that give you live visibility into your
+          operation, your metrics, and your performance.
         </p>
       </div>
     </section>

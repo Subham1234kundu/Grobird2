@@ -1,3 +1,8 @@
+"use client";
+
+import { useRef } from "react";
+import { rowsRiseReveal, useGSAP } from "@/lib/gsap";
+
 const REASONS = [
   {
     number: "01.",
@@ -26,10 +31,19 @@ const REASONS = [
 ];
 
 export default function WhenItMakesSense() {
+  const root = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      rowsRiseReveal(".sense-fade");
+    },
+    { scope: root },
+  );
+
   return (
-    <section className="relative overflow-hidden bg-black px-6 py-20 sm:px-10 lg:px-[99px] lg:py-[80px]">
+    <section ref={root} className="relative overflow-hidden bg-black px-6 py-20 sm:px-10 lg:px-[99px] lg:py-[80px]">
       <div className="relative mx-auto max-w-[1261px]">
-        <h2 className="font-sora text-4xl tracking-[-2px] text-[#858382] lg:text-[52px]">
+        <h2 className="gsap-fade sense-fade font-sora text-4xl tracking-[-2px] text-[#858382] lg:text-[52px]">
           When Custom Software <span className="text-[#ff884c]">Makes Sense</span>
         </h2>
 
@@ -37,7 +51,7 @@ export default function WhenItMakesSense() {
           {REASONS.map((item) => (
             <div
               key={item.number}
-              className="grid grid-cols-1 gap-4 border-t border-[rgba(228,228,228,0.37)] py-8 last:border-b lg:grid-cols-[90px_1fr_360px] lg:items-center lg:gap-6"
+              className="gsap-fade sense-fade grid grid-cols-1 gap-4 border-t border-[rgba(228,228,228,0.37)] py-8 last:border-b lg:grid-cols-[90px_1fr_360px] lg:items-center lg:gap-6"
             >
               <dt className="font-sora text-2xl tracking-[-0.84px] text-[#c3c3c3] lg:text-[32px]">
                 {item.number}

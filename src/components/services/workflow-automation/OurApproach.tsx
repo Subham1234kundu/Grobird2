@@ -1,4 +1,8 @@
+"use client";
+
 import Image from "next/image";
+import { useRef } from "react";
+import { gsap, rowsRiseReveal, useGSAP } from "@/lib/gsap";
 
 const STEPS = [
   {
@@ -52,14 +56,30 @@ const STEPS = [
 ];
 
 export default function OurApproach() {
+  const root = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.to(".approach-fade", {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: { trigger: root.current, start: "top 75%" },
+      });
+      rowsRiseReveal(".approach-step");
+    },
+    { scope: root },
+  );
+
   return (
-    <section className="relative overflow-hidden bg-[#2f7ff2] px-6 py-20 sm:px-10 lg:px-[80px] lg:py-[122px]">
-      <h2 className="relative font-sora text-4xl lg:text-[56px]">
+    <section ref={root} className="relative overflow-hidden bg-[#2f7ff2] px-6 py-20 sm:px-10 lg:px-[80px] lg:py-[122px]">
+      <h2 className="gsap-fade approach-fade translate-y-8 relative font-sora text-4xl lg:text-[56px]">
         <span className="text-white/57">Our </span>
         <span className="text-white">Approach</span>
       </h2>
 
-      <div className="relative mx-auto mt-12 flex max-w-[1280px] flex-col border-t-[0.8px] border-white/20 lg:mt-[64px]">
+      <div className="approach-grid relative mx-auto mt-12 flex max-w-[1280px] flex-col border-t-[0.8px] border-white/20 lg:mt-[64px]">
         <Image
           src="/services/workflow-automation/approach-swoosh-bg.png"
           alt=""
@@ -71,7 +91,7 @@ export default function OurApproach() {
         {STEPS.map((step) => (
           <div
             key={step.number}
-            className="relative grid grid-cols-1 border-b-[0.8px] border-white/20 lg:grid-cols-2"
+            className="gsap-fade approach-step relative grid grid-cols-1 border-b-[0.8px] border-white/20 lg:grid-cols-2"
           >
             <div
               className={`flex flex-col items-start p-8 lg:border-white/20 lg:p-14 ${

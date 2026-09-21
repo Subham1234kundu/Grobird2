@@ -1,3 +1,8 @@
+"use client";
+
+import { useRef } from "react";
+import { gsap, rowsRiseReveal, useGSAP } from "@/lib/gsap";
+
 const ITEMS = [
   {
     number: "01.",
@@ -26,18 +31,34 @@ const ITEMS = [
 ];
 
 export default function WhatWeSupport() {
+  const root = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.to(".support-heading", {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ".support-heading", start: "top 85%" },
+      });
+      rowsRiseReveal(".support-item");
+    },
+    { scope: root },
+  );
+
   return (
-    <section className="relative overflow-hidden bg-black px-6 py-20 sm:px-10 lg:px-[99px] lg:py-[80px]">
+    <section ref={root} className="relative overflow-hidden bg-black px-6 py-20 sm:px-10 lg:px-[99px] lg:py-[80px]">
       <div className="relative mx-auto max-w-[1261px]">
-        <h2 className="font-sora text-4xl leading-tight tracking-[-2px] text-[#858382] lg:text-[52px] lg:leading-[59.8px]">
+        <h2 className="gsap-fade support-heading translate-y-8 font-sora text-4xl leading-tight tracking-[-2px] text-[#858382] lg:text-[52px] lg:leading-[59.8px]">
           What <span className="text-[#ff884c]">We Support</span>
         </h2>
 
-        <dl className="mt-[30px] flex flex-col">
+        <dl className="support-list mt-[30px] flex flex-col">
           {ITEMS.map((item) => (
             <div
               key={item.number}
-              className="grid grid-cols-1 gap-4 border-t border-[rgba(228,228,228,0.37)] py-8 last:border-b lg:grid-cols-[90px_1fr_328px] lg:items-center lg:gap-6 lg:py-10"
+              className="gsap-fade support-item grid grid-cols-1 gap-4 border-t border-[rgba(228,228,228,0.37)] py-8 last:border-b lg:grid-cols-[90px_1fr_328px] lg:items-center lg:gap-6 lg:py-10"
             >
               <dt className="font-sora text-2xl tracking-[-0.84px] text-[#c3c3c3] lg:text-[32px] lg:leading-[57.6px]">
                 {item.number}

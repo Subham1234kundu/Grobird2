@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
 
 const TABS = [
   {
@@ -18,24 +19,58 @@ const TABS = [
 ] as const;
 
 export default function ChallengesTabs() {
+  const root = useRef<HTMLElement>(null);
   const [activeTab, setActiveTab] = useState(0);
   const tab = TABS[activeTab];
 
+  useGSAP(
+    () => {
+      gsap.to(".challenges-fade", {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.12,
+        scrollTrigger: { trigger: root.current, start: "top 80%" },
+      });
+
+      // The tab chips deal in one at a time, so the row assembles rather
+      // than appearing whole.
+      gsap.fromTo(
+        ".challenge-tab",
+        { y: 20, opacity: 0, scale: 0.92 },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.55,
+          ease: "back.out(1.7)",
+          stagger: 0.09,
+          scrollTrigger: { trigger: root.current, start: "top 75%" },
+        },
+      );
+    },
+    { scope: root },
+  );
+
   return (
-    <section className="border-b-[0.8px] border-black/8 bg-black px-6 py-16 sm:px-10 lg:px-[136px] lg:py-[64px]">
+    <section
+      ref={root}
+      className="border-b-[0.8px] border-black/8 bg-black px-6 py-16 sm:px-10 lg:px-[136px] lg:py-[64px]"
+    >
       <div className="mx-auto max-w-[1168px]">
-        <h2 className="font-sora text-4xl tracking-[-2px] text-white/25 lg:text-[47.8px]">
+        <h2 className="gsap-fade challenges-fade translate-y-8 font-sora text-4xl tracking-[-2px] text-white/25 lg:text-[47.8px]">
           <span className="block">Operations challenges</span>
           <span className="block text-white">in Logistics.</span>
         </h2>
 
-        <div className="mt-16 flex flex-wrap gap-2">
+        <div className="gsap-fade challenges-fade translate-y-6 mt-16 flex flex-wrap gap-2">
           {TABS.map((t, i) => (
             <button
               key={t.number}
               type="button"
               onClick={() => setActiveTab(i)}
-              className={`flex items-center gap-3 border-t-[1.6px] px-5 py-3 text-left transition-colors ${
+              className={`challenge-tab flex items-center gap-3 border-t-[1.6px] px-5 py-3 text-left transition-colors ${
                 activeTab === i
                   ? "border-[#ff884c] bg-[#ff884c]/19"
                   : "border-white/25 bg-white/15"
@@ -59,7 +94,7 @@ export default function ChallengesTabs() {
           ))}
         </div>
 
-        <div className="mt-16 flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
+        <div className="gsap-fade challenges-fade translate-y-6 mt-16 flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
           {"heading" in tab ? (
             <>
               <div className="flex flex-col justify-between lg:max-w-[693px]">

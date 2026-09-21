@@ -5,7 +5,7 @@ import IndustriesTicker from "@/components/partners/IndustriesTicker";
 import WhyPartner from "@/components/partners/WhyPartner";
 import WhatWeBuild from "@/components/partners/WhatWeBuild";
 import HowWePartner from "@/components/partners/HowWePartner";
-import Testimonials from "@/components/partners/Testimonials";
+import PartnerProgram from "@/components/partners/PartnerProgram";
 import ContactCta from "@/components/partners/ContactCta";
 
 export default function PartnersPage() {
@@ -18,7 +18,7 @@ export default function PartnersPage() {
         <WhyPartner />
         <WhatWeBuild />
         <HowWePartner />
-        <Testimonials />
+        <PartnerProgram />
         <ContactCta />
       </main>
       <Footer />

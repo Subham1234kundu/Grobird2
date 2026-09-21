@@ -1,4 +1,8 @@
+"use client";
+
 import Image from "next/image";
+import { useRef } from "react";
+import { gsap, rowsRiseReveal, splitWordsReveal, useGSAP } from "@/lib/gsap";
 
 const QUESTIONS = [
   {
@@ -28,27 +32,53 @@ const QUESTIONS = [
 ];
 
 export default function AuditDefinition() {
+  const root = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.to(".definition-fade", {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: root.current,
+          start: "top 80%",
+        },
+      });
+
+      splitWordsReveal(".definition-desc", { start: "top 80%" });
+
+      rowsRiseReveal(".definition-row", { cells: ".definition-cell" });
+    },
+    { scope: root },
+  );
+
   return (
-    <div className="relative px-6 pt-16 pb-10 sm:px-10 sm:pt-20 sm:pb-12 lg:px-[99px] lg:pt-[134px] lg:pb-[54px]">
+    <div
+      ref={root}
+      className="relative px-6 pt-16 pb-10 sm:px-10 sm:pt-20 sm:pb-12 lg:px-[99px] lg:pt-[134px] lg:pb-[54px]"
+    >
       <div className="relative mx-auto max-w-[1261px]">
-        <h2 className="font-sora text-4xl tracking-[-2px] text-[#858382] lg:text-[52px]">
+        <h2 className="gsap-fade definition-fade translate-y-8 font-sora text-4xl tracking-[-2px] text-[#858382] lg:text-[52px]">
           What Is an <span className="text-[#ff884c]">Operational Audit?</span>
         </h2>
-        <p className="mt-4 max-w-[560px] text-base leading-[27.2px] text-white/76">
+        <p className="gsap-fade definition-desc mt-4 max-w-[560px] text-base leading-[27.2px] text-white/76">
           A systematic review of how your business processes work, where your
           systems live, and how information flows between them. It answers
           questions your team already lives with.
         </p>
 
         <dl className="relative mt-12 flex flex-col">
-          <div className="pointer-events-none absolute top-[19px] left-[-78.5px] z-[-1] hidden h-[684px] w-[1480px] items-center justify-center overflow-hidden rounded-[24px] lg:flex">
+          <div className="pointer-events-none absolute top-[19px] left-[-78.5px] z-[-1] hidden h-[684px] w-[1000px] items-center justify-center lg:flex">
             <div className="-rotate-90">
-              <div className="relative h-[1480px] w-[684px] rounded-[24px] blur-[85px]">
+              <div className="relative h-[1000px] w-[684px] blur-[85px]">
                 <Image
-                  src="/services/operational-discovery/audit-glow.png"
+                  src="/services/operational-discovery/problem-glow.png"
                   alt=""
                   fill
-                  className="rounded-[24px] object-cover"
+                  className="object-cover"
                   aria-hidden
                 />
               </div>
@@ -58,15 +88,15 @@ export default function AuditDefinition() {
           {QUESTIONS.map((item) => (
             <div
               key={item.number}
-              className="grid grid-cols-1 gap-4 border-t border-[rgba(228,228,228,0.37)] py-8 last:border-b lg:grid-cols-[90px_1fr_360px] lg:items-center lg:gap-6"
+              className="gsap-fade definition-row grid grid-cols-1 gap-4 border-t border-[rgba(228,228,228,0.37)] py-8 last:border-b lg:grid-cols-[90px_1fr_360px] lg:items-center lg:gap-6"
             >
-              <dt className="font-sora text-2xl tracking-[-0.84px] text-[#c3c3c3] lg:text-[32px]">
+              <dt className="definition-cell font-sora text-2xl tracking-[-0.84px] text-[#c3c3c3] lg:text-[32px]">
                 {item.number}
               </dt>
-              <dt className="font-sora text-2xl tracking-[-0.84px] text-white lg:text-[32px]">
+              <dt className="definition-cell font-sora text-2xl tracking-[-0.84px] text-white lg:text-[32px]">
                 {item.question}
               </dt>
-              <dd className="text-[16px] leading-6 text-[#737373]">
+              <dd className="definition-cell text-[16px] leading-6 text-[#737373]">
                 {item.answer}
               </dd>
             </div>

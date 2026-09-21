@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="flex-1">
+      <main className="relative z-0 flex-1 bg-black">
         <Hero />
         <ProblemStatement />
         <Solutions />
@@ -19,7 +19,7 @@ export default function Home() {
         <Blogs />
         <CallToAction />
       </main>
-      <Footer />
+      <Footer fullPageReveal />
     </>
   );
 }

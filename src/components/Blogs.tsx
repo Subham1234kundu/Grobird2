@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, splitWordsReveal, useGSAP } from "@/lib/gsap";
 
 const FEATURED_POST = {
   title: "Why Hiring an Ops Coordinator Rarely Fixes a Process Problem",
@@ -56,6 +56,8 @@ export default function Blogs() {
           start: "top 78%",
         },
       });
+
+      splitWordsReveal(".blog-desc", { start: "top 82%" });
     },
     { scope: root },
   );
@@ -66,7 +68,7 @@ export default function Blogs() {
         <h2 className="gsap-fade blog-fade translate-y-8 font-sora text-4xl tracking-tight text-[#858382] sm:text-5xl lg:text-[57px] lg:tracking-[-2.5px]">
           Insights &amp; <span className="text-[#ff884c]">Blogs</span>
         </h2>
-        <p className="gsap-fade blog-fade mt-4 translate-y-8 text-base leading-relaxed text-white">
+        <p className="gsap-fade blog-desc mt-4 text-base leading-relaxed text-white">
           We think like operators, not vendors. We don&apos;t start with a
           tool. We start with your problem. We understand that technology
           serves operations, not the reverse.

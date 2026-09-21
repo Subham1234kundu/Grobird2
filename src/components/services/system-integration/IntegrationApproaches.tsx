@@ -1,4 +1,8 @@
+"use client";
+
 import Image from "next/image";
+import { useRef } from "react";
+import { cardsSlideReveal, gsap, useGSAP } from "@/lib/gsap";
 
 const CARDS = [
   {
@@ -32,19 +36,35 @@ const CARDS = [
 ];
 
 export default function IntegrationApproaches() {
+  const root = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.to(".approaches-fade", {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: { trigger: root.current, start: "top 80%" },
+      });
+      cardsSlideReveal(".approaches-card", { trigger: root.current });
+    },
+    { scope: root },
+  );
+
   return (
-    <section className="relative overflow-hidden bg-black px-6 pb-20 sm:px-10 lg:px-[99px] lg:pt-[97px] lg:pb-[80px]">
+    <section ref={root} className="relative overflow-hidden bg-black px-6 pb-20 sm:px-10 lg:px-[99px] lg:pt-[97px] lg:pb-[80px]">
       <div className="mx-auto flex max-w-[1261px] flex-col gap-8 pt-12 lg:flex-row lg:items-center lg:justify-between lg:gap-14 lg:pt-0">
-        <h2 className="font-sora text-4xl tracking-[-2px] text-[#858382] lg:text-[52px]">
+        <h2 className="gsap-fade approaches-fade translate-y-8 font-sora text-4xl tracking-[-2px] text-[#858382] lg:text-[52px]">
           Integration <span className="text-[#ff884c]">Approaches</span>
         </h2>
       </div>
 
-      <div className="mx-auto mt-12 grid max-w-[1261px] grid-cols-1 gap-6 sm:grid-cols-2 lg:mt-[57px] lg:grid-cols-4 lg:gap-[32px]">
+      <div className="approaches-grid mx-auto mt-12 grid max-w-[1261px] grid-cols-1 gap-6 sm:grid-cols-2 lg:mt-[57px] lg:grid-cols-4 lg:gap-[32px]">
         {CARDS.map((card) => (
           <div
             key={card.key}
-            className="relative h-[380px] overflow-hidden rounded-[12px] border border-white/16 lg:h-[473px]"
+            className="gsap-fade approaches-card relative h-[380px] overflow-hidden rounded-[12px] border border-white/16 lg:h-[473px]"
           >
             <Image src={card.bg} alt="" fill className="object-cover" aria-hidden />
             <div className="absolute right-0 bottom-[88.6px] left-0 h-[186px] rotate-180">

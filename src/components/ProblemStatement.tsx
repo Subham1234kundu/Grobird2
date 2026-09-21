@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, SplitText, useGSAP } from "@/lib/gsap";
 
 export default function ProblemStatement() {
   const root = useRef<HTMLElement>(null);
@@ -20,6 +20,25 @@ export default function ProblemStatement() {
           start: "top 80%",
         },
       });
+
+      // Every word starts at the muted grey (#858382, set in globals.css)
+      // and only turns white one at a time, tied directly to scroll
+      // position — not a one-off "enter the viewport" trigger.
+      const colorSplit = SplitText.create(".gsap-color-reveal", {
+        type: "words",
+      });
+
+      gsap.to(colorSplit.words, {
+        color: "#ffffff",
+        stagger: 0.5,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".gsap-color-reveal",
+          start: "top 85%",
+          end: "top 15%",
+          scrub: 1,
+        },
+      });
     },
     { scope: root },
   );
@@ -30,13 +49,10 @@ export default function ProblemStatement() {
         <h2 className="gsap-fade problem-fade translate-y-8 font-sora text-3xl leading-tight font-normal tracking-tight text-[#858382] sm:text-5xl lg:col-start-1 lg:row-start-1 lg:text-[57px] lg:leading-[68px] lg:tracking-[-1.2px]">
           Knowing the problem<span className="text-[#ff884c]"> isn&apos;t the hard part</span>.
         </h2>
-        <p className="gsap-fade problem-fade translate-y-8 text-xl leading-[1.4] tracking-tight text-white lg:col-start-2 lg:row-start-2 lg:text-[32px] lg:tracking-[-1.47px]">
+        <p className="gsap-fade problem-fade gsap-color-reveal translate-y-8 text-xl leading-[1.4] tracking-tight lg:col-start-2 lg:row-start-2 lg:text-[32px] lg:tracking-[-1.47px]">
           Most teams can already name what&apos;s broken. The hard part is
-          fixing{" "}
-          <span className="text-[#858382]">
-            it without disrupting what already works. That&apos;s the part
-            GroBird handles.
-          </span>
+          fixing it without disrupting what already works. That&apos;s the
+          part GroBird handles.
         </p>
       </div>
 

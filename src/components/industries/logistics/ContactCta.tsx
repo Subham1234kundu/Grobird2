@@ -1,9 +1,34 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useRef } from "react";
+import { gsap, splitWordsReveal, useGSAP } from "@/lib/gsap";
 
 export default function ContactCta() {
+  const root = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.to(".contact-fade", {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.12,
+        scrollTrigger: { trigger: root.current, start: "top 85%" },
+      });
+
+      splitWordsReveal(".contact-desc", { start: "top 85%" });
+    },
+    { scope: root },
+  );
+
   return (
-    <section className="relative flex min-h-[626px] items-center overflow-hidden border-t-[0.8px] border-[rgba(75,73,73,0.5)] bg-black px-6 py-24 sm:px-10 lg:px-12 lg:py-28">
+    <section
+      ref={root}
+      className="relative flex min-h-[626px] items-center overflow-hidden border-t-[0.8px] border-[rgba(75,73,73,0.5)] bg-black px-6 py-24 sm:px-10 lg:px-12 lg:py-28"
+    >
       <div
         className="pointer-events-none absolute top-[-76px] left-[calc(50%+88px)] hidden h-[864px] w-[1823px] items-center justify-center lg:flex"
         aria-hidden
@@ -45,7 +70,7 @@ export default function ContactCta() {
           FINTECH
         </p>
 
-        <h2 className="relative font-sora text-4xl tracking-[-2px] text-[#858382] sm:text-5xl lg:text-[71.7px]">
+        <h2 className="gsap-fade contact-fade translate-y-8 relative font-sora text-4xl tracking-[-2px] text-[#858382] sm:text-5xl lg:text-[71.7px]">
           <span className="block">{"Let's talk about"}</span>
           <span className="block">
             <span className="text-white">your logistical</span>{" "}
@@ -53,12 +78,12 @@ export default function ContactCta() {
           </span>
         </h2>
 
-        <p className="relative max-w-[500px] text-base leading-[27px] text-white">
+        <p className="gsap-fade contact-desc relative max-w-[500px] text-base leading-[27px] text-white">
           No canned proposals. We start by understanding your specific
           constraints, then tell you what&apos;s actually worth building.
         </p>
 
-        <div className="relative flex flex-wrap items-center justify-center gap-4 pt-4">
+        <div className="gsap-fade contact-fade translate-y-6 relative flex flex-wrap items-center justify-center gap-4 pt-4">
           <Link
             href="/contact"
             className="bg-[#ff884c] px-10 py-4 text-[15px] tracking-[0.5px] text-black transition-opacity hover:opacity-90"

@@ -1,4 +1,8 @@
+"use client";
+
 import Image from "next/image";
+import { useRef } from "react";
+import { cardsSlideReveal, useGSAP } from "@/lib/gsap";
 
 const STATS = [
   { value: "70%", label: "Reduction in onboarding time" },
@@ -7,17 +11,29 @@ const STATS = [
 ];
 
 export default function WhatWeAutomate() {
+  const root = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      cardsSlideReveal(".automate-fade", { trigger: root.current });
+    },
+    { scope: root },
+  );
+
   return (
-    <section className="relative overflow-hidden bg-black px-6 pt-16 pb-0 sm:px-10 lg:px-[99px] lg:pt-[97px]">
+    <section
+      ref={root}
+      className="relative overflow-hidden bg-black px-6 pt-16 pb-0 sm:px-10 lg:px-[99px] lg:pt-[97px]"
+    >
       <div className="mx-auto flex max-w-[1261px] flex-col gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-14">
-        <h2 className="font-sora text-4xl tracking-[-2px] text-[#858382] lg:text-[52px]">
+        <h2 className="gsap-fade automate-fade font-sora text-4xl tracking-[-2px] text-[#858382] lg:text-[52px]">
           What We <span className="text-[#ff884c]">Automate</span>
         </h2>
       </div>
 
       <div className="mx-auto mt-12 grid max-w-[1261px] grid-cols-1 gap-6 sm:grid-cols-2 lg:mt-[57px] lg:grid-cols-4 lg:gap-[32px]">
         {/* Data synchronization */}
-        <div className="relative flex h-[380px] flex-col overflow-hidden rounded-[12px] border border-white/16 bg-black px-4 pt-5 lg:h-[473px]">
+        <div className="gsap-fade automate-fade relative flex h-[380px] flex-col overflow-hidden rounded-[12px] border border-white/16 bg-black px-4 pt-5 lg:h-[473px]">
           <Image
             src="/services/workflow-automation/card-data-sync-bg.png"
             alt=""
@@ -47,7 +63,7 @@ export default function WhatWeAutomate() {
         </div>
 
         {/* Approval workflows */}
-        <div className="relative flex h-[380px] flex-col overflow-hidden rounded-[12px] border border-white/16 bg-black px-4 pt-5 lg:h-[473px]">
+        <div className="gsap-fade automate-fade relative flex h-[380px] flex-col overflow-hidden rounded-[12px] border border-white/16 bg-black px-4 pt-5 lg:h-[473px]">
           <Image
             src="/services/workflow-automation/card-approval-bg.png"
             alt=""
@@ -83,7 +99,7 @@ export default function WhatWeAutomate() {
         </div>
 
         {/* Report generation and distribution */}
-        <div className="relative flex h-[380px] flex-col overflow-hidden rounded-[12px] border border-white/16 bg-black px-4 pt-5 lg:h-[473px]">
+        <div className="gsap-fade automate-fade relative flex h-[380px] flex-col overflow-hidden rounded-[12px] border border-white/16 bg-black px-4 pt-5 lg:h-[473px]">
           <Image
             src="/services/workflow-automation/card-report-bg.png"
             alt=""
@@ -103,7 +119,7 @@ export default function WhatWeAutomate() {
         </div>
 
         {/* Trigger-based actions */}
-        <div className="relative flex h-[380px] flex-col overflow-hidden rounded-[12px] border border-white/16 bg-black px-4 pt-5 lg:h-[473px]">
+        <div className="gsap-fade automate-fade relative flex h-[380px] flex-col overflow-hidden rounded-[12px] border border-white/16 bg-black px-4 pt-5 lg:h-[473px]">
           <Image
             src="/services/workflow-automation/card-trigger-bg.png"
             alt=""

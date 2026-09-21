@@ -1,3 +1,8 @@
+"use client";
+
+import { useRef } from "react";
+import { cardsSlideReveal, gsap, useGSAP } from "@/lib/gsap";
+
 const PHASES = [
   {
     number: "01",
@@ -30,23 +35,40 @@ const PHASES = [
 ];
 
 export default function HowWeDeliver() {
+  const root = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.to(".deliver-fade", {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.1,
+        scrollTrigger: { trigger: root.current, start: "top 80%" },
+      });
+      cardsSlideReveal(".deliver-card", { trigger: root.current });
+    },
+    { scope: root },
+  );
+
   return (
-    <section className="bg-black px-6 pb-20 sm:px-10 lg:px-[99px] lg:pb-[101px]">
+    <section ref={root} className="bg-black px-6 pb-20 sm:px-10 lg:px-[99px] lg:pb-[101px]">
       <div className="mx-auto flex max-w-[1261px] flex-col gap-8 pt-12 lg:flex-row lg:items-end lg:justify-between lg:gap-14 lg:pt-[97px]">
-        <h2 className="font-sora text-4xl tracking-[-2px] text-[#858382] lg:text-[52px]">
+        <h2 className="gsap-fade deliver-fade translate-y-8 font-sora text-4xl tracking-[-2px] text-[#858382] lg:text-[52px]">
           How <span className="text-[#ff884c]">We Deliver</span>
         </h2>
-        <p className="max-w-[340px] text-[15px] leading-[25.5px] text-white/40">
+        <p className="gsap-fade deliver-fade translate-y-6 max-w-[340px] text-[15px] leading-[25.5px] text-white/40">
           Four structured phases that move from understanding to a
           decision-ready roadmap in four weeks.
         </p>
       </div>
 
-      <div className="mx-auto mt-12 grid max-w-[1261px] grid-cols-1 gap-6 sm:grid-cols-2 lg:mt-[80px] lg:grid-cols-4 lg:gap-[45px]">
+      <div className="deliver-grid mx-auto mt-12 grid max-w-[1261px] grid-cols-1 gap-6 sm:grid-cols-2 lg:mt-[80px] lg:grid-cols-4 lg:gap-[45px]">
         {PHASES.map((phase) => (
           <div
             key={phase.number}
-            className="relative flex h-[319px] flex-col overflow-hidden rounded-[12px] border-[0.8px] border-white/6 bg-[#111] px-6 py-8"
+            className="gsap-fade deliver-card relative flex h-[319px] flex-col overflow-hidden rounded-[12px] border-[0.8px] border-white/6 bg-[#111] px-6 py-8"
           >
             <div
               className="absolute inset-x-0 top-0 h-[2px]"
