@@ -2,6 +2,7 @@ import Blogs from "@/components/Blogs";
 import CallToAction from "@/components/CallToAction";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
+import Loader from "@/components/Loader";
 import Navbar from "@/components/Navbar";
 import ProblemStatement from "@/components/ProblemStatement";
 import Solutions from "@/components/Solutions";
@@ -10,6 +11,7 @@ import WhyChooseUs from "@/components/WhyChooseUs";
 export default function Home() {
   return (
     <>
+      <Loader />
       <Navbar />
       <main className="relative z-0 flex-1 bg-black">
         <Hero />
@@ -19,7 +21,7 @@ export default function Home() {
         <Blogs />
         <CallToAction />
       </main>
-      <Footer fullPageReveal />
+      <Footer />
     </>
   );
 }

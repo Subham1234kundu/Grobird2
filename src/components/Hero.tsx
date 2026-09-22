@@ -16,18 +16,30 @@ export default function Hero() {
       });
       gsap.set(".hero-sub", { opacity: 1 });
 
+      // The illustration arrives first, then the copy follows it in.
       const tl = gsap.timeline({
+        paused: true,
         defaults: { ease: "power3.out", duration: 0.9 },
       });
 
-      tl.to(".hero-heading", { opacity: 1, y: 0 })
+      tl.to(".hero-illustration", { opacity: 1, scale: 1, duration: 1.1 })
+        .to(".hero-heading", { opacity: 1, y: 0 }, "-=0.55")
         .from(
           split.words,
           { yPercent: 115, opacity: 0, duration: 0.6, stagger: 0.025 },
           "-=0.6",
         )
-        .to(".hero-cta", { opacity: 1, y: 0 }, "-=0.5")
-        .to(".hero-illustration", { opacity: 1, scale: 1 }, "-=0.7");
+        .to(".hero-cta", { opacity: 1, y: 0 }, "-=0.5");
+
+      // The loader only runs on a fresh landing-page visit; if it has
+      // already finished (or was never mounted) play straight away.
+      if (window.__grobirdLoaded) {
+        tl.play();
+      } else {
+        window.addEventListener("grobird:loaded", () => tl.play(), {
+          once: true,
+        });
+      }
     },
     { scope: root },
   );
