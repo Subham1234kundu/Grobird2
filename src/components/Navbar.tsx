@@ -91,8 +91,140 @@ const NAV_LINKS = [
   { label: "Blogs", href: "/blogs", menu: null },
 ] as const;
 
+function MobileDrawer({ onClose }: { onClose: () => void }) {
+  const [expanded, setExpanded] = useState<string | null>(null);
+
+  // Nothing behind the drawer should scroll while it is open.
+  useEffect(() => {
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, []);
+
+  return (
+    <div
+      className="fixed inset-0 z-[60] flex flex-col bg-[#141414] lg:hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Menu"
+    >
+      <div className="flex items-center justify-between border-b-[0.8px] border-white/8 px-5 py-4">
+        <Link href="/" onClick={onClose} className="block h-6 w-[92px]">
+          <Image
+            src="/landing/footer-logo.svg"
+            alt="GroBird"
+            width={92}
+            height={24}
+            className="h-full w-full"
+          />
+        </Link>
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close menu"
+          className="flex size-9 items-center justify-center"
+        >
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+            <path
+              d="M1 1L17 17M17 1L1 17"
+              stroke="white"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <nav className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+        {NAV_LINKS.map((link) =>
+          link.menu ? (
+            <div key={link.label} className="border-b-[0.8px] border-white/7">
+              <button
+                type="button"
+                onClick={() =>
+                  setExpanded((current) =>
+                    current === link.label ? null : link.label,
+                  )
+                }
+                aria-expanded={expanded === link.label}
+                className="flex w-full items-center justify-between p-5 font-sora text-[17px] leading-[25.5px] tracking-[-0.3px] text-white/55"
+              >
+                {link.label}
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  aria-hidden
+                  className={`transition-transform ${expanded === link.label ? "rotate-180" : ""}`}
+                >
+                  <path
+                    d="M3 6L8 11L13 6"
+                    stroke="white"
+                    strokeOpacity="0.7"
+                    strokeWidth="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              {expanded === link.label && (
+                <ul className="flex flex-col gap-1 px-5 pb-4">
+                  {link.menu.map((item) => (
+                    <li key={item.label}>
+                      <Link
+                        href={item.href}
+                        onClick={onClose}
+                        className="flex items-center gap-3 py-2 text-[15px] text-white/80"
+                      >
+                        <Image
+                          src={item.icon}
+                          alt=""
+                          width={18}
+                          height={18}
+                          className="size-[18px] invert"
+                        />
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ) : (
+            <Link
+              key={link.label}
+              href={link.href}
+              onClick={onClose}
+              className="border-b-[0.8px] border-white/7 p-5 font-sora text-[17px] leading-[25.5px] tracking-[-0.3px] text-white/55"
+            >
+              {link.label}
+            </Link>
+          ),
+        )}
+      </nav>
+
+      <div className="flex flex-col gap-3 border-t-[0.8px] border-white/8 px-5 py-6">
+        <Link
+          href="/contact"
+          onClick={onClose}
+          className="flex w-full items-center justify-center bg-[#ff884c] py-4 font-sora text-sm leading-[21px] tracking-[0.3px] text-black"
+        >
+          Book a Discovery Call
+        </Link>
+        <p className="text-center font-sora text-[11px] leading-[16.5px] text-[#f36f07]">
+          Growing Beyond Limits.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export default function Navbar() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -118,7 +250,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#ede9de] bg-[#fafafa]">
-      <div className="mx-auto flex h-[71px] max-w-[1357px] items-center justify-between px-6 sm:px-10">
+      <div className="mx-auto flex h-[71px] max-w-[1357px] items-center justify-between px-4 sm:px-10">
         <Link href="/" className="block h-[30px] w-[114px] shrink-0">
           <Image
             src="/landing/nav-logo.svg"
@@ -209,13 +341,28 @@ export default function Navbar() {
           )}
         </nav>
 
-        <Link
-          href="/contact"
-          className="flex h-10 shrink-0 items-center justify-center bg-black px-[18px] text-[12.7px] font-medium tracking-[0.5px] text-white capitalize transition-opacity hover:opacity-85"
-        >
-          Contact us
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link
+            href="/contact"
+            className="flex h-10 shrink-0 items-center justify-center bg-black px-5 text-[12.7px] font-medium tracking-[0.5px] text-white capitalize transition-opacity hover:opacity-85 lg:px-[18px]"
+          >
+            Contact us
+          </Link>
+          <button
+            type="button"
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={mobileOpen}
+            className="flex flex-col gap-[5px] p-1 lg:hidden"
+          >
+            <span className="block h-[2px] w-5 bg-black" />
+            <span className="block h-[2px] w-5 bg-black" />
+            <span className="block h-[2px] w-5 bg-black" />
+          </button>
+        </div>
       </div>
+
+      {mobileOpen && <MobileDrawer onClose={() => setMobileOpen(false)} />}
     </header>
   );
 }

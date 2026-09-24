@@ -63,14 +63,17 @@ const ROWS = [
   },
 ];
 
+// Below lg the two grid cells collapse (`contents`) so the row stacks as
+// number → heading/description → outcome, matching the Figma mobile frame;
+// the `order-*` utilities only matter in that stacked mode.
 function NumberBlock({ number, tag, tagMuted }: { number: string; tag: string; tagMuted?: boolean }) {
   return (
-    <div className="flex w-full items-start justify-between">
-      <p className="step-number font-sora text-7xl font-bold tracking-[-4px] text-white lg:text-[100px]">
+    <div className="order-1 flex w-full items-start justify-between lg:order-none">
+      <p className="step-number font-sora text-[56px] leading-none font-bold tracking-[-3px] text-white sm:text-7xl sm:tracking-[-4px] lg:text-[100px]">
         {number}
       </p>
       <p
-        className={`step-cell pt-4 font-mono text-[10px] tracking-[2px] uppercase ${
+        className={`step-cell pt-2 font-mono text-[10px] tracking-[2px] uppercase sm:pt-4 ${
           tagMuted ? "text-white" : "text-[#ff884c]"
         }`}
       >
@@ -82,11 +85,11 @@ function NumberBlock({ number, tag, tagMuted }: { number: string; tag: string; t
 
 function OutcomeBlock({ outcome }: { outcome: string }) {
   return (
-    <div className="step-cell mt-8 flex w-full flex-col gap-2 px-6 py-4">
+    <div className="step-cell order-3 flex w-fit flex-col gap-1 border-[0.8px] border-white/10 px-4 py-3 lg:order-none lg:mt-8 lg:w-full lg:gap-2 lg:border-0 lg:px-6 lg:py-4">
       <p className="font-mono text-[10px] tracking-[2px] text-[#ff884c] uppercase">
         Outcome
       </p>
-      <p className="text-sm font-medium text-white">{outcome}</p>
+      <p className="text-sm font-medium text-white max-sm:text-[13px] max-sm:leading-[19.5px]">{outcome}</p>
     </div>
   );
 }
@@ -99,11 +102,11 @@ function ContentBlock({
   description: string;
 }) {
   return (
-    <div className="flex flex-col">
-      <p className="step-cell pb-5 font-sora text-2xl font-semibold tracking-[-0.5px] lg:max-w-[430px] lg:text-[28px]">
+    <div className="order-2 flex flex-col lg:order-none">
+      <p className="step-cell pb-5 font-sora text-2xl font-semibold tracking-[-0.5px] max-sm:pt-4 max-sm:pb-3 max-sm:text-xl max-sm:leading-[26px] lg:max-w-[430px] lg:text-[28px]">
         {heading}
       </p>
-      <p className="step-cell max-w-[430px] text-base leading-7 text-white/55">
+      <p className="step-cell max-w-[430px] text-base leading-7 text-white/55 max-sm:pb-4 max-sm:text-[13px] max-sm:leading-[22px] lg:max-w-[430px]">
         {description}
       </p>
     </div>
@@ -129,8 +132,8 @@ export default function WhatWeBuild() {
   );
 
   return (
-    <section ref={root} className="relative overflow-hidden border-b-[0.8px] border-black/8 bg-black px-6 py-16 sm:px-10 lg:px-[80px] lg:py-[97px]">
-      <div className="pointer-events-none absolute top-1/2 left-1/2 size-[736px] -translate-x-1/2 -translate-y-1/2 blur-[134px]">
+    <section ref={root} className="relative overflow-hidden border-b-[0.8px] border-black/8 bg-black px-5 pt-10 pb-6 sm:px-10 sm:py-16 lg:px-[80px] lg:py-[97px]">
+      <div className="pointer-events-none absolute top-[474px] left-0 size-[430px] opacity-80 blur-[134px] sm:left-1/2 sm:-translate-x-1/2 lg:top-1/2 lg:size-[736px] lg:-translate-y-1/2 lg:opacity-100">
         <Image
           src="/industries/healthcare/zigzag-glow.png"
           alt=""
@@ -141,21 +144,21 @@ export default function WhatWeBuild() {
       </div>
 
       <div className="relative mx-auto max-w-[1280px]">
-        <h2 className="gsap-fade build-fade translate-y-8 font-sora text-4xl tracking-[-2px] text-white/25 lg:text-[47.8px]">
+        <h2 className="gsap-fade build-fade translate-y-8 font-sora text-4xl tracking-[-2px] text-white/25 max-sm:text-2xl max-sm:leading-9 max-sm:tracking-[-1px] lg:text-[47.8px]">
           How <span className="text-white">GroBird Helps</span>
         </h2>
 
-        <div className="mt-16 flex flex-col border-t-[0.8px] border-white/20">
+        <div className="mt-8 flex flex-col sm:mt-16 lg:border-t-[0.8px] lg:border-white/20">
           {ROWS.map((row) => (
             <div
               key={row.number}
-              className="gsap-fade build-row grid grid-cols-1 border-b-[0.8px] border-white/20 lg:grid-cols-2"
+              className="gsap-fade build-row flex flex-col border-t-[0.8px] border-white/20 py-6 lg:grid lg:grid-cols-2 lg:border-t-0 lg:border-b-[0.8px] lg:py-0"
             >
               <div
-                className={`flex flex-col p-8 lg:p-14 ${
+                className={`contents lg:flex lg:flex-col lg:p-14 ${
                   row.numberSide === "left"
                     ? "lg:border-r-[0.8px] lg:border-white/20"
-                    : "justify-center lg:border-r-[0.8px] lg:border-white/20"
+                    : "lg:justify-center lg:border-r-[0.8px] lg:border-white/20"
                 }`}
               >
                 {row.numberSide === "left" ? (
@@ -171,7 +174,7 @@ export default function WhatWeBuild() {
                   <ContentBlock heading={row.heading} description={row.description} />
                 )}
               </div>
-              <div className="flex flex-col justify-center p-8 lg:p-14">
+              <div className="contents lg:flex lg:flex-col lg:justify-center lg:p-14">
                 {row.numberSide === "right" ? (
                   <>
                     <NumberBlock number={row.number} tag={row.tag} />

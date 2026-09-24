@@ -46,27 +46,40 @@ export default function Hero() {
 
   return (
     <section ref={root} className="relative overflow-hidden bg-black">
-      <div className="mx-auto grid max-w-[1440px] grid-cols-1 lg:grid-cols-2 lg:min-h-[850px]">
-        <div className="flex flex-col justify-center gap-8 px-6 py-24 sm:px-10 lg:justify-start lg:px-[50px] lg:pt-[173px] lg:pb-0">
-          <div className="flex w-full flex-col gap-8 lg:max-w-[625px]">
-            <h1 className="gsap-fade hero-heading translate-y-8 font-sora text-4xl font-semibold tracking-tight sm:text-5xl lg:text-[56.6px] lg:leading-[68px] lg:tracking-[-2px]">
+      <div className="mx-auto flex max-w-[1440px] flex-col lg:grid lg:min-h-[850px] lg:grid-cols-2">
+        {/* Phones and tablets show the funnel above the copy, 562px tall
+            and nudged 20px right as in Figma; desktop keeps it beside. */}
+        <div className="relative order-1 h-[562px] overflow-hidden sm:h-[680px] lg:order-2 lg:h-auto">
+          <div className="hero-illustration absolute inset-0 scale-95 opacity-0">
+            <div className="mx-auto h-[557px] w-[471px] translate-x-[20px] sm:h-[675px] sm:w-[572px] lg:h-full lg:w-full lg:translate-x-0">
+              <HeroPortal />
+            </div>
+          </div>
+        </div>
+
+        <div className="order-2 flex flex-col gap-6 px-5 pt-10 pb-8 sm:px-10 sm:pt-14 sm:pb-16 lg:order-1 lg:justify-start lg:gap-8 lg:px-[50px] lg:pt-[173px] lg:pb-0">
+          <div className="flex w-full flex-col gap-6 lg:max-w-[625px] lg:gap-8">
+            <h1 className="gsap-fade hero-heading translate-y-8 font-sora text-[32px] leading-[33.6px] tracking-[-1px] sm:text-[44px] sm:leading-[1.1] lg:text-[56.6px] lg:leading-[68px] lg:font-semibold lg:tracking-[-2px]">
               <span className="text-[#827e7e]">
                 Operational Bottlenecks Don&apos;t Get{" "}
               </span>
               <span className="text-[#ff884c]">Better on Their Own</span>
             </h1>
 
-            <p className="gsap-fade hero-sub text-[15.1px] leading-6 text-white/90">
+            <p className="gsap-fade hero-sub text-[13px] leading-[22px] text-white lg:text-[15.1px] lg:leading-6 lg:text-white/90">
               Most growing B2B companies reach a point where their people and
               their processes no longer align. Spreadsheets replace systems.
-              Manual work crowds out strategy. Teams spend more time managing
-              data than running operations. The cost is real: lost time,
-              increased errors, shrinking margins, delayed growth.
+              Manual work crowds out strategy.{" "}
+              <span className="hidden lg:inline">
+                Teams spend more time managing data than running operations.{" "}
+              </span>
+              The cost is real: lost time, increased errors, shrinking
+              margins, delayed growth.
             </p>
 
             <a
               href="/contact"
-              className="gsap-fade hero-cta flex w-fit translate-y-6 items-center gap-[10px] bg-white px-[34px] py-[17px] text-[15.6px] font-medium tracking-[0.5px] text-black capitalize transition-transform hover:scale-105"
+              className="gsap-fade hero-cta flex w-fit translate-y-6 items-center gap-2 bg-white px-6 py-3 text-[13px] leading-[19.5px] font-medium tracking-[0.5px] text-black capitalize transition-transform hover:scale-105 lg:gap-[10px] lg:px-[34px] lg:py-[17px] lg:text-[15.6px] lg:leading-6"
             >
               Book A Demo
               <Image
@@ -75,14 +88,9 @@ export default function Hero() {
                 width={16}
                 height={15}
                 aria-hidden
+                className="w-[13px] lg:w-4"
               />
             </a>
-          </div>
-        </div>
-
-        <div className="relative hidden lg:block">
-          <div className="hero-illustration absolute inset-0 scale-95 opacity-0">
-            <HeroPortal />
           </div>
         </div>
       </div>

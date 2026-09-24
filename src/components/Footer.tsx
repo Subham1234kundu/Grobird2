@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 
 const FOOTER_COLUMNS = [
   {
@@ -35,8 +38,44 @@ const SOCIAL_LINKS = [
 ];
 
 export default function Footer() {
+  const root = useRef<HTMLElement>(null);
+
+  // Reveal: the page content sticks once its bottom meets the viewport
+  // bottom, and the footer, which has no fill of its own, slides up over
+  // it while its backdrop blur turns whatever is beneath into frosted
+  // glass. Plain CSS sticky (as on grounded2026.com) rather than a GSAP
+  // pin, because the browser only blurs sticky content, not pinned/fixed.
+  useEffect(() => {
+    const footer = root.current;
+    const main = footer?.previousElementSibling;
+    if (!footer || !(main instanceof HTMLElement)) return;
+
+    const place = () => {
+      main.style.position = "sticky";
+      main.style.top = `${Math.min(0, window.innerHeight - main.offsetHeight)}px`;
+      main.style.zIndex = "0";
+    };
+    place();
+    // The black fill is only a fallback for when scripts don't run.
+    footer.style.backgroundColor = "transparent";
+
+    const ro = new ResizeObserver(place);
+    ro.observe(main);
+    window.addEventListener("resize", place);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", place);
+      main.style.position = "";
+      main.style.top = "";
+      main.style.zIndex = "";
+    };
+  }, []);
+
   return (
-    <footer className="relative overflow-hidden bg-black">
+    <footer
+      ref={root}
+      className="relative z-10 overflow-hidden bg-black backdrop-blur-[10px]"
+    >
       <div className="relative z-10 mx-auto grid max-w-[1440px] grid-cols-1 gap-10 border-b border-[rgba(67,67,67,0.54)] px-6 py-12 sm:px-10 lg:grid-cols-[360px_1fr_360px] lg:gap-0 lg:px-0 lg:py-0">
         <div className="flex flex-col justify-center gap-5 lg:border-r lg:border-[rgba(67,67,67,0.54)] lg:px-10 lg:py-12">
           <Image
@@ -61,16 +100,12 @@ export default function Footer() {
                     <li key={link}>{link}</li>
                   ) : (
                     <li key={link.label}>
-                      {link.href ? (
-                        <Link
-                          href={link.href}
-                          className="transition-colors hover:text-white/70"
-                        >
-                          {link.label}
-                        </Link>
-                      ) : (
-                        link.label
-                      )}
+                      <Link
+                        href={link.href}
+                        className="transition-colors hover:text-white/70"
+                      >
+                        {link.label}
+                      </Link>
                     </li>
                   ),
                 )}
@@ -107,13 +142,17 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="relative w-full" style={{ aspectRatio: "1440 / 372" }}>
+      {/* Wordmark only, no glow; the footer stays see-through beneath it. */}
+      <div
+        className="pointer-events-none relative w-full"
+        style={{ aspectRatio: "1440 / 372" }}
+        aria-hidden
+      >
         <Image
-          src="/landing/footer-wordmark-glow.png"
-          alt="Grobird"
+          src="/landing/footer-wordmark-bg.svg"
+          alt=""
           fill
           className="object-cover"
-          aria-hidden
         />
       </div>
     </footer>

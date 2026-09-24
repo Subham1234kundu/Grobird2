@@ -45,28 +45,28 @@ export default function ChallengesList() {
   );
 
   return (
-    <section ref={root} className="border-b-[0.8px] border-black/8 bg-black px-6 py-16 sm:px-10 lg:px-14 lg:py-24">
-      <div className="mx-auto flex max-w-[1204px] flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-        <h2 className="gsap-fade challenges-fade translate-y-8 font-sora text-4xl tracking-[-2px] whitespace-nowrap text-white/20 lg:text-[47.8px]">
-          <span className="block">Operations challenges</span>
-          <span className="block text-white">in Manufacturing</span>
+    <section ref={root} className="border-b-[0.8px] border-black/8 bg-black px-5 py-10 sm:px-10 sm:py-16 lg:px-14 lg:py-24">
+      <div className="mx-auto flex max-w-[1204px] flex-col gap-3 lg:flex-row lg:items-end lg:justify-between lg:gap-6">
+        <h2 className="gsap-fade challenges-fade translate-y-8 font-sora text-2xl tracking-[-1px] whitespace-nowrap text-white/20 sm:text-4xl sm:leading-10 sm:tracking-[-2px] lg:text-[47.8px]">
+          <span className="block leading-[26.4px] sm:leading-10">Operations challenges</span>
+          <span className="mt-1 block leading-9 text-white sm:mt-0 sm:leading-10">in Manufacturing</span>
         </h2>
-        <p className="gsap-fade challenges-fade translate-y-6 max-w-[300px] text-sm leading-6 text-white">
+        <p className="gsap-fade challenges-fade translate-y-6 text-[13px] leading-[22px] text-[#4b4949] sm:text-sm sm:leading-6 lg:max-w-[300px] lg:text-white">
           Every deliverable maps directly to a recommendation in your
           analysis — no scope drift.
         </p>
       </div>
 
-      <div className="mx-auto mt-16 flex max-w-[1204px] flex-col border-t-[0.8px] border-[rgba(75,73,73,0.35)]">
+      <div className="mx-auto mt-8 flex max-w-[1204px] flex-col gap-9 lg:mt-16 lg:gap-0 lg:border-t-[0.8px] lg:border-[rgba(75,73,73,0.35)]">
         {CHALLENGES.map((item) => (
           <div
             key={item.title}
-            className="gsap-fade challenge-row flex flex-col gap-2 border-b-[0.8px] border-[rgba(75,73,73,0.35)] py-7 lg:flex-row lg:items-center lg:justify-between lg:gap-10"
+            className="gsap-fade challenge-row flex flex-col gap-2 border-t-[0.8px] border-[rgba(75,73,73,0.35)] py-5 last:border-b-[0.8px] lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:border-t-0 lg:border-b-[0.8px] lg:py-7"
           >
-            <p className="font-sora text-xl font-semibold text-white lg:text-[22px]">
+            <p className="font-sora text-[15px] leading-[19.5px] font-semibold text-white sm:text-xl sm:leading-7 lg:text-[22px]">
               {item.title}
             </p>
-            <p className="max-w-[430px] text-base leading-7 text-white/55">
+            <p className="text-[13px] leading-[22px] text-white/55 sm:text-base sm:leading-7 lg:max-w-[430px]">
               {item.description}
             </p>
           </div>

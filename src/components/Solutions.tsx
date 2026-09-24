@@ -68,29 +68,32 @@ export default function Solutions() {
   );
 
   return (
-    <section ref={root} className="bg-black px-6 py-24 sm:px-10">
+    <section ref={root} className="bg-black px-5 pt-10 pb-8 sm:px-10 sm:py-16 lg:py-24">
       <div className="mx-auto max-w-[1291px]">
         <div className="gsap-fade solutions-heading mx-auto max-w-[772px] translate-y-8 text-center">
-          <h2 className="font-sora text-3xl tracking-tight text-[#858382] sm:text-5xl lg:text-[57px] lg:tracking-[-2.5px]">
+          <h2 className="font-sora text-[26px] leading-[39px] tracking-[-1px] text-[#858382] sm:text-5xl sm:leading-tight lg:text-[57px] lg:tracking-[-2.5px]">
             What We <span className="text-[#ff884c]">Do</span>
           </h2>
-          <p className="gsap-fade solutions-desc mt-4 text-base leading-[24px] text-white">
-            Operating at scale requires systems. But most platforms are built
-            for generic companies, not yours. They&apos;re bloated, hard to
-            use, or disconnected from the tools your team already uses. We
-            specialize in three types of technology delivery:
+          <p className="gsap-fade solutions-desc mt-3 text-[13px] leading-5 text-white lg:mt-4 lg:text-base lg:leading-6">
+            <span className="hidden lg:inline">
+              Operating at scale requires systems. But most platforms are
+              built for generic companies, not yours. They&apos;re bloated,
+              hard to use, or disconnected from the tools your team already
+              uses.{" "}
+            </span>
+            We specialize in three types of technology delivery:
           </p>
         </div>
 
-        <div className="solutions-grid mt-16 grid grid-cols-1 gap-[26px] md:grid-cols-3 lg:mt-[76px]">
+        <div className="solutions-grid mt-6 grid grid-cols-1 gap-4 sm:mt-10 sm:grid-cols-3 sm:gap-5 lg:mt-[76px] lg:gap-[26px]">
           {SOLUTIONS.map((item) => (
             <div
               key={item.title}
-              className="gsap-fade solution-card group relative aspect-[413/562] translate-y-10 [perspective:1500px]"
+              className="gsap-fade solution-card group relative aspect-[390/374] translate-y-10 [perspective:1500px] sm:aspect-[413/562]"
             >
-              <div className="relative size-full rounded-3xl transition-transform duration-700 ease-out [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+              <div className="relative size-full rounded-2xl transition-transform duration-700 ease-out [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] lg:rounded-3xl">
                 <div
-                  className={`absolute inset-0 overflow-hidden rounded-3xl [backface-visibility:hidden] ${item.frontBg}`}
+                  className={`absolute inset-0 overflow-hidden rounded-2xl [backface-visibility:hidden] lg:rounded-3xl ${item.frontBg}`}
                 >
                   <Image
                     src={item.image}
@@ -98,23 +101,23 @@ export default function Solutions() {
                     fill
                     className="object-cover"
                   />
-                  <h3 className="absolute inset-x-0 bottom-0 p-6 font-sora text-[26px] leading-[1.15] font-semibold text-white">
+                  <h3 className="absolute inset-x-0 bottom-0 p-4 font-sora text-lg leading-6 font-semibold text-white lg:p-6 lg:text-[26px] lg:leading-[1.15]">
                     {item.title}
                   </h3>
                 </div>
 
                 <div
-                  className={`absolute inset-0 overflow-hidden rounded-3xl bg-cover bg-center [backface-visibility:hidden] [transform:rotateY(180deg)] ${item.backBg}`}
+                  className={`absolute inset-0 overflow-hidden rounded-2xl bg-cover bg-center [backface-visibility:hidden] [transform:rotateY(180deg)] lg:rounded-3xl ${item.backBg}`}
                   style={{
                     backgroundImage: `url('${item.flipImage}')`,
                   }}
                 >
                   <div className="absolute inset-0 bg-black/55" aria-hidden />
-                  <div className="relative flex h-full flex-col justify-between p-6">
-                    <h3 className="font-sora text-[22px] leading-[28.6px] font-semibold text-white">
+                  <div className="relative flex h-full flex-col justify-between p-4 lg:p-6">
+                    <h3 className="font-sora text-lg leading-6 font-semibold text-white lg:text-[22px] lg:leading-[28.6px]">
                       {item.title}
                     </h3>
-                    <p className="text-[20px] leading-normal text-white">
+                    <p className="text-[15px] leading-normal text-white sm:text-base lg:text-[20px]">
                       {item.description}
                     </p>
                   </div>

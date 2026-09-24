@@ -12,7 +12,7 @@ export default function PartnersPage() {
   return (
     <>
       <Navbar />
-      <main className="flex-1">
+      <main className="flex-1 bg-black">
         <Hero />
         <IndustriesTicker />
         <WhyPartner />

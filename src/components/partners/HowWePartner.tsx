@@ -8,48 +8,36 @@ const ROWS = [
   {
     imageSide: "left" as const,
     image: "/partners/partner-row-1.png",
-    heading: (
-      <>
-        <span className="text-[#333]">You recommend</span>
-        <span className="text-white">, we estimate</span>
-      </>
-    ),
+    mobileImage: "/partners/partner-row-1-mobile.png",
+    lead: "You recommend",
+    rest: ", we estimate",
     description:
       "Share your recommendations and analysis. We provide a technical estimate and timeline.",
   },
   {
     imageSide: "right" as const,
     image: "/partners/partner-row-3.png",
-    heading: (
-      <>
-        <span className="text-[#333]">You retain the </span>
-        <span className="text-white">client relationship</span>
-      </>
-    ),
+    mobileImage: "/partners/partner-row-3.png",
+    lead: "You retain the ",
+    rest: "client relationship",
     description:
       "We are a contractor in your engagement. Your client sees you as the leader. We execute your direction.",
   },
   {
     imageSide: "left" as const,
     image: "/partners/partner-row-2.png",
-    heading: (
-      <>
-        <span className="text-[#333]">We scale with </span>
-        <span className="text-white">your throughput</span>
-      </>
-    ),
+    mobileImage: "/partners/partner-row-2.png",
+    lead: "We scale with ",
+    rest: "your throughput",
     description:
       "Whether one project a quarter or multiple simultaneous engagements, we scale to your volume.",
   },
   {
     imageSide: "right" as const,
     image: "/partners/partner-row-4.png",
-    heading: (
-      <>
-        <span className="text-[#333]">We offer </span>
-        <span className="text-white">flexible commercial models</span>
-      </>
-    ),
+    mobileImage: "/partners/partner-row-4.png",
+    lead: "We offer ",
+    rest: "flexible commercial models",
     description:
       "Project pricing. Time-and-materials. Retainers for ongoing support. We structure deals to align with your engagement model.",
   },
@@ -57,25 +45,38 @@ const ROWS = [
 
 function ImageBlock({ src }: { src: string }) {
   return (
-    <div className="partner-image relative aspect-[635/331] w-full overflow-hidden rounded-[10px]">
+    <div className="partner-image relative h-[331.41px] w-[635px] overflow-hidden rounded-[10px]">
       <Image src={src} alt="" fill className="object-cover" />
     </div>
   );
 }
 
 function TextBlock({
-  heading,
+  lead,
+  rest,
   description,
+  side,
 }: {
-  heading: React.ReactNode;
+  lead: string;
+  rest: string;
   description: string;
+  side: "left" | "right";
 }) {
+  // Copy beside a left-hand image sits on the image's baseline; copy
+  // beside a right-hand image sits on its top edge.
   return (
-    <div className="flex flex-col justify-center lg:px-[39px]">
-      <p className="partner-copy font-sora text-2xl font-semibold tracking-[-1px] lg:text-[28px] lg:leading-[40px] lg:tracking-[-2.16px]">
-        {heading}
+    <div
+      className={`flex w-[626px] flex-col ${
+        side === "right"
+          ? "justify-end pl-[30px]"
+          : "justify-start pl-5"
+      }`}
+    >
+      <p className="partner-copy font-sora text-[28px] leading-10 font-semibold tracking-[-2.16px] whitespace-nowrap">
+        <span className="text-[#333]">{lead}</span>
+        <span className="text-white">{rest}</span>
       </p>
-      <p className="partner-copy mt-4 max-w-[435px] text-lg leading-[27px] tracking-[-0.32px] text-white">
+      <p className="partner-copy mt-[9px] w-[434.7px] font-geist text-[18px] leading-[27px] tracking-[-0.32px] text-white">
         {description}
       </p>
     </div>
@@ -126,52 +127,95 @@ export default function HowWePartner() {
   );
 
   return (
-    <section ref={root} className="relative overflow-hidden bg-black px-6 pt-16 pb-24 sm:px-10 lg:px-[42px] lg:pt-[80px] lg:pb-32">
+    <section
+      ref={root}
+      className="relative mt-8 overflow-hidden border-t-[0.8px] border-[rgba(75,73,73,0.5)] bg-black px-5 py-10 sm:px-10 lg:mt-0 lg:border-t-0 lg:px-[42px] lg:pt-20 lg:pb-[110px]"
+    >
       <div className="relative z-10 mx-auto max-w-[1261px]">
-        <h2 className="gsap-fade partner-fade translate-y-8 font-sora text-4xl tracking-[-2px] text-[#858382] lg:text-[52px]">
+        <h2 className="gsap-fade partner-fade translate-y-8 font-sora text-[28px] leading-9 tracking-[-1px] text-white lg:text-[52px] lg:leading-[59.8px] lg:tracking-[-2px] lg:text-[#858382]">
           How We <span className="text-[#ff884c]">Partner</span>
         </h2>
 
-        <div className="mt-12 flex flex-col gap-16 lg:mt-12 lg:gap-[103px]">
+        {/* Mobile: numbered cards, image on top. */}
+        <div className="mt-8 flex flex-col gap-6 lg:hidden">
+          {ROWS.map((row, i) => (
+            <article
+              key={row.image}
+              className="gsap-fade partner-fade translate-y-8 overflow-hidden rounded-[4px] border-[0.8px] border-white/10"
+            >
+              <div
+                className={`relative h-[200px] w-full overflow-hidden ${
+                  i === 3 ? "rounded-[10px]" : ""
+                }`}
+              >
+                <Image
+                  src={row.mobileImage}
+                  alt=""
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="bg-black p-5">
+                <p className="font-mono text-[11px] leading-[16.5px] tracking-[2px] text-[#858382] uppercase">
+                  {String(i + 1).padStart(2, "0")}
+                </p>
+                <h3 className="pt-2 font-sora text-lg leading-[26px] font-semibold tracking-[-0.8px] text-[#555]">
+                  {row.lead}
+                  <span className="text-white">{row.rest}</span>
+                </h3>
+                <p className="pt-2 font-geist text-[13px] leading-5 text-white/80">
+                  {row.description}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* Desktop zig-zag: 635px artwork, 102.6px between rows. */}
+        <div className="mt-12 hidden flex-col gap-[102.6px] lg:flex">
           {ROWS.map((row, i) => (
             <div
               key={i}
               data-image-side={row.imageSide}
-              className="partner-row grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-0"
+              className="partner-row relative flex items-stretch"
             >
               {row.imageSide === "left" ? (
                 <>
                   <ImageBlock src={row.image} />
                   <TextBlock
-                    heading={row.heading}
+                    lead={row.lead}
+                    rest={row.rest}
                     description={row.description}
+                    side="right"
                   />
                 </>
               ) : (
                 <>
                   <TextBlock
-                    heading={row.heading}
+                    lead={row.lead}
+                    rest={row.rest}
                     description={row.description}
+                    side="left"
                   />
                   <ImageBlock src={row.image} />
                 </>
               )}
+
+              {/* The sunburst hangs off the last row, 20px below its top
+                  edge; the section clips it where the next section begins. */}
+              {i === ROWS.length - 1 && (
+                <Image
+                  src="/partners/sunburst.png"
+                  alt=""
+                  width={1308}
+                  height={1342}
+                  className="pointer-events-none absolute top-5 left-[12.5px] -z-10 h-[1342px] w-[1308px] max-w-none"
+                  aria-hidden
+                />
+              )}
             </div>
           ))}
         </div>
-      </div>
-
-      {/* The sunburst sits behind the closing row, its rays fanning up from
-          the foot of the section. */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 flex justify-center overflow-hidden">
-        <Image
-          src="/partners/sunburst.png"
-          alt=""
-          width={1308}
-          height={1342}
-          className="h-auto w-[1308px] max-w-none translate-y-[62%] rotate-180 opacity-[0.07] mix-blend-screen"
-          aria-hidden
-        />
       </div>
     </section>
   );

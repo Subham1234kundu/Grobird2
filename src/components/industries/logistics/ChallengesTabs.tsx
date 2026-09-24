@@ -18,6 +18,31 @@ const TABS = [
   { number: "04", label: "Exception Handling" },
 ] as const;
 
+// Below lg the Figma frame swaps the tab explorer for a flat list of all
+// four challenges, each with its own description.
+const CHALLENGES = [
+  {
+    heading: "Manual order fulfillment creates bottlenecks",
+    description:
+      "Orders pile up faster than your team can process. Picking errors increase. Time to ship extends.",
+  },
+  {
+    heading: "Fragmented carrier management",
+    description:
+      "Different carrier APIs, different formats, manual routing decisions.",
+  },
+  {
+    heading: "Visibility gaps across network",
+    description:
+      "You don't see inventory position or shipment status in real-time. Customer inquiry response is slow.",
+  },
+  {
+    heading: "Exception handling consumes time",
+    description:
+      "Damaged goods. Lost shipments. Delivery failures. Manual investigation and resolution.",
+  },
+];
+
 export default function ChallengesTabs() {
   const root = useRef<HTMLElement>(null);
   const [activeTab, setActiveTab] = useState(0);
@@ -56,15 +81,41 @@ export default function ChallengesTabs() {
   return (
     <section
       ref={root}
-      className="border-b-[0.8px] border-black/8 bg-black px-6 py-16 sm:px-10 lg:px-[136px] lg:py-[64px]"
+      className="border-b-[0.8px] border-black/8 bg-black px-5 py-10 sm:px-10 sm:py-16 lg:px-[136px] lg:py-[64px]"
     >
       <div className="mx-auto max-w-[1168px]">
-        <h2 className="gsap-fade challenges-fade translate-y-8 font-sora text-4xl tracking-[-2px] text-white/25 lg:text-[47.8px]">
-          <span className="block">Operations challenges</span>
-          <span className="block text-white">in Logistics.</span>
+        <h2 className="gsap-fade challenges-fade translate-y-8 font-sora text-2xl tracking-[-1px] text-white/25 sm:text-4xl sm:tracking-[-2px] lg:text-[47.8px]">
+          <span className="block leading-[26.4px] text-white/20 sm:leading-10 sm:text-white/25">
+            Operations challenges
+          </span>
+          <span className="mt-1 block leading-9 text-white sm:mt-0 sm:leading-10">
+            in Logistics.
+          </span>
         </h2>
+        <p className="gsap-fade challenges-fade translate-y-6 mt-3 text-[13px] leading-[22px] text-[#4b4949] sm:text-sm lg:hidden">
+          Every deliverable maps directly to a recommendation in your analysis
+          — no scope drift.
+        </p>
 
-        <div className="gsap-fade challenges-fade translate-y-6 mt-16 flex flex-wrap gap-2">
+        <ul className="gsap-fade challenges-fade translate-y-6 mt-8 flex flex-col gap-9 sm:grid sm:grid-cols-2 sm:gap-x-10 sm:gap-y-8 lg:hidden">
+          {CHALLENGES.map((item, i) => (
+            <li
+              key={item.heading}
+              className={`border-t-[0.8px] border-[rgba(75,73,73,0.35)] py-5 sm:border-b-[0.8px] ${
+                i === CHALLENGES.length - 1 ? "border-b-[0.8px]" : ""
+              }`}
+            >
+              <p className="font-sora text-[15px] leading-[19.5px] font-semibold text-white sm:text-base sm:leading-6">
+                {item.heading}
+              </p>
+              <p className="mt-2 text-[13px] leading-[22px] text-white/55 sm:text-sm sm:leading-6">
+                {item.description}
+              </p>
+            </li>
+          ))}
+        </ul>
+
+        <div className="gsap-fade challenges-fade translate-y-6 mt-16 hidden flex-wrap gap-2 lg:flex">
           {TABS.map((t, i) => (
             <button
               key={t.number}
@@ -94,7 +145,7 @@ export default function ChallengesTabs() {
           ))}
         </div>
 
-        <div className="gsap-fade challenges-fade translate-y-6 mt-16 flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
+        <div className="gsap-fade challenges-fade translate-y-6 mt-16 hidden flex-col gap-10 lg:flex lg:flex-row lg:items-start lg:justify-between">
           {"heading" in tab ? (
             <>
               <div className="flex flex-col justify-between lg:max-w-[693px]">

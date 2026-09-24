@@ -19,6 +19,9 @@
   --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
   --font-sora: var(--font-sora);
+  --font-geist: var(--font-geist);
+  --font-merriweather: var(--font-merriweather);
+  --font-cabin: var(--font-cabin);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,6 +33,12 @@
     --border: #1f2937;
     --surface: #111312;
   }
+}
+
+html {
+  /* Decorative art overhangs the edges of some sections; never let it
+     grow a horizontal scrollbar. `clip` keeps sticky/pinned layout intact. */
+  overflow-x: clip;
 }
 
 body {

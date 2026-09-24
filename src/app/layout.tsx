@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Inter, Sora } from "next/font/google";
+import { Cabin, Geist, Geist_Mono, Inter, Merriweather, Sora } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -17,6 +17,22 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const geist = Geist({
+  variable: "--font-geist",
+  subsets: ["latin"],
+});
+
+const merriweather = Merriweather({
+  variable: "--font-merriweather",
+  subsets: ["latin"],
+  weight: ["300", "400"],
+});
+
+const cabin = Cabin({
+  variable: "--font-cabin",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "GroBird",
   description: "Grow faster with GroBird.",
@@ -26,7 +42,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${sora.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${sora.variable} ${geistMono.variable} ${geist.variable} ${merriweather.variable} ${cabin.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

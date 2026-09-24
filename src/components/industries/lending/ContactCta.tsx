@@ -30,8 +30,17 @@ export default function ContactCta() {
   return (
     <section
       ref={root}
-      className="relative flex min-h-[626px] items-center overflow-hidden bg-black px-6 py-24 sm:px-10 lg:px-12 lg:py-28"
+      className="relative flex items-center overflow-hidden bg-black px-5 pt-14 pb-16 sm:px-10 sm:py-24 lg:min-h-[626px] lg:px-12 lg:py-28"
     >
+      {/* Phone / tablet: soft blurred shapes behind the copy */}
+      <Image
+        src="/industries/lending/contact-shapes.png"
+        alt=""
+        width={380}
+        height={507}
+        className="pointer-events-none absolute top-[calc(50%+52.6px)] left-[calc(50%+5px)] h-[507px] w-[380px] -translate-x-1/2 -translate-y-1/2 object-cover blur-[4.1px] lg:hidden"
+        aria-hidden
+      />
       <Image
         src="/industries/lending/contact-shapes.png"
         alt=""
@@ -41,24 +50,24 @@ export default function ContactCta() {
         aria-hidden
       />
 
-      <div className="relative mx-auto flex max-w-[1194px] flex-col items-center gap-8 text-center">
-        <h2 className="gsap-fade contact-fade translate-y-8 relative font-sora text-4xl tracking-[-2px] text-[#858382] sm:text-5xl lg:text-[71.7px]">
+      <div className="relative mx-auto flex w-full max-w-[1194px] flex-col items-center gap-6 text-center lg:gap-8">
+        <h2 className="gsap-fade contact-fade translate-y-8 relative font-sora text-[28px] leading-[32.2px] tracking-[-1.5px] text-[#858382] sm:text-5xl sm:leading-none sm:tracking-[-2px] lg:text-[71.7px]">
           <span className="block">{"Build Your"}</span>
           <span className="block">
             <span className="text-white">Origination</span>{" "}
-            <span className="text-[#ff884c]">System</span>
+            <span className="text-white lg:text-[#ff884c]">System</span>
           </span>
         </h2>
 
-        <p className="gsap-fade contact-desc relative max-w-[500px] text-base leading-[27px] text-white">
+        <p className="gsap-fade contact-desc relative max-w-[320px] text-[14px] leading-6 text-white sm:max-w-[500px] sm:text-base sm:leading-[27px]">
           No canned proposals. We start by understanding your specific
           constraints, then tell you what&apos;s actually worth building.
         </p>
 
-        <div className="relative flex flex-wrap items-center justify-center gap-4 pt-4">
+        <div className="relative flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4 sm:pt-4">
           <Link
             href="/contact"
-            className="gsap-fade contact-fade translate-y-6 bg-[#ff884c] px-10 py-4 text-[15px] tracking-[0.5px] text-black transition-opacity hover:opacity-90"
+            className="gsap-fade contact-fade translate-y-6 w-[280px] bg-[#ff884c] px-8 py-4 text-center font-sora text-[14px] tracking-[0.5px] text-black transition-opacity hover:opacity-90 max-sm:leading-[21px] sm:w-auto sm:px-10 sm:font-sans sm:text-[15px]"
           >
             Book discovery call
           </Link>

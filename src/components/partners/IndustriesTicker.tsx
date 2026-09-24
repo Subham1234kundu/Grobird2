@@ -36,15 +36,17 @@ export default function IndustriesTicker() {
   return (
     <div
       ref={root}
-      className="gsap-fade ticker-fade translate-y-6 overflow-hidden border-y-[0.8px] border-white/40 bg-black py-3"
+      className="gsap-fade ticker-fade translate-y-6 my-8 overflow-hidden border-y-[0.8px] border-white/40 bg-black py-3 lg:mt-[60px] lg:mb-0"
     >
       <div className="animate-ticker flex w-max items-center gap-8">
         {items.map((item, i) => (
           <div key={`${item}-${i}`} className="flex items-center gap-8">
-            <span className="font-mono text-[11px] tracking-[2px] text-[#858382] uppercase">
+            <span className="font-mono text-[11px] leading-[16.5px] tracking-[2px] text-[#858382] uppercase">
               {item}
             </span>
-            <span className="font-mono text-[6px] text-[#ff884c]">◆</span>
+            <span className="font-mono text-[6px] leading-[9px] text-[#ff884c]">
+              ◆
+            </span>
           </div>
         ))}
       </div>

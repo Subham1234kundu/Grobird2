@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef } from "react";
 import {
   cardsLiftReveal,
@@ -87,15 +88,24 @@ export default function WhyAuditFirst() {
       ref={root}
       className="relative overflow-hidden bg-[#ff884c] px-6 py-16 sm:px-10 lg:px-[80px] lg:py-[122px]"
     >
+      {/* Dot grid matching the Figma export (same pitch and dot size), drawn
+          as black dots on a transparent PNG at 2x for the full 1440px canvas.
+          The container width sets how far right the dots reach; the dots are
+          anchored to the bottom-left, leaving the gap at the top. */}
       <div
-        className="why-audit-dots pointer-events-none absolute inset-[-8%] opacity-30"
-        style={{
-          backgroundImage:
-            "radial-gradient(rgba(255,255,255,0.5) 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-        }}
+        className="pointer-events-none absolute inset-y-0 left-0 w-full lg:left-1/2 lg:w-[1440px] lg:-translate-x-1/2"
         aria-hidden
-      />
+      >
+        <div className="why-audit-dots absolute bottom-0 left-0 h-[853px] w-[700px] max-w-full opacity-[41%]">
+          <Image
+            src="/services/operational-discovery/why-audit-dots.png"
+            alt=""
+            fill
+            sizes="700px"
+            className="object-cover object-left-bottom"
+          />
+        </div>
+      </div>
       <div className="relative mx-auto flex max-w-[1285px] flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
         <h2 className="gsap-fade why-audit-fade translate-y-8 font-sora text-4xl text-white/57 lg:text-[56px]">
           Why Operational <span className="text-white">Audit First?</span>
