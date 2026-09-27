@@ -1,3 +1,4 @@
+import ArrowIcon from "@/components/ui/ArrowIcon";
 type Block =
   | { type: "p"; text: string }
   | { type: "list"; items: string[] }
@@ -293,9 +294,10 @@ function renderBlock(block: Block, key: number) {
           </p>
           <a
             href="mailto:legal@grobird.io"
-            className="inline-flex bg-[#ff884c] px-5 py-2.5 text-xs font-semibold text-black"
+            className="inline-flex items-center gap-1.5 bg-[#ff884c] px-5 py-2.5 text-xs font-semibold text-black"
           >
-            Contact legal@grobird.io →
+            Contact legal@grobird.io
+            <ArrowIcon direction="right" className="size-3.5" />
           </a>
         </div>
       );

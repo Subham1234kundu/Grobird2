@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { gsap, headlineLinesReveal, splitWordsReveal, useGSAP } from "@/lib/gsap";
+import { submitLead } from "@/app/actions/leads";
 
 const DETAILS = [
   {
@@ -42,7 +43,8 @@ const LABEL =
 
 export default function ContactSection() {
   const root = useRef<HTMLElement>(null);
-  const [status, setStatus] = useState<"idle" | "sent">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorText, setErrorText] = useState("");
 
   useGSAP(
     () => {
@@ -165,11 +167,31 @@ export default function ContactSection() {
 
         <form
           className="gsap-fade contact-form flex flex-col gap-4 border-[0.8px] border-[rgba(75,73,73,0.5)] p-8"
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
-            setStatus("sent");
+            const form = e.currentTarget;
+            const data = new FormData(form);
+            data.set("source", "contact");
+            setStatus("sending");
+            const result = await submitLead(data);
+            if (result.ok) {
+              setStatus("sent");
+              form.reset();
+            } else {
+              setStatus("error");
+              setErrorText(result.error);
+            }
           }}
         >
+          {/* Honeypot: hidden from people, filled by bots */}
+          <input
+            type="text"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden
+            className="hidden"
+          />
           <h3 className="contact-field pb-2 font-sora text-[20px] leading-[28px] font-semibold text-white">
             Schedule a Call
           </h3>
@@ -263,13 +285,19 @@ export default function ContactSection() {
           <div className="contact-field pt-2">
             <button
               type="submit"
-              className="h-[53px] w-full bg-[#ff884c] text-sm leading-[21px] font-medium tracking-[0.5px] text-black transition-opacity hover:opacity-90"
+              disabled={status === "sending"}
+              className="h-[53px] w-full bg-[#ff884c] text-sm leading-[21px] font-medium tracking-[0.5px] text-black transition-opacity hover:opacity-90 disabled:opacity-60"
             >
-              Schedule a Call
+              {status === "sending" ? "Sending…" : "Schedule a Call"}
             </button>
             {status === "sent" && (
               <p role="status" className="mt-3 text-sm text-white/70">
                 Thanks — we&apos;ll be in touch shortly.
+              </p>
+            )}
+            {status === "error" && (
+              <p role="alert" className="mt-3 text-sm text-[#ff884c]">
+                {errorText}
               </p>
             )}
           </div>

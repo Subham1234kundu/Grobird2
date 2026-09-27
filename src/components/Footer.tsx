@@ -76,21 +76,105 @@ export default function Footer() {
       ref={root}
       className="relative z-10 overflow-hidden bg-black backdrop-blur-[10px]"
     >
-      <div className="relative z-10 mx-auto grid max-w-[1440px] grid-cols-1 gap-10 border-b border-[rgba(67,67,67,0.54)] px-6 py-12 sm:px-10 lg:grid-cols-[360px_1fr_360px] lg:gap-0 lg:px-0 lg:py-0">
-        <div className="flex flex-col justify-center gap-5 lg:border-r lg:border-[rgba(67,67,67,0.54)] lg:px-10 lg:py-12">
+      {/* Phone / tablet: the Figma mobile footer — 16px gutters, a fixed
+          257×67 logo with the tagline 4px below it, three narrow link
+          columns, then the social row. */}
+      <div className="relative z-10 flex flex-col px-4 pt-10 pb-4 sm:px-10 lg:hidden">
+        <div className="flex flex-col gap-1">
           <Image
             src="/landing/footer-logo.svg"
             alt="GroBird"
             width={257}
             height={67}
-            className="h-[67px] w-auto"
+            className="h-[67px] w-[257px] max-w-full self-start object-contain object-left"
+          />
+          <p className="font-sora text-[15px] leading-6 text-[#f36f07]">
+            Growing Beyond Limits.
+          </p>
+        </div>
+
+        <div className="mt-[23px] flex items-start sm:gap-10">
+          {FOOTER_COLUMNS.map((column, i) => (
+            <div
+              key={column.heading}
+              className={`flex flex-col gap-3 ${
+                i === 0
+                  ? "w-[148px] shrink-0 sm:w-auto sm:flex-1"
+                  : i === 1
+                    ? "min-w-px flex-1"
+                    : "w-[103px] shrink-0 sm:w-auto sm:flex-1"
+              }`}
+            >
+              <p className="text-[13px] leading-6 text-white/50 capitalize sm:text-[15px]">
+                {column.heading}
+              </p>
+              <ul className="flex flex-col gap-2 text-[11px] leading-[22px] text-white capitalize sm:text-[13px]">
+                {column.links.map((link) =>
+                  typeof link === "string" ? (
+                    <li key={link} className="max-w-[105px] sm:max-w-none">
+                      {link}
+                    </li>
+                  ) : (
+                    <li key={link.label}>
+                      <Link
+                        href={link.href}
+                        className="transition-colors hover:text-white/70"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ),
+                )}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-4 flex flex-col gap-3">
+          <p className="text-[13px] leading-6 text-white/50 capitalize sm:text-[15px]">
+            Connect with us
+          </p>
+          <ul className="flex gap-6">
+            {SOCIAL_LINKS.map((social) => (
+              <li key={social.label}>
+                <a
+                  href={social.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2 text-[11px] leading-6 text-white sm:text-[13px]"
+                >
+                  <Image
+                    src={social.icon}
+                    alt=""
+                    width={22}
+                    height={22}
+                    className="size-[22px]"
+                    aria-hidden
+                  />
+                  {social.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      {/* Desktop: three bordered panels */}
+      <div className="relative z-10 mx-auto hidden max-w-[1440px] grid-cols-[360px_1fr_360px] border-b border-[rgba(67,67,67,0.54)] lg:grid">
+        <div className="flex flex-col justify-center gap-5 border-r border-[rgba(67,67,67,0.54)] px-10 py-12">
+          <Image
+            src="/landing/footer-logo.svg"
+            alt="GroBird"
+            width={257}
+            height={67}
+            className="h-[67px] w-[257px] self-start"
           />
           <p className="font-sora text-[15.1px] text-[#f36f07]">
             Growing Beyond Limits.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:border-r lg:border-[rgba(67,67,67,0.54)] lg:px-10 lg:py-12 lg:gap-x-[92px]">
+        <div className="grid grid-cols-3 gap-x-[92px] border-r border-[rgba(67,67,67,0.54)] px-10 py-12">
           {FOOTER_COLUMNS.map((column) => (
             <div key={column.heading} className="flex flex-col gap-3">
               <p className="text-[15.5px] text-white/50">{column.heading}</p>
@@ -114,7 +198,7 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="flex flex-col justify-center gap-5 lg:px-10 lg:py-12">
+        <div className="flex flex-col justify-center gap-5 px-10 py-12">
           <p className="text-[15.4px] tracking-[0.2px] text-white/50">
             Connect With Us
           </p>

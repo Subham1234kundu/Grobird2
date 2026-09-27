@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useRef } from "react";
 import { gsap, numberedStepsReveal, useGSAP } from "@/lib/gsap";
+import { renderWithArrows } from "@/components/ui/ArrowIcon";
 
 const ROWS = [
   {
@@ -96,7 +97,7 @@ function OutcomeBlock({ outcome, mobile }: { outcome: string; mobile: boolean })
         Outcome
       </p>
       <p className="text-[13px] leading-[19.5px] font-medium whitespace-nowrap text-white sm:text-sm sm:leading-5">
-        {outcome}
+        {renderWithArrows(outcome)}
       </p>
     </div>
   );

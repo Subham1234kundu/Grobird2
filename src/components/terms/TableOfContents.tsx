@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ArrowIcon from "@/components/ui/ArrowIcon";
 
 export const TOC_ITEMS = [
   { number: "01", label: "Acceptance of Terms", id: "acceptance-of-terms" },
@@ -79,8 +80,9 @@ export default function TableOfContents() {
           <p className="pb-2 font-mono text-[9px] tracking-[2px] text-white/20 uppercase">
             Also see
           </p>
-          <a href="/privacy" className="text-xs text-white/35">
-            Privacy Policy →
+          <a href="/privacy" className="inline-flex items-center gap-1 text-xs text-white/35">
+            Privacy Policy
+            <ArrowIcon direction="right" className="size-3" />
           </a>
         </div>
       </div>

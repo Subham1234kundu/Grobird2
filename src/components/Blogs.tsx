@@ -5,33 +5,48 @@ import Link from "next/link";
 import { useRef } from "react";
 import { gsap, splitWordsReveal, useGSAP } from "@/lib/gsap";
 
-const FEATURED_POST = {
+export type LandingPost = { title: string; date: string; href: string };
+
+const DEFAULT_FEATURED: LandingPost = {
   title: "Why Hiring an Ops Coordinator Rarely Fixes a Process Problem",
   date: "August 17, 2026",
+  href: "/blogs/why-hiring-an-ops-coordinator-rarely-fixes-a-process-problem",
 };
 
-// Phones tint every card's banner as Figma draws it (black, black, blue)
-// with an orange caption box; desktop keeps its alternating scheme.
-const POSTS = [
+const DEFAULT_POSTS: LandingPost[] = [
   {
     title: "How to Scale Operations Without Adding Headcount",
     date: "August 16, 2026",
+    href: "/blogs/how-to-scale-operations-without-adding-headcount",
+  },
+  {
+    title: "The Hidden Cost of Manual Data Entry (With the Math)",
+    date: "August 13, 2026",
+    href: "/blogs/the-hidden-cost-of-manual-data-entry-with-the-math",
+  },
+  {
+    title: "5 Signs Your Business Has Outgrown Its Systems",
+    date: "August 5, 2026",
+    href: "/blogs/5-signs-your-business-has-outgrown-its-systems",
+  },
+];
+
+// Phones tint every card's banner as Figma draws it (black, black, blue)
+// with an orange caption box; desktop keeps its alternating scheme.
+const CARD_STYLES = [
+  {
     background: "lg:bg-[#ff884c]",
     mobileBackground: "bg-black",
     boxBackground: "bg-black",
     boxAlign: "start" as const,
   },
   {
-    title: "The Hidden Cost of Manual Data Entry (With the Math)",
-    date: "August 13, 2026",
     background: "lg:bg-black",
     mobileBackground: "bg-black",
     boxBackground: "bg-[#ff884c]",
     boxAlign: "center" as const,
   },
   {
-    title: "5 Signs Your Business Has Outgrown Its Systems",
-    date: "August 5, 2026",
     background: "lg:bg-[#2f80ed]",
     mobileBackground: "bg-[#2f80ed]",
     boxBackground: "bg-black",
@@ -44,9 +59,6 @@ const BOX_ALIGN_CLASSES = {
   center: "items-center",
   end: "items-end pb-0",
 };
-
-const POST_HREF =
-  "/blogs/why-hiring-an-ops-coordinator-rarely-fixes-a-process-problem";
 
 function ReadMore({ light }: { light?: boolean }) {
   return (
@@ -68,7 +80,13 @@ function ReadMore({ light }: { light?: boolean }) {
   );
 }
 
-export default function Blogs() {
+export default function Blogs({
+  featured = DEFAULT_FEATURED,
+  posts = DEFAULT_POSTS,
+}: {
+  featured?: LandingPost;
+  posts?: LandingPost[];
+}) {
   const root = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -107,7 +125,7 @@ export default function Blogs() {
 
       <div className="mx-auto mt-6 max-w-[1360px] sm:mt-10 lg:mt-16">
         <Link
-          href={POST_HREF}
+          href={featured.href}
           className="gsap-fade blog-fade group flex translate-y-8 flex-col overflow-hidden border-[0.8px] border-[#dfdfdf] lg:grid lg:grid-cols-2 lg:gap-10 lg:border-0 lg:border-b lg:border-[#dfdfdf]/70 lg:pb-10"
         >
           <div className="relative h-[200px] bg-[#ff884c] sm:h-[300px] lg:aspect-[719/410] lg:h-auto lg:overflow-hidden lg:bg-transparent">
@@ -121,10 +139,10 @@ export default function Blogs() {
           </div>
           <div className="flex flex-col bg-white p-4 lg:justify-center lg:gap-6 lg:bg-transparent lg:p-0 lg:py-6">
             <h3 className="font-sora text-base leading-[20.8px] text-black capitalize sm:text-xl lg:text-[31px] lg:leading-10 lg:tracking-[-0.29px] lg:text-white lg:normal-case">
-              {FEATURED_POST.title}
+              {featured.title}
             </h3>
             <p className="pt-2 font-mono text-[11px] leading-[16.5px] tracking-[1.06px] text-black uppercase lg:pt-0 lg:text-xs lg:font-medium lg:tracking-widest lg:text-white">
-              {FEATURED_POST.date}
+              {featured.date}
             </p>
             <div className="mt-3 border-t-[0.8px] border-[#dfdfdf]/70 pt-3 lg:mt-auto lg:pt-6">
               <ReadMore light />
@@ -133,14 +151,16 @@ export default function Blogs() {
         </Link>
 
         <div className="mt-4 grid grid-cols-1 gap-4 sm:mt-8 sm:grid-cols-3 sm:gap-5 lg:mt-10 lg:gap-0 lg:divide-x lg:divide-[#dfdfdf]/55">
-          {POSTS.map((post) => (
+          {posts.slice(0, 3).map((post, i) => {
+            const style = CARD_STYLES[i % CARD_STYLES.length];
+            return (
             <Link
-              key={post.title}
-              href={POST_HREF}
+              key={post.href}
+              href={post.href}
               className="gsap-fade blog-fade group flex translate-y-8 flex-col overflow-hidden border-[0.8px] border-[#dfdfdf]/20 lg:gap-6 lg:border-0 lg:px-6 lg:first:pl-0"
             >
               <div
-                className={`relative h-[120px] overflow-hidden lg:aspect-[413/230] lg:h-auto lg:bg-[url('/landing/blog-grid-bg.png')] lg:bg-cover lg:bg-center ${post.mobileBackground} ${post.background}`}
+                className={`relative h-[120px] overflow-hidden lg:aspect-[413/230] lg:h-auto lg:bg-[url('/landing/blog-grid-bg.png')] lg:bg-cover lg:bg-center ${style.mobileBackground} ${style.background}`}
               >
                 <Image
                   src="/landing/blog-grid-bg.png"
@@ -156,10 +176,10 @@ export default function Blogs() {
                   </p>
                 </div>
                 <div
-                  className={`absolute inset-0 hidden justify-center p-6 lg:flex ${BOX_ALIGN_CLASSES[post.boxAlign]}`}
+                  className={`absolute inset-0 hidden justify-center p-6 lg:flex ${BOX_ALIGN_CLASSES[style.boxAlign]}`}
                 >
                   <div
-                    className={`flex h-[151px] w-[261px] max-w-full items-center justify-center px-4 ${post.boxBackground}`}
+                    className={`flex h-[151px] w-[261px] max-w-full items-center justify-center px-4 ${style.boxBackground}`}
                   >
                     <p className="text-center font-sora text-[19px] leading-[26px] font-light tracking-[-0.29px] text-white capitalize">
                       {post.title}
@@ -179,7 +199,8 @@ export default function Blogs() {
                 </div>
               </div>
             </Link>
-          ))}
+            );
+          })}
         </div>
       </div>
 

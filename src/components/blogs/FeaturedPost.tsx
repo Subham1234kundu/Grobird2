@@ -4,8 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
+import { formatPostDate, type Post } from "@/lib/blog/types";
 
-export default function FeaturedPost() {
+export default function FeaturedPost({ post }: { post: Post }) {
   const root = useRef<HTMLAnchorElement>(null);
 
   useGSAP(
@@ -38,20 +39,21 @@ export default function FeaturedPost() {
           0.25,
         );
     },
-    { scope: root },
+    { scope: root, dependencies: [post.id] },
   );
 
   return (
     <Link
       ref={root}
-      href="/blogs/why-hiring-an-ops-coordinator-rarely-fixes-a-process-problem"
+      href={`/blogs/${post.slug}`}
       className="group mx-auto mt-14 grid max-w-[1261px] grid-cols-1 px-6 sm:px-10 lg:grid-cols-2 lg:px-0"
     >
-      <div className="featured-art relative aspect-[628/362] overflow-hidden">
+      <div className="featured-art relative aspect-[628/362] overflow-hidden bg-[#0d0d0d]">
         <Image
-          src="/blogs/featured-illustration.png"
+          src={post.cover_image_url ?? "/blogs/featured-illustration.png"}
           alt=""
           fill
+          sizes="(min-width: 1024px) 628px, 100vw"
           className="object-cover"
           aria-hidden
         />
@@ -59,13 +61,13 @@ export default function FeaturedPost() {
       <div className="flex flex-col justify-center gap-3 bg-black py-10 lg:py-0 lg:pl-9">
         <p className="gsap-fade featured-cell flex items-center gap-1 font-mono text-xs tracking-[1px] text-white uppercase">
           <span className="text-white">|</span>
-          <span className="text-[#ffd215]">Business Intelligence</span>
+          <span className="text-[#ffd215]">{post.category}</span>
         </p>
         <h2 className="gsap-fade featured-cell font-sora text-2xl leading-tight text-white capitalize sm:text-[31px]">
-          Why Hiring an Ops Coordinator Rarely Fixes a Process Problem
+          {post.title}
         </h2>
         <p className="gsap-fade featured-cell font-mono text-xs tracking-[1px] text-white uppercase">
-          August 17, 2026
+          {formatPostDate(post.published_at)}
         </p>
         <span className="gsap-fade featured-cell mt-6 flex items-center justify-between border-t border-[#dfdfdf]/70 pt-6 text-[15.4px] text-white capitalize">
           Read more

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState, type FormEvent } from "react";
+import { submitLead } from "@/app/actions/leads";
 
 const CONTACT_INFO = [
   { label: "Email", value: "contact@grobird.in", icon: "/about/icon-email.svg" },
@@ -18,10 +19,19 @@ const REASONS = [
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSubmitted(true);
+    const data = new FormData(event.currentTarget);
+    data.set("source", "about");
+    setSending(true);
+    setError("");
+    const result = await submitLead(data);
+    setSending(false);
+    if (result.ok) setSubmitted(true);
+    else setError(result.error);
   }
 
   return (
@@ -189,12 +199,27 @@ export default function ContactForm() {
                 />
               </div>
 
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden
+                className="hidden"
+              />
+
               <button
                 type="submit"
-                className="mt-2 bg-[#ff884c] py-4 text-sm font-medium tracking-[0.5px] text-black transition-opacity hover:opacity-90"
+                disabled={sending}
+                className="mt-2 bg-[#ff884c] py-4 text-sm font-medium tracking-[0.5px] text-black transition-opacity hover:opacity-90 disabled:opacity-60"
               >
-                Schedule a Call
+                {sending ? "Sending…" : "Schedule a Call"}
               </button>
+              {error && (
+                <p role="alert" className="text-sm text-[#ff884c]">
+                  {error}
+                </p>
+              )}
             </form>
           )}
         </div>

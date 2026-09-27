@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import { gsap, splitWordsReveal, useGSAP } from "@/lib/gsap";
+import ArrowIcon from "@/components/ui/ArrowIcon";
 
 export default function ContactCta() {
   const root = useRef<HTMLElement>(null);
@@ -90,7 +91,10 @@ export default function ContactCta() {
             href="/industries"
             className="border-b-[0.8px] border-white pb-0.5 font-mono text-[11px] tracking-[2px] text-white uppercase transition-colors hover:text-white sm:border-[rgba(75,73,73,0.5)] sm:text-[#858382]"
           >
-            View all industries →
+            <span className="inline-flex items-center gap-1.5">
+              View all industries
+              <ArrowIcon direction="right" className="size-3" />
+            </span>
           </Link>
         </div>
       </div>

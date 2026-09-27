@@ -4,75 +4,88 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
+import { formatPostDate, type Post } from "@/lib/blog/types";
 
-export const BLOG_GRID_POSTS = [
-  {
-    title: "How to Scale Operations Without Adding Headcount",
-    date: "August 16, 2026",
-    outerBg: "bg-[#ff884c]",
-    boxBg: "bg-black",
-  },
-  {
-    title: "The Hidden Cost of Manual Data Entry (With the Math)",
-    date: "August 13, 2026",
-    outerBg: "bg-black",
-    boxBg: "bg-[#ff884c]",
-  },
-  {
-    title: "5 Signs Your Business Has Outgrown Its Systems",
-    date: "August 5, 2026",
-    outerBg: "bg-[#2f80ed]",
-    boxBg: "bg-black",
-  },
+// Cards alternate through the three brand treatments by position.
+const CARD_STYLES = [
+  { outerBg: "bg-[#ff884c]", boxBg: "bg-black" },
+  { outerBg: "bg-black", boxBg: "bg-[#ff884c]" },
+  { outerBg: "bg-[#2f80ed]", boxBg: "bg-black" },
 ];
 
-export function BlogCardRow({ rowKey = "row" }: { rowKey?: string }) {
+export function BlogCardRow({
+  posts,
+  rowKey = "row",
+}: {
+  posts: Post[];
+  rowKey?: string;
+}) {
   return (
     <div className="grid grid-cols-1 divide-y divide-[#dfdfdf]/55 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-      {BLOG_GRID_POSTS.map((post) => (
-        <Link
-          key={`${rowKey}-${post.title}`}
-          href="/blogs/why-hiring-an-ops-coordinator-rarely-fixes-a-process-problem"
-          className="group blog-card flex flex-col gap-6 px-6 py-10 sm:px-8"
-        >
-          <div
-            className={`blog-card-art relative aspect-[388/230] overflow-hidden bg-cover bg-center ${post.outerBg}`}
-            style={{ backgroundImage: "url('/landing/blog-grid-bg.png')" }}
+      {posts.map((post, i) => {
+        const style = CARD_STYLES[i % CARD_STYLES.length];
+        return (
+          <Link
+            key={`${rowKey}-${post.id}`}
+            href={`/blogs/${post.slug}`}
+            className="group blog-card flex flex-col gap-6 px-6 py-10 sm:px-8"
           >
-            <div className="absolute inset-0 flex items-center justify-center p-6">
-              <div
-                className={`flex h-[151px] w-[261px] max-w-full items-center justify-center px-4 ${post.boxBg}`}
-              >
-                <p className="text-center font-sora text-lg font-light text-white capitalize">
-                  {post.title}
-                </p>
-              </div>
+            <div
+              className={`blog-card-art relative aspect-[388/230] overflow-hidden bg-cover bg-center ${style.outerBg}`}
+              style={{ backgroundImage: "url('/landing/blog-grid-bg.png')" }}
+            >
+              {post.cover_image_url ? (
+                <Image
+                  src={post.cover_image_url}
+                  alt=""
+                  fill
+                  sizes="(min-width: 640px) 33vw, 100vw"
+                  className="object-cover"
+                  aria-hidden
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center p-6">
+                  <div
+                    className={`flex h-[151px] w-[261px] max-w-full items-center justify-center px-4 ${style.boxBg}`}
+                  >
+                    <p className="text-center font-sora text-lg font-light text-white capitalize">
+                      {post.title}
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
-          <h3 className="font-sora text-lg font-light text-white capitalize">
-            {post.title}
-          </h3>
-          <p className="font-mono text-xs tracking-[1px] text-white uppercase">
-            {post.date}
-          </p>
-          <span className="mt-auto flex items-center justify-between border-t border-[#dfdfdf]/70 pt-4 text-[15.4px] text-white capitalize">
-            Read more
-            <Image
-              src="/landing/blog-arrow.svg"
-              alt=""
-              width={16}
-              height={15}
-              aria-hidden
-              className="invert transition-transform group-hover:translate-x-1"
-            />
-          </span>
-        </Link>
-      ))}
+            <h3 className="font-sora text-lg font-light text-white capitalize">
+              {post.title}
+            </h3>
+            <p className="font-mono text-xs tracking-[1px] text-white uppercase">
+              {formatPostDate(post.published_at)}
+            </p>
+            <span className="mt-auto flex items-center justify-between border-t border-[#dfdfdf]/70 pt-4 text-[15.4px] text-white capitalize">
+              Read more
+              <Image
+                src="/landing/blog-arrow.svg"
+                alt=""
+                width={16}
+                height={15}
+                aria-hidden
+                className="invert transition-transform group-hover:translate-x-1"
+              />
+            </span>
+          </Link>
+        );
+      })}
     </div>
   );
 }
 
-export default function BlogGrid() {
+function chunk<T>(items: T[], size: number) {
+  const rows: T[][] = [];
+  for (let i = 0; i < items.length; i += size) rows.push(items.slice(i, i + size));
+  return rows;
+}
+
+export default function BlogGrid({ posts }: { posts: Post[] }) {
   const root = useRef<HTMLDivElement>(null);
 
   useGSAP(
@@ -98,7 +111,7 @@ export default function BlogGrid() {
           );
       });
     },
-    { scope: root },
+    { scope: root, dependencies: [posts] },
   );
 
   return (
@@ -106,8 +119,15 @@ export default function BlogGrid() {
       ref={root}
       className="mx-auto mt-14 max-w-[1261px] px-6 pb-20 sm:px-10 lg:px-0"
     >
-      <BlogCardRow rowKey="row-0" />
-      <BlogCardRow rowKey="row-1" />
+      {posts.length === 0 ? (
+        <p className="py-16 text-center text-sm text-[#858382]">
+          No articles in this category yet.
+        </p>
+      ) : (
+        chunk(posts, 3).map((row, i) => (
+          <BlogCardRow key={`row-${i}`} rowKey={`row-${i}`} posts={row} />
+        ))
+      )}
     </div>
   );
 }

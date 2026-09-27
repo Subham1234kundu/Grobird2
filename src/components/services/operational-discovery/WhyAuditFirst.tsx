@@ -9,6 +9,7 @@ import {
   splitWordsReveal,
   useGSAP,
 } from "@/lib/gsap";
+import ArrowIcon from "@/components/ui/ArrowIcon";
 
 const STAKEHOLDERS = [
   {
@@ -146,8 +147,8 @@ export default function WhyAuditFirst() {
             problems, not perceived ones.
           </p>
         </div>
-        <div className="why-audit-arrow flex size-[60px] shrink-0 items-center justify-center rounded-full border-[1.6px] border-white text-2xl text-white">
-          ↗
+        <div className="why-audit-arrow flex size-[60px] shrink-0 items-center justify-center rounded-full border-[1.6px] border-white text-white">
+          <ArrowIcon direction="up-right" className="size-6" />
         </div>
       </div>
     </section>

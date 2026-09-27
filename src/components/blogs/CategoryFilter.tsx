@@ -1,22 +1,18 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
 
-const CATEGORIES = [
-  "All",
-  "Fintech",
-  "Logistics",
-  "Healthcare",
-  "Lending",
-  "Manufacturing",
-  "Business Intelligence",
-  "Workflow Automation",
-];
-
-export default function CategoryFilter() {
+export default function CategoryFilter({
+  categories,
+  active,
+  onChange,
+}: {
+  categories: string[];
+  active: string;
+  onChange: (category: string) => void;
+}) {
   const root = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState("All");
 
   useGSAP(
     () => {
@@ -40,13 +36,14 @@ export default function CategoryFilter() {
   return (
     <div
       ref={root}
-      className="mx-auto flex max-w-[1261px] overflow-x-auto bg-black px-6 sm:px-10 lg:px-0"
+      className="mx-auto flex max-w-[1261px] overflow-x-auto bg-black px-6 [scrollbar-width:none] sm:px-10 lg:px-0 [&::-webkit-scrollbar]:hidden"
     >
-      {CATEGORIES.map((category) => (
+      {categories.map((category) => (
         <button
           key={category}
           type="button"
-          onClick={() => setActive(category)}
+          onClick={() => onChange(category)}
+          aria-pressed={active === category}
           className={`gsap-fade filter-chip shrink-0 border border-white/[0.18] px-8 py-3 text-sm whitespace-nowrap text-white capitalize transition-colors ${
             active === category ? "bg-[#ff884c]" : "hover:bg-white/5"
           }`}
