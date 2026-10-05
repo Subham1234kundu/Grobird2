@@ -43,6 +43,18 @@ const ROWS = [
   },
 ];
 
+// Sunburst ray boxes (px) inside the 1307.77×1341.84 group, from Figma.
+// left/top/w/h is each vector's bounding box; iw/ih the size before the
+// shared rotate(-0.88deg) skewX(3.96deg) transform.
+const SUNBURST = [
+  { src: "ray-0", left: 0.00, top: 0.00, w: 1286.96, h: 810.70, iw: 1219.96, ih: 794.75 },
+  { src: "ray-1", left: 850.42, top: 688.92, w: 361.35, h: 372.45, iw: 330.27, ih: 368.70 },
+  { src: "ray-2", left: 746.83, top: 811.02, w: 242.91, h: 410.08, iw: 208.48, ih: 408.34 },
+  { src: "ray-3", left: 531.16, top: 882.35, w: 248.42, h: 375.89, iw: 216.89, ih: 373.90 },
+  { src: "ray-4", left: 257.07, top: 816.35, w: 381.01, h: 346.48, iw: 352.16, ih: 342.30 },
+  { src: "ray-5", left: 91.93, top: 700.23, w: 414.11, h: 222.78, iw: 395.80, ih: 217.49 },
+];
+
 function ImageBlock({ src }: { src: string }) {
   return (
     <div className="partner-image relative h-[331.41px] w-[635px] overflow-hidden rounded-[10px]">
@@ -201,21 +213,48 @@ export default function HowWePartner() {
                 </>
               )}
 
-              {/* The sunburst hangs off the last row, 20px below its top
-                  edge; the section clips it where the next section begins. */}
               {i === ROWS.length - 1 && (
-                <Image
-                  src="/partners/sunburst.png"
-                  alt=""
-                  width={1308}
-                  height={1342}
-                  className="pointer-events-none absolute top-5 left-[12.5px] -z-10 h-[1342px] w-[1308px] max-w-none"
-                  aria-hidden
-                />
+                <>
+              {/* GroBird sunburst, rebuilt from the six Figma vectors: faint
+                  outlined rays (no fill) plus five solid white rays. It starts
+                  20px below the top of the last row and sits ABOVE that row's
+                  artwork, so the outlines cross the card exactly as in Figma.
+                  The section clips it 110px below the row, where the blue
+                  Partner Program section starts — same as the Figma page. */}
+              <div
+                className="pointer-events-none absolute top-5 left-[12.5px] z-20 h-[1341.84px] w-[1307.77px] max-w-none"
+                aria-hidden
+              >
+                {SUNBURST.map((ray) => (
+                  <div
+                    key={ray.src}
+                    className="absolute flex items-center justify-center"
+                    style={{ left: ray.left, top: ray.top, width: ray.w, height: ray.h }}
+                  >
+                    <div
+                      className="relative shrink-0"
+                      style={{
+                        width: ray.iw,
+                        height: ray.ih,
+                        transform: "rotate(-0.88deg) skewX(3.96deg)",
+                      }}
+                    >
+                      <Image
+                        src={`/partners/sunburst/${ray.src}.svg`}
+                        alt=""
+                        fill
+                        className="object-fill"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+                </>
               )}
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );

@@ -86,6 +86,7 @@ const INDUSTRIES_MENU: DropdownItem[] = [
 const NAV_LINKS = [
   { label: "Services", href: "/services", menu: SERVICES_MENU },
   { label: "Industries", href: "/industries", menu: INDUSTRIES_MENU },
+  { label: "Case Studies", href: "/case-studies", menu: null },
   { label: "Partners", href: "/partners", menu: null },
   { label: "About Us", href: "/about", menu: null },
   { label: "Blogs", href: "/blogs", menu: null },

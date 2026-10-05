@@ -9,30 +9,46 @@ import {
   useGSAP,
 } from "@/lib/gsap";
 
+// Each illustration sits at a fixed size and offset inside its card,
+// spilling off the bottom-right edge, exactly as placed in Figma.
+// `art` is the phone placement (170×160 card), `artLg` the tablet and
+// desktop placement (252.6×176.3 card).
 const PILLARS = [
   {
     number: "01",
     title: "Operations",
     subtitle: "Process design & execution",
     image: "/about/team-operations.png",
+    art: "left-[57.4px] top-[57.4px] h-[120px] w-[120px] object-contain",
+    artLg: "sm:left-[130.1px] sm:top-[15.9px] sm:h-[193px] sm:w-[154px] sm:object-cover",
+    subtitleTone: "text-[#858382] sm:text-white",
   },
   {
     number: "02",
     title: "Architecture",
     subtitle: "System design & integration",
     image: "/about/team-architecture.png",
+    art: "left-[84.2px] top-[67.4px] h-[120px] w-[99.65px] object-contain",
+    artLg: "sm:left-[129.3px] sm:top-[15.7px] sm:h-[186px] sm:w-[154px] sm:object-cover",
+    subtitleTone: "text-[#858382] sm:text-white",
   },
   {
     number: "03",
     title: "Implementation",
     subtitle: "Build, deploy, optimise",
     image: "/about/team-implementation.png",
+    art: "left-[54.4px] top-[53.4px] h-[120px] w-[132.35px] object-contain",
+    artLg: "sm:left-[83.1px] sm:top-[-7.4px] sm:h-[203px] sm:w-[224px] sm:object-cover",
+    subtitleTone: "text-white sm:text-[#858382]",
   },
   {
     number: "04",
     title: "Global Delivery",
     subtitle: "South Asia & worldwide",
     image: "/about/team-global.png",
+    art: "left-[62.2px] top-[71.4px] h-[120px] w-[120px] object-contain",
+    artLg: "sm:left-[86.5px] sm:top-[20.6px] sm:h-[216px] sm:w-[216px] sm:object-cover",
+    subtitleTone: "text-white",
   },
 ];
 
@@ -118,27 +134,33 @@ export default function OurTeam() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-[2px] lg:w-[517px]">
+          <div className="grid grid-cols-2 gap-2 sm:w-[517.2px] sm:grid-cols-[252.6px_252.6px] sm:gap-3 lg:shrink-0">
             {PILLARS.map((pillar) => (
               <div
                 key={pillar.number}
-                className="gsap-fade team-pillar relative min-h-[176px] overflow-hidden border-[0.8px] border-[rgba(75,73,73,0.4)] p-6"
+                className="gsap-fade team-pillar relative h-[160px] overflow-hidden border-[0.8px] border-[rgba(75,73,73,0.4)] p-4 sm:h-[176.3px] sm:p-6"
               >
                 <Image
                   src={pillar.image}
                   alt=""
-                  fill
-                  className="team-art object-cover"
+                  width={600}
+                  height={600}
+                  sizes="(min-width: 640px) 224px, 132px"
+                  className={`team-art absolute max-w-none ${pillar.art} ${pillar.artLg}`}
                   aria-hidden
                 />
-                <div className="relative flex flex-col gap-2">
-                  <p className="team-cell font-mono text-[9px] tracking-[2px] text-[#ff884c] uppercase">
+                <div className="relative flex flex-col">
+                  <p className="team-cell font-mono text-[9px] leading-[13.5px] tracking-[2px] text-[#ff884c] uppercase">
                     {pillar.number}
                   </p>
-                  <p className="team-cell font-sora text-[15px] font-semibold text-white">
+                  <p className="team-cell pt-2 font-sora text-sm leading-5 font-semibold whitespace-nowrap text-white sm:text-[15px] sm:leading-[22.5px]">
                     {pillar.title}
                   </p>
-                  <p className="team-cell max-w-[120px] text-xs leading-[18px] text-white">
+                  <p
+                    className={`team-cell pt-1 text-xs leading-[18px] sm:pt-2 ${pillar.subtitleTone} ${
+                      pillar.number === "03" ? "sm:whitespace-nowrap" : "max-w-[137px] sm:max-w-[116px]"
+                    }`}
+                  >
                     {pillar.subtitle}
                   </p>
                 </div>

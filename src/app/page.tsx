@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import Loader from "@/components/Loader";
 import Navbar from "@/components/Navbar";
 import ProblemStatement from "@/components/ProblemStatement";
+import SelectedWork from "@/components/SelectedWork";
 import Solutions from "@/components/Solutions";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import { getPublishedPosts, pickFeatured } from "@/lib/blog/queries";
@@ -34,6 +35,7 @@ export default async function Home() {
         <Hero />
         <ProblemStatement />
         <Solutions />
+        <SelectedWork />
         <WhyChooseUs />
         <Blogs featured={featured} posts={posts.length ? posts : undefined} />
         <CallToAction />

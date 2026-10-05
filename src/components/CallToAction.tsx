@@ -27,11 +27,17 @@ export default function CallToAction() {
 
   return (
     <section ref={root} className="relative overflow-hidden">
-      <Image
-        src="/landing/cta-bg.png"
-        alt=""
-        fill
-        className="object-cover"
+      {/* Looping background film. muted + playsInline let it autoplay on
+          iPhones; the still image shows until the first frame is ready. */}
+      <video
+        className="absolute inset-0 size-full object-cover"
+        src="/landing/ready%20to%20understand.mp4"
+        poster="/landing/cta-bg.png"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
         aria-hidden
       />
       <div className="absolute inset-0 bg-black/[0.42] lg:bg-black/40" aria-hidden />

@@ -48,25 +48,25 @@ export default function WhatWeSupport() {
   );
 
   return (
-    <section ref={root} className="relative overflow-hidden bg-black px-6 py-20 sm:px-10 lg:px-[99px] lg:py-[80px]">
+    <section ref={root} className="relative overflow-hidden bg-black px-5 py-12 sm:px-10 sm:py-20 lg:px-[99px] lg:py-[80px]">
       <div className="relative mx-auto max-w-[1261px]">
-        <h2 className="gsap-fade support-heading translate-y-8 font-sora text-4xl leading-tight tracking-[-2px] text-[#858382] lg:text-[52px] lg:leading-[59.8px]">
+        <h2 className="gsap-fade support-heading translate-y-8 font-sora text-[26px] leading-[28.6px] tracking-[-1.5px] text-[#858382] sm:text-4xl sm:leading-tight sm:tracking-[-2px] lg:text-[52px] lg:leading-[59.8px]">
           What <span className="text-[#ff884c]">We Support</span>
         </h2>
 
-        <dl className="support-list mt-[30px] flex flex-col">
+        <dl className="support-list mt-8 flex flex-col gap-8 sm:mt-[30px] sm:gap-0">
           {ITEMS.map((item) => (
             <div
               key={item.number}
-              className="gsap-fade support-item grid grid-cols-1 gap-4 border-t border-[rgba(228,228,228,0.37)] py-8 last:border-b lg:grid-cols-[90px_1fr_328px] lg:items-center lg:gap-6 lg:py-10"
+              className="gsap-fade support-item grid grid-cols-[40px_1fr] gap-x-4 border-t-[0.8px] border-[rgba(228,228,228,0.2)] py-5 last:border-b-[0.8px] sm:grid-cols-1 sm:gap-4 sm:border-t sm:border-[rgba(228,228,228,0.37)] sm:py-8 sm:last:border-b lg:grid-cols-[90px_1fr_328px] lg:items-center lg:gap-6 lg:py-10"
             >
-              <dt className="font-sora text-2xl tracking-[-0.84px] text-[#c3c3c3] lg:text-[32px] lg:leading-[57.6px]">
+              <dt className="row-span-2 font-sora text-[20px] leading-[30px] tracking-[-0.5px] text-[#c3c3c3] sm:row-span-1 sm:text-2xl sm:leading-normal sm:tracking-[-0.84px] lg:text-[32px] lg:leading-[57.6px]">
                 {item.number}
               </dt>
-              <dt className="font-sora text-2xl tracking-[-0.84px] text-white lg:text-[32px] lg:leading-[57.6px]">
+              <dt className="font-sora text-[18px] leading-[23.4px] tracking-[-0.5px] text-white sm:text-2xl sm:leading-normal sm:tracking-[-0.84px] lg:text-[32px] lg:leading-[57.6px]">
                 {item.title}
               </dt>
-              <dd className="text-[16px] leading-6 text-[#737373]">
+              <dd className="col-start-2 pt-2 text-[13px] leading-[22px] text-white/55 sm:col-start-auto sm:pt-0 sm:text-[16px] sm:leading-6 sm:text-[#737373]">
                 {item.description}
               </dd>
             </div>

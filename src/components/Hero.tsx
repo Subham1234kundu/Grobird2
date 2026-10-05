@@ -60,7 +60,7 @@ export default function Hero() {
         <div className="order-2 flex flex-col gap-6 px-5 pt-10 pb-8 sm:px-10 sm:pt-14 sm:pb-16 lg:order-1 lg:justify-start lg:gap-8 lg:px-[50px] lg:pt-[173px] lg:pb-0">
           <div className="flex w-full flex-col gap-6 lg:max-w-[625px] lg:gap-8">
             <h1 className="gsap-fade hero-heading translate-y-8 font-sora text-[32px] leading-[33.6px] tracking-[-1px] sm:text-[44px] sm:leading-[1.1] lg:text-[56.6px] lg:leading-[68px] lg:font-semibold lg:tracking-[-2px]">
-              <span className="text-[#827e7e]">
+              <span className="text-white">
                 Operational Bottlenecks Don&apos;t Get{" "}
               </span>
               <span className="text-[#ff884c]">Better on Their Own</span>

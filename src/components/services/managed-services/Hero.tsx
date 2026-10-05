@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useRef } from "react";
 import { gsap, splitWordsReveal, useGSAP } from "@/lib/gsap";
 
+const M = "/services/managed-services/mobile";
+
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
 
@@ -24,7 +26,28 @@ export default function Hero() {
   );
 
   return (
-    <section ref={root} className="relative overflow-hidden bg-black lg:min-h-[689px]">
+    <section ref={root} className="relative min-h-[449px] overflow-hidden bg-black sm:min-h-0 lg:min-h-[689px]">
+      {/* Phone art (Figma mobile frame): the green swoosh top-right,
+          softened by three black fades. */}
+      <div className="pointer-events-none absolute inset-0 sm:hidden" aria-hidden>
+        <div className="absolute top-[-137px] right-[-65px] h-[598px] w-[338px]">
+          <Image src={`${M}/swoosh.png`} alt="" fill priority sizes="338px" className="object-cover" />
+        </div>
+        <div className="absolute bottom-0 left-[calc(50%-5.5px)] h-[227px] w-[557px] -translate-x-1/2">
+          <Image src={`${M}/hero-fade-bottom.png`} alt="" fill sizes="557px" className="object-cover" />
+        </div>
+        <div className="absolute bottom-[-23.9px] left-[calc(50%-7.9px)] flex h-[557px] w-[136px] -translate-x-1/2 items-center justify-center">
+          <div className="relative h-[135px] w-[557px] shrink-0 rotate-[89.87deg]">
+            <Image src={`${M}/hero-fade-band.png`} alt="" fill sizes="557px" className="object-cover" />
+          </div>
+        </div>
+        <div className="absolute bottom-[35px] left-[calc(50%+120.5px)] flex h-[557px] w-[241px] -translate-x-1/2 items-center justify-center">
+          <div className="relative h-[241px] w-[557px] shrink-0 -rotate-90">
+            <Image src={`${M}/hero-fade-right.png`} alt="" fill sizes="557px" className="object-cover" />
+          </div>
+        </div>
+      </div>
+
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
           className="absolute top-[-120px] right-[-40px] hidden h-[1546px] w-[560px] lg:block"
@@ -44,22 +67,20 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="relative z-10 flex flex-col gap-[18px] px-6 py-24 sm:px-10 lg:px-[95px] lg:pt-[205px] lg:pb-[80px]">
-        <div className="gsap-fade hero-fade translate-y-6 flex w-fit items-center gap-2 rounded-[4px] border-[0.8px] border-[rgba(255,136,76,0.25)] px-[14px] py-[6px]">
+      <div className="relative z-10 flex flex-col gap-[18px] px-5 pt-[124px] pb-12 sm:px-10 sm:py-24 lg:px-[95px] lg:pt-[205px] lg:pb-[80px]">
+        <div className="gsap-fade hero-fade translate-y-6 hidden w-fit items-center gap-2 rounded-[4px] border-[0.8px] border-[rgba(255,136,76,0.25)] px-[14px] py-[6px] sm:flex">
           <span className="size-[6px] rounded-[3px] bg-[#ff884c] opacity-[51%]" />
           <span className="font-sora text-[11px] leading-[16.5px] font-semibold tracking-[1.32px] text-[#ff884c] uppercase">
             Managed Services &amp; Application Support
           </span>
         </div>
-
-        <div className="flex flex-col gap-[7px]">
-          <h1 className="gsap-fade hero-fade translate-y-8 font-sora text-4xl font-normal tracking-tight text-[#827e7e] capitalize sm:text-5xl lg:w-[570px] lg:text-[56.6px] lg:leading-[68px] lg:tracking-[-2px]">
+        <div className="flex flex-col gap-4 sm:gap-[7px]">
+          <h1 className="gsap-fade hero-fade translate-y-8 font-sora text-[30px] leading-[33px] font-normal tracking-[-1.5px] text-[#827e7e] sm:text-5xl sm:leading-tight sm:tracking-tight sm:capitalize lg:w-[570px] lg:text-[56.6px] lg:leading-[68px] lg:tracking-[-2px]">
             {"Protection for Your "}
             <span className="text-white">{"Technology "}</span>
-            <span className="text-[#ff884c]">Investment</span>
+            <span className="text-white sm:text-[#ff884c]">Investment</span>
           </h1>
-
-          <p className="gsap-fade hero-desc text-[15.1px] leading-6 text-white lg:max-w-[509px]">
+          <p className="gsap-fade hero-desc max-w-[280px] text-[13px] leading-[22px] text-white/75 sm:max-w-none sm:text-[15.1px] sm:leading-6 sm:text-white lg:max-w-[509px]">
             We keep your systems healthy, performant, and aligned with your
             evolving needs through managed support and optimization.
           </p>

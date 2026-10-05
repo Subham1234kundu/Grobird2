@@ -320,11 +320,13 @@ export default function HeroPortal() {
               onUpdate: (self) => onState?.(self.progress > 0.5),
             },
           })
-          .to(q(".plate-green"), { opacity: 0 }, 0)
-          .to(q(".plate-red"), { opacity: 1 }, 0)
-          .to(q(".rays"), { attr: { stroke: RED } }, 0)
-          .to(q(".portal-ring"), { attr: { stroke: RED } }, 0)
-          .to(q(".glow-stop"), { attr: { "stop-color": RED } }, 0)
+          // The plate, its glow and the pulse ring start red and turn
+          // green on scroll. The flowing lines keep their fixed
+          // red-to-green gradient.
+          .to(q(".plate-red"), { opacity: 0 }, 0)
+          .to(q(".plate-green"), { opacity: 1 }, 0)
+          .to(q(".portal-ring"), { attr: { stroke: GREEN } }, 0)
+          .to(q(".glow-stop"), { attr: { "stop-color": GREEN } }, 0)
           .to(q(".stream-green"), { opacity: 0, duration: 0.45 }, 0)
           .to(q(".stream-red"), { opacity: 1, duration: 0.45 }, 0.55);
       }
@@ -342,9 +344,25 @@ export default function HeroPortal() {
     >
       <defs>
         <radialGradient id="hero-portal-glow" cx="50%" cy="50%" r="50%">
-          <stop className="glow-stop" offset="0%" stopColor={GREEN} stopOpacity="0.6" />
-          <stop offset="100%" stopColor={GREEN} stopOpacity="0" />
+          <stop className="glow-stop" offset="0%" stopColor={RED} stopOpacity="0.6" />
+          <stop className="glow-stop" offset="100%" stopColor={RED} stopOpacity="0" />
         </radialGradient>
+        {/* The flow is red where integrations pour in at the top, turns
+            through the plate, and leaves green beneath it. */}
+        <linearGradient
+          id="hero-flow"
+          gradientUnits="userSpaceOnUse"
+          x1="0"
+          y1="40"
+          x2="0"
+          y2={BOTTOM.cy + 72}
+        >
+          <stop offset="0%" stopColor={RED} />
+          <stop offset="52%" stopColor={RED} />
+          <stop offset="70%" stopColor={GREEN} />
+          <stop offset="100%" stopColor={GREEN} />
+        </linearGradient>
+
         <filter id="hero-portal-blur" x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="18" />
         </filter>
@@ -365,7 +383,7 @@ export default function HeroPortal() {
         filter="url(#hero-portal-blur)"
       />
 
-      <g className="rays" stroke={GREEN} fill="none" strokeLinecap="round">
+      <g className="rays" stroke="url(#hero-flow)" fill="none" strokeLinecap="round">
         <g opacity="0.14" strokeWidth="1">
           {TOP_RAYS.map((d, i) => (
             <path key={`t${i}`} d={d} />
@@ -448,7 +466,7 @@ export default function HeroPortal() {
         rx="60"
         ry="30"
         fill="none"
-        stroke={GREEN}
+        stroke={RED}
         strokeWidth="2.5"
         opacity="0"
       />
@@ -461,6 +479,7 @@ export default function HeroPortal() {
           y={PLATE.y - 83.5}
           width="285"
           height="167"
+          opacity="0"
         />
         <image
           className="plate-red"
@@ -469,7 +488,6 @@ export default function HeroPortal() {
           y={PLATE.y - 83.5}
           width="285"
           height="167"
-          opacity="0"
         />
       </g>
     </svg>
