@@ -8,17 +8,23 @@ const FOOTER_COLUMNS = [
   {
     heading: "Services",
     links: [
-      "Operational Discovery",
-      "Custom Software",
-      "Workflow Automation",
-      "System Integration",
-      "Business Intelligence",
-      "Managed Services",
+      { label: "Operational Discovery", href: "/services/operational-discovery" },
+      { label: "Custom Software", href: "/services/custom-software" },
+      { label: "Workflow Automation", href: "/services/workflow-automation" },
+      { label: "System Integration", href: "/services/system-integration" },
+      { label: "Business Intelligence", href: "/services/business-intelligence" },
+      { label: "Managed Services", href: "/services/managed-services" },
     ],
   },
   {
     heading: "Industries",
-    links: ["Fintech", "Logistics", "Healthcare", "Lending", "Manufacturing"],
+    links: [
+      { label: "Fintech", href: "/industries/fintech" },
+      { label: "Logistics", href: "/industries/logistics" },
+      { label: "Healthcare", href: "/industries/healthcare" },
+      { label: "Lending", href: "/industries/lending" },
+      { label: "Manufacturing", href: "/industries/manufacturing" },
+    ],
   },
   {
     heading: "Resources",
@@ -33,7 +39,7 @@ const FOOTER_COLUMNS = [
 ];
 
 const SOCIAL_LINKS = [
-  { label: "Linkedin", icon: "/landing/icon-linkedin.svg", href: "https://linkedin.com" },
+  { label: "Linkedin", icon: "/landing/icon-linkedin.svg", href: "https://www.linkedin.com/company/grobird-technologies/" },
   { label: "Instagram", icon: "/landing/icon-instagram.svg", href: "https://instagram.com" },
 ];
 
@@ -109,12 +115,7 @@ export default function Footer() {
                 {column.heading}
               </p>
               <ul className="flex flex-col gap-2 text-[11px] leading-[22px] text-white capitalize sm:text-[13px]">
-                {column.links.map((link) =>
-                  typeof link === "string" ? (
-                    <li key={link} className="max-w-[105px] sm:max-w-none">
-                      {link}
-                    </li>
-                  ) : (
+                {column.links.map((link) => (
                     <li key={link.label}>
                       <Link
                         href={link.href}
@@ -123,8 +124,7 @@ export default function Footer() {
                         {link.label}
                       </Link>
                     </li>
-                  ),
-                )}
+                  ))}
               </ul>
             </div>
           ))}
@@ -179,10 +179,7 @@ export default function Footer() {
             <div key={column.heading} className="flex flex-col gap-3">
               <p className="text-[15.5px] text-white/50">{column.heading}</p>
               <ul className="flex flex-col gap-[10px] text-[13.3px] text-white">
-                {column.links.map((link) =>
-                  typeof link === "string" ? (
-                    <li key={link}>{link}</li>
-                  ) : (
+                {column.links.map((link) => (
                     <li key={link.label}>
                       <Link
                         href={link.href}
@@ -191,8 +188,7 @@ export default function Footer() {
                         {link.label}
                       </Link>
                     </li>
-                  ),
-                )}
+                  ))}
               </ul>
             </div>
           ))}
@@ -242,3 +238,4 @@ export default function Footer() {
     </footer>
   );
 }
+
