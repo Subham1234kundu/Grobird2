@@ -57,7 +57,7 @@ export default function ProblemStatement() {
         </p>
       </div>
 
-      <div className="mx-auto max-w-[1440px] px-5 pb-10 sm:px-10 lg:grid lg:grid-cols-[389px_1fr] lg:border-b lg:border-[#4b4949] lg:px-0 lg:pb-0">
+      <div className="mx-auto hidden max-w-[1440px] px-5 pb-10 sm:px-10 lg:grid-cols-[389px_1fr] lg:border-b lg:border-[#4b4949] lg:px-0 lg:pb-0">
         <div className="relative aspect-[389/458] border-r border-[#4b4949] sm:aspect-[16/9] lg:aspect-auto lg:min-h-[420px]">
           <Image
             src="/landing/testimonial-vaibhav.jpg"

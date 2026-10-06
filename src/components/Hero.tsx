@@ -29,7 +29,8 @@ export default function Hero() {
           { yPercent: 115, opacity: 0, duration: 0.6, stagger: 0.025 },
           "-=0.6",
         )
-        .to(".hero-cta", { opacity: 1, y: 0 }, "-=0.5");
+        .to(".hero-cta", { opacity: 1, y: 0 }, "-=0.5")
+        .to(".hero-heading-intro", { color: "#ffffff", duration: 0.7 }, 1.8);
 
       // The loader only runs on a fresh landing-page visit; if it has
       // already finished (or was never mounted) play straight away.
@@ -60,7 +61,7 @@ export default function Hero() {
         <div className="order-2 flex flex-col gap-6 px-5 pt-10 pb-8 sm:px-10 sm:pt-14 sm:pb-16 lg:order-1 lg:justify-start lg:gap-8 lg:px-[50px] lg:pt-[173px] lg:pb-0">
           <div className="flex w-full flex-col gap-6 lg:max-w-[625px] lg:gap-8">
             <h1 className="gsap-fade hero-heading translate-y-8 font-sora text-[32px] leading-[33.6px] tracking-[-1px] sm:text-[44px] sm:leading-[1.1] lg:text-[56.6px] lg:leading-[68px] lg:font-semibold lg:tracking-[-2px]">
-              <span className="text-white">
+              <span className="hero-heading-intro text-[#858382]">
                 Operational Bottlenecks Don&apos;t Get{" "}
               </span>
               <span className="text-[#ff884c]">Better on Their Own</span>

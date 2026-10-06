@@ -9,6 +9,7 @@ import { signOut } from "@/app/admin/actions";
 const NAV = [
   { href: "/admin/dashboard", label: "Dashboard", icon: "/Admin/dashboardImage/dashboard.png" },
   { href: "/admin/blogs", label: "Blogs", icon: "/Admin/dashboardImage/pressRelease.png" },
+  { href: "/admin/case-studies", label: "Case Studies", icon: "/Admin/dashboardImage/pressRelease.png" },
   { href: "/admin/leads", label: "Leads", icon: "/Admin/dashboardImage/lead.png" },
   { href: "/admin/analytics", label: "Analytics", icon: "/Admin/dashboardImage/googleAnalytics.png" },
 ];

@@ -16,8 +16,8 @@ export default function IndustriesTicker() {
   const items = [...INDUSTRIES, ...INDUSTRIES];
 
   return (
-    <section className="bg-black pt-8 lg:py-[35px]">
-      <div className="overflow-hidden border-y-[0.8px] border-white/40 py-3">
+    <section className="relative bg-black py-8 lg:py-9">
+      <div className="overflow-hidden border-y-[0.8px] border-white/20 py-3">
         <div className="animate-ticker flex w-max items-center gap-8">
           {items.map((item, i) => (
             <div key={`${item}-${i}`} className="flex items-center gap-8">
