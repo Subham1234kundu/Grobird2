@@ -4,6 +4,7 @@ export type CaseStudy = {
   id: string;
   title: string;
   description: string;
+  content: string;
   tag: string;
   industry: string | null;
   cover_image_url: string;

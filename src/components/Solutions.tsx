@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useRef } from "react";
 import { gsap, splitWordsReveal, useGSAP } from "@/lib/gsap";
+import MobileSolutionArtwork from "./MobileSolutionArtwork";
 
 const SOLUTIONS = [
   {
@@ -86,7 +87,7 @@ export default function Solutions() {
         </div>
 
         <div className="solutions-grid mt-6 grid grid-cols-1 gap-4 sm:mt-10 sm:grid-cols-3 sm:gap-5 lg:mt-[76px] lg:gap-[26px]">
-          {SOLUTIONS.map((item) => (
+          {SOLUTIONS.map((item, index) => (
             <div
               key={item.title}
               className="gsap-fade solution-card group relative aspect-[390/374] translate-y-10 [perspective:1500px] sm:aspect-[413/562]"
@@ -99,9 +100,10 @@ export default function Solutions() {
                     src={item.image}
                     alt=""
                     fill
-                    className="object-cover"
+                    className="hidden object-cover sm:block"
                   />
-                  <h3 className="absolute inset-x-0 bottom-0 p-4 font-sora text-lg leading-6 font-semibold text-white lg:p-6 lg:text-[26px] lg:leading-[1.15]">
+                  <MobileSolutionArtwork index={index} />
+                  <h3 className={`absolute inset-x-0 p-4 font-sora text-[clamp(14px,3.72vw,16px)] leading-6 font-semibold text-white sm:bottom-0 sm:text-lg lg:p-6 lg:text-[26px] lg:leading-[1.15] ${index === 1 ? "top-[calc(100%-86px)] sm:top-auto" : "top-[81.55%] sm:top-auto"}`}>
                     {item.title}
                   </h3>
                 </div>

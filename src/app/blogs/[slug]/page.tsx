@@ -39,7 +39,7 @@ export default async function BlogPostPage({ params }: Params) {
       <main className="flex-1 bg-black">
         <PostHero post={post} />
         <CoverIllustration src={post.cover_image_url} />
-        <div className="mx-auto flex max-w-[1360px] gap-[70px] px-6 py-20 sm:px-10 lg:px-0">
+        <div className="mx-auto flex max-w-[1360px] gap-[70px] px-5 pt-16 pb-10 sm:px-10 lg:px-0 lg:pt-0 lg:pb-20">
           <TableOfContents items={extractHeadings(post.content)} title={post.title} />
           <ArticleBody content={post.content} />
         </div>

@@ -6,32 +6,36 @@ import ArrowIcon from "@/components/ui/ArrowIcon";
 function splitTitle(title: string) {
   const words = title.split(" ");
   if (words.length < 4) return { lead: title, tail: "" };
-  const cut = Math.ceil(words.length / 2);
+  const cut = Math.floor(words.length / 2);
   return { lead: words.slice(0, cut).join(" "), tail: words.slice(cut).join(" ") };
 }
 
-export default function PostHero({ post }: { post: Post }) {
+export default function PostHero({ post, collectionHref = "/blogs", collectionLabel = "Blog Collection" }: {
+  post: Pick<Post, "title" | "updated_at" | "published_at" | "category">;
+  collectionHref?: string;
+  collectionLabel?: string;
+}) {
   const { lead, tail } = splitTitle(post.title);
 
   return (
-    <section className="border-b border-[#f3f3f3]/15 bg-black px-6 pt-[91px] pb-[45px] sm:px-10 lg:px-0">
-      <div className="mx-auto max-w-[1357px]">
+    <section className="border-b border-[#f3f3f3]/15 bg-black px-5 pt-14 pb-8 sm:px-10 lg:px-[85px] lg:pt-[91px] lg:pb-[47px]">
+      <div className="mx-auto max-w-[1270px]">
         <nav
           aria-label="Breadcrumb"
-          className="flex flex-wrap items-center gap-2 font-sans text-sm text-white"
+          className="flex min-w-0 items-center gap-1 font-sans text-xs text-white lg:gap-2 lg:text-sm"
         >
           <Link href="/" className="hover:text-white/80">
             Home
           </Link>
           <ArrowIcon direction="chevron-right" className="size-3.5 text-white/60" />
-          <Link href="/blogs" className="hover:text-white/80">
-            Blog Collection
+          <Link href={collectionHref} className="shrink-0 hover:text-white/80">
+            {collectionLabel}
           </Link>
           <ArrowIcon direction="chevron-right" className="size-3.5 text-white/60" />
-          <span className="text-[#ff884c]">{post.title}</span>
+          <span className="min-w-0 truncate text-[#ff884c]" aria-current="page">{post.title}</span>
         </nav>
 
-        <h1 className="mt-[42px] max-w-[936px] font-sora text-3xl leading-tight tracking-[-2px] text-[#827e7e] capitalize sm:text-4xl lg:text-[56.6px] lg:leading-[68px]">
+        <h1 className="mt-5 max-w-[936px] font-sora text-[24px] leading-8 tracking-[-1px] text-[#827e7e] capitalize sm:text-4xl sm:leading-tight lg:mt-[22px] lg:text-[56.6px] lg:leading-[68px] lg:tracking-[-2px]">
           {lead}
           {tail && (
             <>
@@ -41,10 +45,10 @@ export default function PostHero({ post }: { post: Post }) {
           )}
         </h1>
 
-        <p className="mt-[38px] flex flex-wrap items-center gap-3.5 font-mono text-xs tracking-[1px] text-white uppercase">
+        <p className="mt-4 flex flex-wrap items-center gap-x-3.5 gap-y-3 font-mono text-xs leading-[18px] tracking-[1px] text-white uppercase lg:mt-[10px]">
           <span>Last updated : {formatPostDate(post.updated_at ?? post.published_at)}</span>
           <span aria-hidden>|</span>
-          <span className="text-[#ffd215]">{post.category}</span>
+          <span className="w-full text-[#ffd215] sm:w-auto">{post.category}</span>
         </p>
       </div>
     </section>

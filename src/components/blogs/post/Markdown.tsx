@@ -13,14 +13,14 @@ export default function Markdown({ content }: { content: string }) {
 
   const components: Components = {
     h1: ({ children }) => (
-      <h2 className="mt-14 font-sora text-[30px] leading-[36px] font-semibold tracking-[-0.5px] text-white first:mt-0">
+      <h2 className="mt-10 font-sora text-[22px] leading-[30px] font-semibold tracking-[-0.5px] text-white first:mt-0 lg:mt-14 lg:text-[30px] lg:leading-[36px]">
         {children}
       </h2>
     ),
     h2: ({ children }) => {
       const id = headings[headingIndex++]?.id;
       return (
-        <h2 className="mt-14 font-sora text-[30px] leading-[36px] font-semibold tracking-[-0.5px] text-white first:mt-0">
+        <h2 className="mt-10 font-sora text-[22px] leading-[30px] font-semibold tracking-[-0.5px] text-white first:mt-0 lg:mt-14 lg:text-[30px] lg:leading-[36px]">
           <span id={id} className="block scroll-mt-28">
             {children}
           </span>
@@ -33,7 +33,7 @@ export default function Markdown({ content }: { content: string }) {
       </h3>
     ),
     p: ({ children }) => (
-      <p className="pt-5 text-[17px] leading-[30px] text-[#c8c4bc]">{children}</p>
+      <p className="pt-4 text-[15px] leading-[26px] text-[#c8c4bc] lg:pt-5 lg:text-[17px] lg:leading-[30px]">{children}</p>
     ),
     strong: ({ children }) => (
       <strong className="font-semibold text-white">{children}</strong>
@@ -49,31 +49,21 @@ export default function Markdown({ content }: { content: string }) {
       </a>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="mt-10 border-l-[1.6px] border-[#ff884c] py-2 pl-6 font-sora text-xl leading-7 tracking-[-0.3px] text-white [&_p]:pt-0 [&_p]:text-xl [&_p]:leading-7 [&_p]:text-white">
+      <blockquote className="mt-10 border-l-[1.6px] border-[#ff884c] py-2 pl-5 font-sora tracking-[-0.3px] text-white lg:mt-14 lg:pl-6 [&_p]:pt-0 [&_p]:text-[17px] [&_p]:leading-[26px] [&_p]:text-white lg:[&_p]:text-xl lg:[&_p]:leading-7">
         {children}
       </blockquote>
     ),
     ul: ({ children }) => (
-      <ul className="mt-5 flex flex-col gap-3 border border-[#4b4949]/50 bg-[#0d0d0d] p-6">
+      <ul className="mt-8 flex list-disc flex-col gap-3 border border-[#4b4949]/50 bg-[#0d0d0d] py-6 pr-6 pl-10 marker:text-[#ff884c]">
         {children}
       </ul>
     ),
     ol: ({ children }) => (
-      <ol className="mt-5 flex list-decimal flex-col gap-4 pl-6 text-[17px] leading-[30px] text-[#c8c4bc] marker:font-mono marker:text-[#ff884c]">
+      <ol className="mt-8 flex list-decimal flex-col gap-4 border border-[#4b4949]/50 bg-[#0d0d0d] py-5 pr-5 pl-10 text-[15px] leading-[26px] text-[#c8c4bc] marker:font-mono marker:text-[#ff884c] lg:text-[17px] lg:leading-[30px]">
         {children}
       </ol>
     ),
-    li: ({ children, ...props }) => {
-      const ordered = "ordered" in props && Boolean(props.ordered);
-      return ordered ? (
-        <li className="pl-1 [&_p]:pt-0">{children}</li>
-      ) : (
-        <li className="flex gap-3 text-[15px] leading-6 text-[#858382] [&_p]:pt-0 [&_p]:text-[15px] [&_p]:leading-6 [&_p]:text-[#858382]">
-          <span aria-hidden className="mt-2.5 size-1.5 shrink-0 rounded-full bg-[#ff884c]" />
-          <span>{children}</span>
-        </li>
-      );
-    },
+    li: ({ children }) => <li className="text-[14px] leading-[26px] text-[#858382] [&_p]:pt-0 [&_p]:text-[14px] [&_p]:leading-[26px] [&_p]:text-[#858382]">{children}</li>,
     hr: () => <hr className="mt-10 border-[#4b4949]/40" />,
     code: ({ children, className }) =>
       className ? (

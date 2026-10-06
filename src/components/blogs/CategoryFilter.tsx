@@ -36,7 +36,7 @@ export default function CategoryFilter({
   return (
     <div
       ref={root}
-      className="mx-auto flex max-w-[1261px] overflow-x-auto bg-black px-6 [scrollbar-width:none] sm:px-10 lg:px-0 [&::-webkit-scrollbar]:hidden"
+      className="mx-auto flex max-w-[1440px] overflow-x-auto bg-black [scrollbar-width:none] sm:px-10 lg:px-[66px] [&::-webkit-scrollbar]:hidden"
     >
       {categories.map((category) => (
         <button
@@ -44,7 +44,7 @@ export default function CategoryFilter({
           type="button"
           onClick={() => onChange(category)}
           aria-pressed={active === category}
-          className={`gsap-fade filter-chip shrink-0 border border-white/[0.18] px-8 py-3 text-sm whitespace-nowrap text-white capitalize transition-colors ${
+          className={`gsap-fade filter-chip shrink-0 border border-white/[0.18] px-4 py-[10px] text-xs leading-[18px] whitespace-nowrap text-white capitalize transition-colors lg:px-[54px] lg:py-3 lg:text-sm lg:leading-[22px] ${
             active === category ? "bg-[#ff884c]" : "hover:bg-white/5"
           }`}
         >

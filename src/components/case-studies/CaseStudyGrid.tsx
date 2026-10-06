@@ -1,39 +1,18 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRef, useState } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { CASE_STUDY_INDUSTRIES, type CaseStudy } from "@/lib/case-studies/types";
-
-const CASE_STUDIES = [
-  {
-    id: "sample-blue",
-    image: "/case-studies/case-blue.png",
-    alt: "Blue sculptural wave",
-    industry: null as string | null,
-    title: "Build customer service agents with empathy",
-    tag: "Automate Business Processes",
-    description:
-      "Bring human-like voice AI agents online to handle calls, qualify leads, and support customers 24/7.",
-  },
-  {
-    id: "sample-orange",
-    image: "/case-studies/case-orange.png",
-    alt: "Orange sculptural wave",
-    industry: null as string | null,
-    title: "Build customer service agents with empathy",
-    tag: "Automate Business Processes",
-    description:
-      "Bring human-like voice AI agents online to handle calls, qualify leads, and support customers 24/7.",
-  },
-];
+import { DEMO_CASE_STUDIES } from "@/lib/case-studies/demos";
 
 export default function CaseStudyGrid({ studies }: { studies: CaseStudy[] | null }) {
   const root = useRef<HTMLElement>(null);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
   const categories = ["All", ...CASE_STUDY_INDUSTRIES];
-  const cards = studies === null ? CASE_STUDIES : studies.map(study => ({ ...study, image: study.cover_image_url, alt: study.title }));
+  const cards = (studies ?? DEMO_CASE_STUDIES).map(study => ({ ...study, image: study.cover_image_url, alt: study.title }));
   const visible = cards.filter((study) =>
     (category === "All" || study.industry === category) &&
     `${study.title} ${study.tag} ${study.description}`.toLowerCase().includes(query.trim().toLowerCase()),
@@ -87,8 +66,13 @@ export default function CaseStudyGrid({ studies }: { studies: CaseStudy[] | null
         {visible.map((study) => (
           <article
             key={study.id}
-            className="gsap-fade cs-card flex flex-col overflow-hidden rounded-2xl bg-[#f5f2ed]"
+            className="gsap-fade cs-card group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl bg-[#f5f2ed] transition-shadow hover:ring-2 hover:ring-[#ff884c] focus-within:ring-2 focus-within:ring-[#ff884c]"
           >
+              <Link
+                href={`/case-studies/${study.id}`}
+                aria-label={`Read case study: ${study.title}`}
+                className="absolute inset-0 z-10 rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#ff884c]"
+              />
             <div className="relative h-[250px] overflow-hidden md:h-[299px]">
               <Image
                 src={study.image}

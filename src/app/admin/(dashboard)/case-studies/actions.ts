@@ -12,6 +12,7 @@ const IMAGE_TYPES: Record<string, string> = { "image/jpeg": "jpg", "image/png": 
 
 function refresh() {
   revalidatePath("/case-studies");
+  revalidatePath("/case-studies/[id]", "page");
   revalidatePath("/admin/case-studies");
 }
 
@@ -21,6 +22,8 @@ export async function saveCaseStudy(_previous: CaseStudyFormState, formData: For
   const id = get("id");
   const title = get("title");
   const description = get("description");
+  const content = get("content");
+  if (content.length > 100000) return { error: "Detail content must be under 100,000 characters." };
   const industry = get("industry");
   const tag = get("tag");
   const sort_order = Number(get("sort_order"));
@@ -50,7 +53,7 @@ export async function saveCaseStudy(_previous: CaseStudyFormState, formData: For
     cover_image_url = supabase.storage.from(BUCKET).getPublicUrl(uploadedPath).data.publicUrl;
   }
   if (!cover_image_url) return { error: "Upload a cover image." };
-  const row = { title, description, industry, tag, sort_order, cover_image_url, published: formData.get("published") === "on" };
+  const row = { title, description, content, industry, tag, sort_order, cover_image_url, published: formData.get("published") === "on" };
   const result = id
     ? await supabase.from("case_studies").update(row).eq("id", id).select("id").single()
     : await supabase.from("case_studies").insert(row).select("id").single();

@@ -7,6 +7,7 @@ create table if not exists public.case_studies (
   id uuid primary key default gen_random_uuid(),
   title text not null check (char_length(title) between 1 and 200),
   description text not null check (char_length(description) between 1 and 2000),
+  content text not null default '',
   tag text not null default 'Automate Business Processes' check (char_length(tag) between 1 and 60),
   industry text not null check (industry in ('Fintech','Healthcare','Manufacturing','SaaS','Real Estate','Logistics','Lending','EdTech','Insurance','B2B Services')),
   cover_image_url text not null,
@@ -16,6 +17,7 @@ create table if not exists public.case_studies (
   updated_at timestamptz not null default now()
 );
 create index if not exists case_studies_published_order_idx on public.case_studies (published, sort_order, created_at desc);
+alter table public.case_studies add column if not exists content text not null default '';
 
 create or replace function public.case_studies_set_updated_at()
 returns trigger language plpgsql set search_path = '' as $$

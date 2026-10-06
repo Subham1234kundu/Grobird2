@@ -15,6 +15,7 @@ export default function CaseStudyForm({ study }: { study?: CaseStudy }) {
         {state.error && <Alert tone="error">{state.error}</Alert>}
         <Field label="Title" htmlFor="title"><input id="title" name="title" required maxLength={200} defaultValue={study?.title} className={inputClass} /></Field>
         <Field label="Description" htmlFor="description"><textarea id="description" name="description" required maxLength={2000} defaultValue={study?.description} className={`${inputClass} h-auto min-h-28 py-3`} /></Field>
+        <Field label="Detail page content (Markdown)" htmlFor="content" hint="Use ## headings for sections. Supports lists, quotes, links, and tables."><textarea id="content" name="content" maxLength={100000} rows={16} defaultValue={study?.content ?? ""} className={`${inputClass} h-auto py-3 font-mono leading-6`} /></Field>
         <div className="grid gap-5 sm:grid-cols-2">
           <Field label="Industry" htmlFor="industry"><select id="industry" name="industry" required defaultValue={study?.industry ?? ""} className={inputClass}><option value="" disabled>Choose an industry</option>{CASE_STUDY_INDUSTRIES.map(item => <option key={item}>{item}</option>)}</select></Field>
           <Field label="Service label" htmlFor="tag"><input id="tag" name="tag" required maxLength={60} defaultValue={study?.tag ?? "Automate Business Processes"} className={inputClass} /></Field>
