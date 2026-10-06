@@ -63,6 +63,7 @@ create table if not exists public.leads (
   message    text,
   source     text not null default 'contact',
   status     text not null default 'new',
+  remark     text,
   created_at timestamptz not null default now()
 );
 

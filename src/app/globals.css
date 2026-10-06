@@ -102,3 +102,13 @@ body {
     animation: none;
   }
 }
+
+/* Admin lead tables share the separated rows in the Figma design. */
+.lead-cell {
+  border-top: 1px solid #e4e4e4;
+  border-bottom: 1px solid #e4e4e4;
+  padding: 9px 12px;
+  color: #727272;
+}
+.lead-cell:first-child { border-left: 1px solid #e4e4e4; border-radius: 4px 0 0 4px; color: #000; }
+.lead-cell:last-child { border-right: 1px solid #e4e4e4; border-radius: 0 4px 4px 0; }

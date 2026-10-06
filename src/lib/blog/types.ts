@@ -23,6 +23,7 @@ export type Lead = {
   message: string | null;
   source: string;
   status: string;
+  remark?: string | null;
   created_at: string;
 };
 

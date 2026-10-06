@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Sidebar from "@/components/admin/Sidebar";
 import { requireUser } from "@/lib/admin/auth";
+import { Montserrat } from "next/font/google";
+
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "GroBird Admin",
@@ -13,9 +16,9 @@ export default async function DashboardLayout({
   const { user } = await requireUser();
 
   return (
-    <div className="min-h-screen bg-[#f5f5f6] text-[#111] lg:flex">
+    <div className={`${montserrat.className} min-h-screen bg-[#f5f6fa] text-[#111]`}>
       <Sidebar email={user.email ?? "admin"} />
-      <main className="min-w-0 flex-1 px-4 py-6 sm:px-8 sm:py-8 lg:px-10">
+      <main className="min-w-0 px-4 py-[22px] lg:ml-[224px] lg:px-5">
         <div className="mx-auto max-w-[1200px]">{children}</div>
       </main>
     </div>
