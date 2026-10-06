@@ -72,7 +72,7 @@ export default function WhyChooseUs() {
     >
       <div
         aria-hidden
-        className="absolute top-[26.67%] left-1/4 hidden h-[73.33%] w-1/2 bg-[url(/landing/why-choose-bg.png)] bg-[length:100%_100%] bg-no-repeat sm:block"
+        className="absolute top-[26.67%] left-1/4 hidden h-[73.33%] w-1/2 bg-[url(/landing/why-choose-bg.png)] bg-[length:100%_100%] bg-no-repeat sm:block 2xl:left-1/2 2xl:h-[726px] 2xl:w-[720px] 2xl:-translate-x-1/2 2xl:bg-[length:720px_726px]"
       />
 
       <div className="relative mx-auto max-w-[772px] text-center">

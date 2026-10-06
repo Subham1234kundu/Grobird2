@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRef } from "react";
 import { gsap, splitWordsReveal, useGSAP } from "@/lib/gsap";
 
@@ -81,7 +82,11 @@ export default function SelectedWork() {
             key={project.title}
             className="gsap-fade work-card flex flex-col overflow-hidden rounded-2xl bg-[#fdf9f2]"
           >
-            <div className="relative aspect-[634/299] overflow-hidden">
+            <Link
+              href="/case-studies"
+              aria-label={`View case studies for ${project.title}`}
+              className="relative block aspect-[634/299] overflow-hidden focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#ff884c]"
+            >
               <Image
                 src={project.image}
                 alt={project.alt}
@@ -89,7 +94,7 @@ export default function SelectedWork() {
                 sizes="(min-width: 1024px) 634px, (min-width: 768px) 50vw, 100vw"
                 className="work-art object-cover object-left-top"
               />
-            </div>
+            </Link>
 
             <div className="flex flex-1 flex-col gap-[13px] p-5 sm:p-8 lg:p-10">
               <h3 className="font-sora text-lg leading-tight font-light tracking-[-0.768px] text-[#2a2520] sm:text-[22px] sm:leading-[45px]">
