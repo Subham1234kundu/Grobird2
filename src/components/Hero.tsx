@@ -48,11 +48,13 @@ export default function Hero() {
   return (
     <section ref={root} className="relative overflow-hidden bg-black">
       <div className="mx-auto flex max-w-[1440px] flex-col lg:grid lg:min-h-[850px] lg:grid-cols-2">
-        {/* Phones and tablets show the funnel above the copy, 562px tall
-            and nudged 20px right as in Figma; desktop keeps it beside. */}
+        {/* Phones and tablets show the funnel above the copy, centred in a
+            562px band and nudged 20.5px right as in Figma (the artwork is
+            wider than the viewport, so mx-auto can't centre it); desktop
+            keeps it beside the copy. */}
         <div className="relative order-1 h-[562px] overflow-hidden sm:h-[680px] lg:order-2 lg:h-auto">
           <div className="hero-illustration absolute inset-0 scale-95 opacity-0">
-            <div className="mx-auto h-[557px] w-[471px] translate-x-[20px] sm:h-[675px] sm:w-[572px] lg:h-full lg:w-full lg:translate-x-0">
+            <div className="absolute top-1/2 left-[calc(50%+20.5px)] h-[557px] w-[471px] -translate-x-1/2 -translate-y-1/2 sm:left-[calc(50%+25px)] sm:h-[675px] sm:w-[572px] lg:top-0 lg:left-0 lg:h-full lg:w-full lg:translate-x-0 lg:translate-y-0">
               <HeroPortal />
             </div>
           </div>
