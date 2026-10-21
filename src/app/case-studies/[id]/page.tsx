@@ -9,7 +9,6 @@ import ArticleBody from "@/components/blogs/post/ArticleBody";
 import RelatedPosts from "@/components/blogs/post/RelatedPosts";
 import { extractHeadings } from "@/lib/blog/markdown";
 import { getPublishedCaseStudy, getPublishedCaseStudies } from "@/lib/case-studies/queries";
-import { DEMO_CASE_STUDIES } from "@/lib/case-studies/demos";
 
 export const revalidate = 300;
 type Params = { params: Promise<{ id: string }> };
@@ -24,7 +23,7 @@ export default async function CaseStudyDetailPage({ params }: Params) {
   const study = await getPublishedCaseStudy((await params).id);
   if (!study) notFound();
   const content = study.content?.trim() || study.description;
-  const all = study.id.startsWith("sample-") ? DEMO_CASE_STUDIES : await getPublishedCaseStudies() ?? [];
+  const all = await getPublishedCaseStudies();
   const related = all.filter(item => item.id !== study.id).slice(0, 3).map(item => ({ ...item, slug: item.id, published_at: item.created_at }));
   return (
     <>

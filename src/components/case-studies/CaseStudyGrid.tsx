@@ -5,14 +5,13 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { CASE_STUDY_INDUSTRIES, type CaseStudy } from "@/lib/case-studies/types";
-import { DEMO_CASE_STUDIES } from "@/lib/case-studies/demos";
 
-export default function CaseStudyGrid({ studies }: { studies: CaseStudy[] | null }) {
+export default function CaseStudyGrid({ studies }: { studies: CaseStudy[] }) {
   const root = useRef<HTMLElement>(null);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
   const categories = ["All", ...CASE_STUDY_INDUSTRIES];
-  const cards = (studies ?? DEMO_CASE_STUDIES).map(study => ({ ...study, image: study.cover_image_url, alt: study.title }));
+  const cards = studies.map(study => ({ ...study, image: study.cover_image_url, alt: study.title }));
   const visible = cards.filter((study) =>
     (category === "All" || study.industry === category) &&
     `${study.title} ${study.tag} ${study.description}`.toLowerCase().includes(query.trim().toLowerCase()),
@@ -62,36 +61,36 @@ export default function CaseStudyGrid({ studies }: { studies: CaseStudy[] | null
           {categories.map((item) => <button key={item} type="button" aria-pressed={category === item} onClick={() => setCategory(item)} className={`shrink-0 border-[0.8px] px-4 py-2 font-mono text-[11px] leading-[16.5px] tracking-[1.2px] uppercase transition-colors ${category === item ? "border-[#ff884c] bg-[#ff884c] text-black" : "border-white/25 text-[#aaa7a3] hover:border-[#ff884c]"}`}>{item}</button>)}
         </div>
       </div>
-      <div className="mt-12 grid max-w-[1066.4px] grid-cols-1 gap-8 md:mt-0 md:grid-cols-2">
+      <div className="mt-12 grid grid-cols-1 gap-8 md:mt-0 md:grid-cols-2 lg:grid-cols-3">
         {visible.map((study) => (
           <article
             key={study.id}
-            className="gsap-fade cs-card group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl bg-[#f5f2ed] transition-shadow hover:ring-2 hover:ring-[#ff884c] focus-within:ring-2 focus-within:ring-[#ff884c]"
+            className="gsap-fade cs-card group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl bg-[#f5f2ed] shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)] transition-shadow hover:ring-2 hover:ring-[#ff884c] focus-within:ring-2 focus-within:ring-[#ff884c]"
           >
               <Link
                 href={`/case-studies/${study.id}`}
                 aria-label={`Read case study: ${study.title}`}
                 className="absolute inset-0 z-10 rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#ff884c]"
               />
-            <div className="relative h-[250px] overflow-hidden md:h-[299px]">
+            <div className="relative h-[200px] overflow-hidden md:h-[220px]">
               <Image
                 src={study.image}
                 alt={study.alt}
                 fill
-                sizes="(min-width: 1440px) 517px, (min-width: 768px) 45vw, 100vw"
+                sizes="(min-width: 1440px) 416px, (min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"
                 className="cs-card-art object-cover"
               />
               <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/20 to-transparent" aria-hidden />
             </div>
 
-            <div className="flex flex-1 flex-col px-4 py-7 md:p-10">
-              <h3 className="font-sora text-[28px] leading-[35.28px] font-light tracking-[-0.75px] text-[#2a2520] lg:text-[36px] lg:leading-[45.36px]">
+            <div className="flex flex-1 flex-col px-4 py-6 md:p-7">
+              <h3 className="line-clamp-3 font-sora text-[24px] leading-[30px] font-light tracking-[-0.75px] text-[#2a2520]">
                 {study.title}
               </h3>
               <span className="mt-4 flex min-h-[30px] w-fit max-w-full items-center rounded-xl border-[0.8px] border-[rgba(255,136,76,0.25)] px-3.5 py-1 font-sora text-[10px] leading-[15px] font-semibold tracking-[1.2px] text-[#ff884c] uppercase">
                 {study.tag}
               </span>
-              <p className="pt-10 text-[13.6px] leading-[21.76px] text-[#706a60]">
+              <p className="line-clamp-3 pt-5 text-[13.6px] leading-[21.76px] text-[#706a60]">
                 {study.description}
               </p>
             </div>
